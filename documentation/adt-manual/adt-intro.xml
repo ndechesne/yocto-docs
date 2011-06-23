@@ -21,7 +21,7 @@
     </para>
     <para>
         Additionally, to provide an effective development platform, the Yocto Project 
-        makes available and suggests other tools as part of the ADT.  
+        makes available and suggests other tools you can use with the ADT.  
         These other tools include the Eclipse IDE Yocto Plug-in, an emulator (QEMU), 
         and various user-space tools that greatly enhance your development experience.
     </para>
@@ -35,7 +35,9 @@
         <title>The Cross-Toolchain</title>
         <para>
             The cross-toolchain consists of a cross-compiler, cross-linker, and cross-debugger 
-            that are all generated through a Poky build that is based on your metadata 
+            that are used to develop for targeted hardware.
+            This toolchain is created either by running the ADT Installer script or 
+            through a Yocto Project build tree that is based on your metadata 
             configuration or extension for your targeted device.  
             The cross-toolchain works with a matching target sysroot.
         </para>
@@ -55,9 +57,19 @@
         <title>The QEMU Emulator</title>
         <para>
             The QEMU emulator allows you to simulate your hardware while running your 
-            application or image.  
-            QEMU is installed several ways:  as part of the Poky tree, ADT installation 
-            through a toolchain tarball, or through the ADT Installer.
+            application or image.
+            QEMU is made available a number of ways:
+            <itemizedlist>
+                <listitem><para>If you use the ADT Installer script to install ADT you can 
+                specify whether or not to install QEMU.</para></listitem>
+                <listitem><para>If you have downloaded a Yocto Project release and unpacked 
+                it to create a Yocto Project source directory followed by sourcing  
+                the Yocto Project environment setup script, QEMU is installed and automatically 
+                available.</para></listitem>
+                <listitem><para>If you have installed the cross-toolchain 
+                tarball followed by sourcing the toolchain's setup environment script, QEMU
+                is installed and automatically available.</para></listitem>
+            </itemizedlist>
         </para>
     </section>
 

@@ -29,7 +29,7 @@
         <orderedlist>
             <listitem><para>Be sure the optimal version of Eclipse IDE 
             is installed.</para></listitem>
-            <listitem><para>Install required Eclipse plug-ins prior to installing 
+            <listitem><para>Install Eclipse plug-in requirements prior to installing 
             the Eclipse Yocto Plug-in.</para></listitem>
             <listitem><para>Configure the Eclipse Yocto Plug-in.</para></listitem>
         </orderedlist>
@@ -38,7 +38,7 @@
     <section id='installing-eclipse-ide'>
     <title>Installing Eclipse IDE</title>
         <para>
-            It is recommended that you have the Helios 3.6.1 version of the 
+            It is recommended that you have the Indigo 3.7 version of the 
             Eclipse IDE installed on your development system.  
             If you don’t have this version you can find it at 
             <ulink url='http://www.eclipse.org/downloads'></ulink>.  
@@ -78,14 +78,14 @@
     <title>Installing Required Plug-ins and the Eclipse Yocto Plug-in</title>
         <para>
             Before installing the Yocto Plug-in you need to be sure that the 
-            CDT 7.0, RSE 3.2, and Autotools plug-ins are all installed in the 
+            CDT 8.0, RSE 3.2, and Autotools plug-ins are all installed in the 
             following order.  
             After installing these three plug-ins, you can install the 
             Eclipse Yocto Plug-in.  
             Use the following URLs for the plug-ins:
             <orderedlist>
-                <listitem><para><emphasis>CDT 7.0</emphasis> – 
-                <ulink url='http://download.eclipse.org/tools/cdt/releases/helios/'></ulink>:  
+                <listitem><para><emphasis>CDT 8.0</emphasis> – 
+                <ulink url='http://download.eclipse.org/tools/cdt/releases/indigo/'></ulink>:  
                 For CDT main features select the checkbox so you get all items.  
                 For CDT optional features expand the selections and check 
                 “C/C++ Remote Launch”.</para></listitem>
@@ -147,26 +147,26 @@
         <section id='configuring-the-cross-compiler-options'>
         <title>Configuring the Cross-Compiler Options</title>
             <para>
-                Choose between ‘SDK Root Mode’ and ‘Poky Tree Mode’ for Cross 
+                Choose between ‘Stand-alone Prebuilt Toolchain’ and ‘Build System Derived Toolchain’ for Cross 
                 Compiler Options.
                 <itemizedlist>
-                    <listitem><para><emphasis>SDK Root Mode</emphasis> – Select this mode 
-                    when you are not concerned with building an image or you do not have 
-                    a Poky build tree on your system.  
+                    <listitem><para><emphasis>Stand-alone Prebuilt Toolchain</emphasis> – Select this mode 
+                    when you are not concerned with building a target image or you do not have 
+                    a Yocto Project build tree on your development system.  
                     For example, suppose you are an application developer and do not 
-                    need to build an image.  
-                    You just want to use an architecture-specific toolchain on an 
-                    existing kernel and root filesystem.  
-                    When you use SDK Root Mode you are using the toolchain installed 
+                    need to build a target image.  
+                    Instead, you just want to use an architecture-specific toolchain on an 
+                    existing kernel and target root filesystem.  
+                    When you use Stand-alone Prebuilt Toolchain you are using the toolchain installed 
                     in the <filename>/opt/poky</filename> directory.</para></listitem>
-                    <listitem><para><emphasis>Poky Tree Mode</emphasis> – Select this mode 
-                    if you are concerned with building images for hardware or your 
-                    development environment already has a build tree.  
-                    In this case you likely already have a Poky build tree installed on 
+                    <listitem><para><emphasis>Build System Derived Toolchain</emphasis> – Select this mode 
+                    if you are building images for target hardware or your 
+                    development environment already has a Yocto Project build tree.  
+                    In this case you likely already have a Yocto Project build tree installed on 
                     your system or you (or someone else) will be building one.
-                    When you use the Poky Tree Mode you are using the toolchain bundled 
-                    inside the Poky build tree.  
-                    If you use this mode you must also supply the Poky Root Location 
+                    When you select Build System Derived Toolchain you are using the toolchain bundled 
+                    inside the Yocto Project build tree.  
+                    If you use this mode you must also supply the Yocto Project build directory 
                     in the Preferences Dialog.</para></listitem>
                 </itemizedlist>
             </para>
@@ -175,11 +175,11 @@
         <section id='configuring-the-sysroot'>
         <title>Configuring the Sysroot</title>
             <para>
-                Specify the sysroot, which is used by both the QEMU user-space 
-                NFS boot process and by the cross-toolchain regardless of the 
-                mode you select (SDK Root Mode or Poky Tree Mode).  
-                For example, sysroot is the location to which you extract the 
-                downloaded image’s root filesystem to through the ADT Installer.
+                Specify the sysroot location, which is where the root filesystem for the 
+                target hardware is created on the development system by the ADT Installer.
+                The QEMU user-space tools, the 
+                NFS boot process and the cross-toolchain all use the sysroot location
+                regardless of wheather you select (Stand-alone Prebuilt Toolchain or Build System Derived Toolchain).  
             </para>
         </section>
 
@@ -212,10 +212,11 @@
                     <listitem><para><emphasis>QEMU</emphasis> – Select this option if 
                     you will be using the QEMU emulator.  
                     If you are using the emulator you also need to locate the Kernel 
-                    and you can specify custom options.</para>
-                    <para>In Poky Tree Mode the kernel you built will be located in the 
-                    Poky Build tree in <filename>tmp/deploy/images</filename> directory.   
-                    In SDK Root Mode the pre-built kernel you downloaded is located 
+                    and specify any custom options.</para>
+                    <para>If you select Build System Derived Toolchain the target kernel you built 
+                    will be located in the 
+                    Yocto Project build tree in <filename>tmp/deploy/images</filename> directory.   
+                    If you select Stand-alone Prebuilt Toolchain the pre-built kernel you downloaded is located 
                     in the directory you specified when you downloaded the image.</para>
                     <para>Most custom options are for advanced QEMU users to further 
                     customize their QEMU instance.  
@@ -287,10 +288,10 @@
         You can change these settings for a given project by following these steps:
         <orderedlist>
             <listitem><para>Select Project -> Invoke Yocto Tools -> Reconfigure Yocto.  
-            This brings up the project Yocto Settings Dialog.  
+            This brings up the project's Yocto Settings Dialog.  
             Settings are inherited from the default project configuration.  
             The information in this dialogue is identical to that chosen earlier 
-            for the Cross Compiler Option (SDK Root Mode or Poky Tree Mode), 
+            for the Cross Compiler Option (Stand-alone Prebuilt Toolchain or Build System Derived Toolchain), 
             the Target Architecture, and the Target Options.  
             The settings are inherited from the Yocto Plug-in configuration performed 
             after installing the plug-in.</para></listitem>
@@ -308,7 +309,7 @@
 <title>Building the Project</title>
     <para>
         To build the project, select Project -&gt; Build Project.  
-        You should see the console updated and you can note the cross-compiler you are using.
+        The console should update and you can note the cross-compiler you are using.
     </para>
 </section>
 
@@ -400,10 +401,10 @@
             on your local host machine.  
             The oprofile-server is installed by default in the image.</para></listitem>
             <listitem><para><emphasis>Lttng-ust:</emphasis>  Selecting this tool runs 
-            "usttrace" on the remote target, transfers the output data back to the 
-            local host machine and uses "lttv-gui" to graphically display the output.  
-            The "lttv-gui" must be installed on the local host machine to use this tool.  
-            For information on how to use "lttng" to trace an application, see 
+            <filename>usttrace</filename> on the remote target, transfers the output data back to the 
+            local host machine and uses <filename>lttv-gui</filename> to graphically display the output.  
+            The <filename>lttv-gui</filename> must be installed on the local host machine to use this tool.  
+            For information on how to use <filename>lttng</filename> to trace an application, see 
             <ulink url='http://lttng.org/files/ust/manual/ust.html'></ulink>.</para>
             <para>For "Application" you must supply the absolute path name of the 
             application to be traced by user mode lttng.  
@@ -417,10 +418,10 @@
             new view called "powertop".</para>
             <para>"Time to gather data(sec):" is the time passed in seconds before data 
             is gathered from the remote target for analysis.</para>
-            <para>"show pids in wakeups list:" corresponds to the -p argument 
-            passed to "powertop".</para></listitem>
+            <para>"show pids in wakeups list:" corresponds to the <filename>-p</filename> argument 
+            passed to <filename>powertop</filename>.</para></listitem>
             <listitem><para><emphasis>LatencyTOP and Perf:</emphasis>  "LatencyTOP" 
-            identifies system latency, while "perf" monitors the system's 
+            identifies system latency, while <filename>perf</filename> monitors the system's 
             performance counter registers. 
             Selecting either of these tools causes an RSE terminal view to appear 
             from which you can run the tools. 
