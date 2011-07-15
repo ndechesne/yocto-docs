@@ -50,13 +50,15 @@
 
     </bookinfo>
 
-    <xi:include href="dev-man-intro.xml"/>
+    <xi:include href="dev-manual-intro.xml"/>
 
-    <xi:include href="dev-man-start.xml"/>
+    <xi:include href="dev-manual-start.xml"/>
 
-    <xi:include href="dev-man-newbie.xml"/>
+    <xi:include href="dev-manual-newbie.xml"/>
 
-    <xi:include href="dev-man-cases.xml"/>
+    <xi:include href="dev-manual-model.xml"/>
+
+    <xi:include href="dev-manual-cases.xml"/>
 
 <!--    <index id='index'>
       <title>Index</title>
