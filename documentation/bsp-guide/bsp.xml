@@ -609,7 +609,7 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
 		</para>
 
 		<programlisting>
-		  $ BSPKEY_&lt;keydomain&gt;=&lt;key&gt; bitbake core-image-sato
+		  $ BSPKEY_&lt;keydomain&gt;=&lt;key&gt; bitbake poky-image-sato
 		</programlisting>
 
 		<para>
