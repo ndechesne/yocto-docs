@@ -187,10 +187,10 @@ endif
 
 ifeq ($(DOC),poky-ref-manual)
 XSLTOPTS = --xinclude
-ALLPREQ = html pdf tarball
+ALLPREQ = html pdf eclipse tarball
 TARFILES = poky-ref-manual.html ref-style.css figures/poky-title.png \
-	figures/buildhistory.png figures/buildhistory-web.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+	figures/buildhistory.png figures/buildhistory-web.png  eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
