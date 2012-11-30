@@ -212,12 +212,7 @@ STYLESHEET = $(DOC)/*.css
 endif
 
 ifeq ($(DOC),kernel-manual)
-XSLTOPTS = --stringparam html.stylesheet kernel-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  appendix.autolabel A \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
+XSLTOPTS = --xinclude
 ALLPREQ = html pdf tarball
 TARFILES = kernel-manual.html kernel-manual.pdf kernel-style.css figures/kernel-title.png figures/kernel-architecture-overview.png
 MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
