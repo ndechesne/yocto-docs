@@ -330,4 +330,4 @@ publish:
 	fi
 
 clean:
-	rm -rf $(MANUALS)
+	rm -rf $(MANUALS); rm $(DOC)/$(DOC).tgz;
