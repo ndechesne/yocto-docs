@@ -19,6 +19,9 @@ poky-autobuilder*
 *.orig
 *.rej
 *~
+documentation/ref-manual/poky-ref-manual.html
+documentation/ref-manual/poky-ref-manual.pdf
+documentation/ref-manual/poky-ref-manual.tgz
 documentation/poky-ref-manual/poky-ref-manual.html
 documentation/poky-ref-manual/poky-ref-manual.pdf
 documentation/poky-ref-manual/poky-ref-manual.tgz
@@ -34,6 +37,3 @@ documentation/kernel-manual/kernel-manual.tgz
 documentation/kernel-manual/kernel-manual.pdf
 documentation/mega-manual/mega-manual.html
 documentation/mega-manual/mega-manual.tgz
-
-
-
