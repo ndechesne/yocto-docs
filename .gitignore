@@ -19,6 +19,12 @@ poky-autobuilder*
 *.orig
 *.rej
 *~
+documentation/adt-manual/adt-manual.html
+documentation/adt-manual/adt-manual.pdf
+documentation/adt-manual/adt-manual.tgz
+documentation/dev-manual/dev-manual.html
+documentation/dev-manual/dev-manual.pdf
+documentation/dev-manual/dev-manual.tgz
 documentation/poky-ref-manual/poky-ref-manual.html
 documentation/poky-ref-manual/poky-ref-manual.pdf
 documentation/poky-ref-manual/poky-ref-manual.tgz
@@ -34,6 +40,3 @@ documentation/kernel-manual/kernel-manual.tgz
 documentation/kernel-manual/kernel-manual.pdf
 documentation/mega-manual/mega-manual.html
 documentation/mega-manual/mega-manual.tgz
-
-
-
