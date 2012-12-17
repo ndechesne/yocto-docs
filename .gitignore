@@ -19,6 +19,9 @@ poky-autobuilder*
 *.orig
 *.rej
 *~
+documentation/kernel-dev/kernel-dev.html
+documentation/kernel-dev/kernel-dev.pdf
+documentation/kernel-dev/kernel-dev.tgz
 documentation/adt-manual/adt-manual.html
 documentation/adt-manual/adt-manual.pdf
 documentation/adt-manual/adt-manual.tgz
