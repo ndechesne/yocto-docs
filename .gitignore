@@ -22,6 +22,9 @@ poky-autobuilder*
 documentation/kernel-dev/kernel-dev.html
 documentation/kernel-dev/kernel-dev.pdf
 documentation/kernel-dev/kernel-dev.tgz
+documentation/profile-manual/profile-manual.html
+documentation/profile-manual/profile-manual.pdf
+documentation/profile-manual/profile-manual.tgz
 documentation/adt-manual/adt-manual.html
 documentation/adt-manual/adt-manual.pdf
 documentation/adt-manual/adt-manual.tgz
