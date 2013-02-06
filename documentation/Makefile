@@ -11,6 +11,8 @@
 #              or the mega-manual (single, large HTML file comprised of all
 #              Yocto Project manuals).
 #    html:     generates an HTML version of a manual.
+#    eclipse:  generates an HTML version of a manual that can be used as
+#              eclipse help (including necessary metadata files).
 #    tarball:  creates a tarball for the doc files.
 #    validate: validates
 #    publish:  pushes generated files to the Yocto Project website
@@ -70,26 +72,19 @@
 #
 
 ifeq ($(DOC),bsp-guide)
-XSLTOPTS = --stringparam html.stylesheet bsp-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
-TARFILES = bsp-style.css bsp-guide.html bsp-guide.pdf figures/bsp-title.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
+TARFILES = bsp-style.css bsp-guide.html bsp-guide.pdf figures/bsp-title.png \
+           eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 
 endif
 
 ifeq ($(DOC),dev-manual)
-XSLTOPTS = --stringparam html.stylesheet dev-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
 #
 # Note that the tarfile might produce the "Cannot stat: No such file or directory" error
 # message for .PNG files that are not present when building a particular branch.  The
@@ -120,21 +115,24 @@ TARFILES = dev-style.css dev-manual.html dev-manual.pdf \
            figures/app-dev-flow.png figures/bsp-dev-flow.png figures/dev-title.png \
            figures/git-workflow.png figures/index-downloads.png figures/kernel-dev-flow.png \
            figures/kernel-overview-1.png figures/kernel-overview-2-generic.png \
-           figures/source-repos.png figures/yp-download.png
+           figures/source-repos.png figures/yp-download.png \
+           eclipse
 	endif
 
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 
 endif
 
 ifeq ($(DOC),yocto-project-qs)
-XSLTOPTS = --stringparam html.stylesheet qs-style.css \
-           --xinclude
-ALLPREQ = html tarball
-TARFILES = yocto-project-qs.html qs-style.css figures/yocto-environment.png figures/building-an-image.png figures/using-a-pre-built-image.png figures/yocto-project-transp.png
-MANUALS = $(DOC)/$(DOC).html
+XSLTOPTS = --xinclude
+ALLPREQ = html eclipse tarball
+TARFILES = yocto-project-qs.html qs-style.css figures/yocto-environment.png \
+           figures/building-an-image.png figures/using-a-pre-built-image.png \
+           figures/yocto-project-transp.png \
+           eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
@@ -224,15 +222,11 @@ endif
 
 
 ifeq ($(DOC),adt-manual)
-XSLTOPTS = --stringparam html.stylesheet adt-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  appendix.autolabel A \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
-TARFILES = adt-manual.html adt-manual.pdf adt-style.css figures/adt-title.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
+TARFILES = adt-manual.html adt-manual.pdf adt-style.css figures/adt-title.png \
+			eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
@@ -330,6 +324,41 @@ else
 	cd $(DOC); xsltproc $(XSLTOPTS) -o $(DOC).html $(DOC)-customization.xsl $(DOC).xml; cd ..
 endif
 
+
+eclipse: BASE_DIR = html/$(DOC)/
+
+eclipse: eclipse-generate eclipse-resolve-links
+
+.PHONY : eclipse-generate eclipse-resolve-links
+
+eclipse-generate:
+ifeq ($(DOC),mega-manual)
+	@echo " "
+	@echo "ERROR: You cannot generate eclipse documentation for the mega-manual"
+	@echo " "
+else
+	@echo " "
+	@echo "******** Building eclipse help of "$(DOC)
+	@echo " "
+	cd $(DOC) && \
+		xsltproc $(XSLTOPTS) \
+				--stringparam base.dir '$(BASE_DIR)' \
+				-o eclipse/$(DOC).html \
+				$(DOC)-eclipse-customization.xsl $(DOC).xml && \
+		mv eclipse/toc.xml eclipse/$(DOC)-toc.xml && \
+		cp -rf $(FIGURES) eclipse/$(BASE_DIR) && \
+		cd ..;
+
+	$(call modify-eclipse)
+endif
+
+eclipse-resolve-links:
+	@echo " "
+	@echo "******** Using eclipse-help.sed to process external links"
+	@echo " "
+	$(foreach FILE, \
+		$(wildcard $(DOC)/eclipse/html/$(DOC)/*.html), \
+		$(shell sed -i -f tools/eclipse-help.sed $(FILE)))
 
 tarball: html
 	@echo " "
