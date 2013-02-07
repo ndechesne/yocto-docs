@@ -49,3 +49,7 @@ documentation/kernel-manual/kernel-manual.tgz
 documentation/kernel-manual/kernel-manual.pdf
 documentation/mega-manual/mega-manual.html
 documentation/mega-manual/mega-manual.tgz
+documentation/adt-manual/eclipse/
+documentation/bsp-guide/eclipse/
+documentation/dev-manual/eclipse/
+documentation/yocto-project-qs/eclipse/
