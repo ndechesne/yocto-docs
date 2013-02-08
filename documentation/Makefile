@@ -206,16 +206,11 @@ STYLESHEET = $(DOC)/*.css
 endif
 
 ifeq ($(DOC),ref-manual)
-XSLTOPTS = --stringparam html.stylesheet ref-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  appendix.autolabel A \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
 TARFILES = ref-manual.html ref-style.css figures/poky-title.png \
-	figures/buildhistory.png figures/buildhistory-web.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+	figures/buildhistory.png figures/buildhistory-web.png eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
@@ -232,13 +227,8 @@ STYLESHEET = $(DOC)/*.css
 endif
 
 ifeq ($(DOC),profile-manual)
-XSLTOPTS = --stringparam html.stylesheet profile-manual-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  appendix.autolabel A \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
 TARFILES = profile-manual.html profile-manual.pdf profile-manual-style.css \
            figures/profile-title.png figures/kernelshark-all.png \
            figures/kernelshark-choose-events.png figures/kernelshark-i915-display.png \
@@ -255,23 +245,20 @@ TARFILES = profile-manual.html profile-manual.pdf profile-manual-style.css \
            figures/perf-wget-g-copy-to-user-expanded-stripped-unresolved-hidden.png figures/pybootchartgui-linux-yocto.png \
            figures/pychart-linux-yocto-rpm.png figures/pychart-linux-yocto-rpm-nostrip.png \
            figures/sched-wakeup-profile.png figures/sysprof-callers.png \
-           figures/sysprof-copy-from-user.png figures/sysprof-copy-to-user.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+           figures/sysprof-copy-from-user.png figures/sysprof-copy-to-user.png \
+           eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
 
 ifeq ($(DOC),kernel-dev)
-XSLTOPTS = --stringparam html.stylesheet kernel-dev-style.css \
-           --stringparam  chapter.autolabel 1 \
-           --stringparam  appendix.autolabel A \
-           --stringparam  section.autolabel 1 \
-           --stringparam  section.label.includes.component.label 1 \
-           --xinclude
-ALLPREQ = html pdf tarball
+XSLTOPTS = --xinclude
+ALLPREQ = html pdf eclipse tarball
 TARFILES = kernel-dev.html kernel-dev.pdf kernel-dev-style.css figures/kernel-dev-title.png \
-           figures/kernel-architecture-overview.png
-MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf
+           figures/kernel-architecture-overview.png \
+           eclipse
+MANUALS = $(DOC)/$(DOC).html $(DOC)/$(DOC).pdf $(DOC)/eclipse
 FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
@@ -332,9 +319,17 @@ eclipse: eclipse-generate eclipse-resolve-links
 .PHONY : eclipse-generate eclipse-resolve-links
 
 eclipse-generate:
-ifeq ($(DOC),mega-manual)
+ifeq ($(filter $(DOC), adt-manual bsp-guide dev-manual kernel-dev profile-manual ref-manual yocto-project-qs),)
 	@echo " "
-	@echo "ERROR: You cannot generate eclipse documentation for the mega-manual"
+	@echo "ERROR: You can only create eclipse documentation"
+	@echo "       of the following documentation parts:"
+	@echo "       - adt-manual"
+	@echo "       - bsp-guide"
+	@echo "       - dev-manual"
+	@echo "       - kernel-dev"
+	@echo "       - profile-manual"
+	@echo "       - ref-manual"
+	@echo "       - yocto-project-qs"
 	@echo " "
 else
 	@echo " "
