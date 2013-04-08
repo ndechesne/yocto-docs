@@ -3533,21 +3533,41 @@
         <title>Selecting an Initialization Manager</title>
 
         <para>
-            By default, the Yocto Project uses
-            <filename>SysVinit</filename> as the initialization manager.
-            However, support also exists for <filename>systemd</filename>,
-            which is a full replacement for <filename>init</filename> with
-            parallel starting of services, reduced shell overhead and other
-            features, used by many distributions.
+            The <filename>init</filename> process is the first process that
+            the image executes when a system boots.
+            Depending on your requirements, this process can be a basic
+            shell that runs a script or a full initialization manager.
+            This section describes how you can choose between
+            <filename>sysvinit</filename>
+            or <filename>systemd</filename> as your initializatoin manager.
         </para>
 
         <para>
-            If you want to use <filename>SysVinit</filename>, you do
+            To pick your initialization manager, you need to be using the
+            <filename>packagegroup-core-boot</filename> package group.
+            This package group uses the
+            <filename>VIRTUAL-PROVIDER_init_manager</filename> variable
+            to specify the initialization system manager.
+        </para>
+
+        <para>
+            In the Yocto Project, when an image uses the
+            <filename>packagegroup-core-boot</filename> package group,
+            the default initialization manager is
+            <filename>sysvinit</filename>, which is a full replacement for
+            <filename>init</filename> that includes parallel starting of
+            services, reduced shell overhead and other features, used by many
+            distributions.
+        </para>
+
+        <para>
+            If you want to use <filename>sysvinit</filename>, you do
             not have to do anything.
             But, if you want to use <filename>systemd</filename>, you must
             take some steps as described in the following sections.
         </para>
 
+<!--
         <note>
             <para><emphasis>NOTES TO SELF:</emphasis>
             <filename>systemd</filename> is a full replacement of for init with
@@ -3565,15 +3585,20 @@
             <filename>VIRTUAL-RUNTIME_initscripts</filename>, and
             <filename>VIRTUAL-RUNTIME_keymaps</filename>.</para>
         </note>
+-->
 
         <section id='using-systemd-exclusively'>
             <title>Using systemd Exclusively</title>
 
             <para>
                 Set the following variables in your
-                <filename>local.conf</filename> file as follows:
+                <filename>local.conf</filename> file as follows.
+                Be sure to use the leading space when specifying
+                the manager (<filename>systemd</filename>) in the
+                <ulink url='&YOCTO_DOCS_REF_URL;#var-DISTRO_FEATURES'><filename>DISTRO_FEATURES</filename></ulink>
+                variable:
                 <literallayout class='monospaced'>
-     DISTRO_FEATURES = "systemd"
+     DISTRO_FEATURES_append = " systemd"
      VIRTUAL-RUNTIME_init_manager = "systemd"
                 </literallayout>
                 You can save some disk space by adding
@@ -3585,6 +3610,12 @@
                 Doing so removes any redundant <filename>sysvinit</filename>
                 scripts.
             </para>
+
+            <para>
+                For information on the backfill variable, see
+                <ulink url='&YOCTO_DOCS_REF_URL;#var-DISTRO_FEATURES_BACKFILL_CONSIDERED'><filename>DISTRO_FEATURES_BACKFILL_CONSIDERED</filename></ulink>
+                in the Yocto Project Reference Manual.
+            </para>
         </section>
 
         <section id='use-systemd-for-the-main-image-and-use-sysvinit-for-the-rescue-image'>
@@ -3592,9 +3623,11 @@
 
             <para>
                 Set the following variables in your
-                <filename>local.conf</filename> file as follows:
+                <filename>local.conf</filename> file as follows.
+                Note the leading space before <filename>systemd</filename>
+                in the <filename>DISTRO_FEATURES</filename> variable:
                 <literallayout class='monospaced'>
-     DISTRO_FEATURES = "systemd"
+     DISTRO_FEATURES_append = " systemd"
      VIRTUAL-RUNTIME_init_manager = "systemd"
                 </literallayout>
                 Doing so causes your main image to use the
