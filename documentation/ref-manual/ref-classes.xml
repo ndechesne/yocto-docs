@@ -17,7 +17,7 @@
     <ulink url='&YOCTO_DOCS_DEV_URL;#source-directory'>Source Directory</ulink>.
     Class files can also be pointed to by
     <link linkend='var-BUILDDIR'><filename>BUILDDIR</filename></link>
-    (e.g. <filename>build/</filename>)in the same way as
+    (e.g. <filename>build/</filename>) in the same way as
     <filename>.conf</filename> files in the <filename>conf</filename> directory.
     Class files are searched for in <link linkend='var-BBPATH'><filename>BBPATH</filename></link>
     using the same method by which <filename>.conf</filename> files are searched.
@@ -171,7 +171,7 @@
     <para>
         This class renames packages so that they follow the Debian naming
         policy (i.e. <filename>eglibc</filename> becomes <filename>libc6</filename>
-        and <filename>eglibc-devel</filename> becomes <filename>libc6-dev</filename>.
+        and <filename>eglibc-devel</filename> becomes <filename>libc6-dev</filename>.)
     </para>
 </section>
 
@@ -179,9 +179,10 @@
     <title>Pkg-config - <filename>pkgconfig.bbclass</filename></title>
 
     <para>
-        <filename>pkg-config</filename> brought standardization and this class
-        aims to smooth integration of <filename>pkg-config</filename>
-        into libraries that use it.
+        <filename>pkg-config</filename> provides a standard way to get 
+        header and library information.
+        This class aims to smooth integration of
+        <filename>pkg-config</filename> into libraries that use it.
     </para>
 
     <para>
@@ -192,36 +193,25 @@
     </para>
 </section>
 
-<section id='ref-classes-src-distribute'>
-    <title>Distribution of Sources - <filename>src_distribute_local.bbclass</filename></title>
+<section id='ref-classes-archiver'>
+    <title>Archiving Sources - <filename>archive*.bbclass</filename></title>
 
     <para>
-        Many software licenses require that source files be provided along with the binaries.
-        To simplify this process, two classes were created:
-        <filename>src_distribute.bbclass</filename> and
-        <filename>src_distribute_local.bbclass</filename>.
-    </para>
-
-    <para>
-        The results of these classes are <filename>tmp/deploy/source/</filename>
-        subdirectories with sources sorted by
-        <filename><link linkend='var-LICENSE'>LICENSE</link></filename> field.
-        If recipes list few licenses (or have entries like "Bitstream Vera"),
-        the source archive is placed in each license directory.
-    </para>
-
-    <para>
-        This class operates using three modes:
+        Many software licenses require that source code and other materials be
+        released with the binaries. 
+        To help with that task, the following classes are provided:
         <itemizedlist>
-            <listitem><para><emphasis>copy:</emphasis> Copies the files to the
-                distribution directory.</para></listitem>
-            <listitem><para><emphasis>symlink:</emphasis> Creates symbolic
-                links for the files to the distribution directory.
-                </para></listitem>
-            <listitem><para><emphasis>move+symlink:</emphasis> Moves the files
-                into the distribution directory and then creates symbolic
-                links back to where they originated.</para></listitem>
+            <listitem><filename>archive-original-sources.bbclass</filename></listitem>
+            <listitem><filename>archive-patched-sources.bbclass</filename></listitem>
+            <listitem><filename>archive-configured-sources.bbclass</filename></listitem>
+            <listitem><filename>archiver.bbclass</filename></listitem>
         </itemizedlist>
+    </para>
+
+    <para>
+        For more details on the source archiver, see the
+        "<ulink url='&YOCTO_DOCS_DEV_URL;#maintaining-open-source-license-compliance-during-your-products-lifecycle'>Maintaining Open Source License Compliance During Your Product's Lifecycle</ulink>"
+        section in the Yocto Project Development Manual.
     </para>
 </section>
 
@@ -435,8 +425,8 @@
     <title>Host System Sanity Checks - <filename>sanity.bbclass</filename></title>
 
     <para>
-        This class checks to see if prerequisite software is present so that
-        users can be notified of potential problems that might affect their build.
+        This class checks to see if prerequisite software is present on the host system
+        so that users can be notified of potential problems that might affect their build.
         The class also performs basic user configuration checks from
         the <filename>local.conf</filename> configuration file to
         prevent common mistakes that cause build failures.
@@ -524,6 +514,54 @@
                 Any <filename>.pc</filename> file containing these paths is incorrect
                 since <filename>pkg-config</filename> itself adds the correct sysroot prefix
                 when the files are accessed.</para></listitem>
+            <listitem><para><emphasis><filename>textrel:</filename></emphasis>
+                Checks for ELF binaries that contain relocations in their 
+                <filename>.text</filename> sections, which can result in a 
+                performance impact at runtime.</para></listitem>
+            <listitem><para><emphasis><filename>pkgvarcheck:</filename></emphasis>
+                Checks through the variables 
+                <link linkend='var-RDEPENDS'><filename>RDEPENDS</filename></link>, 
+                <link linkend='var-RRECOMMENDS'><filename>RRECOMMENDS</filename></link>, 
+                <link linkend='var-RSUGGESTS'><filename>RSUGGESTS</filename></link>,
+                <link linkend='var-RCONFLICTS'><filename>RCONFLICTS</filename></link>,
+                <link linkend='var-RPROVIDES'><filename>RPROVIDES</filename></link>,
+                <link linkend='var-RREPLACES'><filename>RREPLACES</filename></link>, 
+                <link linkend='var-FILES'><filename>FILES</filename></link>,
+                <link linkend='var-ALLOW_EMPTY'><filename>ALLOW_EMPTY</filename></link>,
+                <filename>pkg_preinst</filename>, 
+                <filename>pkg_postinst</filename>, 
+                <filename>pkg_prerm</filename>
+                and <filename>pkg_postrm</filename>, and reports if there are 
+                variable sets that are not package-specific.
+                Using these variables without a package suffix is bad practice,
+                and might unnecessarily complicate dependencies of other packages
+                within the same recipe or have other unintended consequences.
+                </para></listitem>
+            <listitem><para><emphasis><filename>xorg-driver-abi:</filename></emphasis>
+                Checks that all packages containing Xorg drivers have ABI 
+                dependencies.
+                The <filename>xserver-xorg</filename> recipe provides driver 
+                ABI names.
+                All drivers should depend on the ABI versions that they have 
+                been built against. 
+                Driver recipes that include 
+                <filename>xorg-driver-input.inc</filename>
+                or <filename>xorg-driver-video.inc</filename> will 
+                automatically get these versions.
+                Consequently, you should only need to explicitly add 
+                dependencies to binary driver recipes.
+                </para></listitem>
+            <listitem><para><emphasis><filename>libexec:</filename></emphasis>
+                Checks if a package contains files in 
+                <filename>/usr/libexec</filename>.
+                This check is not performed if the 
+                <filename>libexecdir</filename> variable has been set 
+                explicitly to <filename>/usr/libexec</filename>.
+                </para></listitem>
+            <listitem><para><emphasis><filename>staticdev:</filename></emphasis>
+                Checks for static library files (<filename>*.a</filename>) in
+                non-<filename>staticdev</filename> packages.
+                </para></listitem>
             <listitem><para><emphasis><filename>la:</filename></emphasis>
                 Checks <filename>.la</filename> files for any <filename>TMPDIR</filename>
                 paths.
@@ -536,7 +574,62 @@
                 the specification for <filename>.desktop</filename> files.</para></listitem>
         </itemizedlist>
     </para>
+    <note>
+        You can use the <filename>WARN_QA</filename> and 
+        <filename>ERROR_QA</filename> variables to control the behavior of 
+        these checks at the global level (i.e. in your custom distro 
+        configuration).
+        However, to skip one or more checks in recipes, you should use 
+        <link linkend='var-INSANE_SKIP'><filename>INSANE_SKIP</filename></link>. 
+        For example, to skip the check for symbolic link 
+        <filename>.so</filename> files in the main package of a recipe, 
+        add the following to the recipe.
+        You need to realize that the package name override, in this example
+        <filename>${PN}</filename>, must be used:
+        <literallayout class='monospaced'>
+     INSANE_SKIP_${PN} += "dev-so"
+        </literallayout>
+        Please keep in mind that the QA checks exist in order to detect real 
+        or potential problems in the packaged output.
+        So exercise caution when disabling these checks.
+    </note>
 </section>
+
+<section id='ref-classes-rm-work'>
+    <title>Removing Work Files During the Build - <filename>rm_work.bbclass</filename></title>
+
+    <para>
+        The OpenEmbedded build system can use a substantial amount of disk 
+        space during the build process.
+        A portion of this space is the work files under the 
+        <filename>${TMPDIR}/work</filename> directory for each recipe. 
+        Once the build system generates the packages for a recipe, the work 
+        files for that recipe are no longer needed.
+        However, by default, the build system preserves these files
+        for inspection and possible debugging purposes.
+        If you would rather have these files deleted to save disk space 
+        as the build progresses, you can enable <filename>rm_work</filename>
+        by adding the following to your <filename>local.conf</filename> file,
+        which is found in the 
+        <ulink url='&YOCTO_DOCS_DEV_URL;#build-directory'>Build Directory</ulink>.
+        <literallayout class='monospaced'>
+    INHERIT += "rm_work"
+        </literallayout>
+        If you are modifying and building source code out of the work directory 
+        for a recipe, enabling <filename>rm_work</filename> will potentially 
+        result in your changes to the source being lost. 
+        To exclude some recipes from having their work directories deleted by
+        <filename>rm_work</filename>, you can add the names of the recipe or 
+        recipes you are working on to the <filename>RM_WORK_EXCLUDE</filename> 
+        variable, which can also be set in your <filename>local.conf</filename>
+        file.
+        Here is an example:
+        <literallayout class='monospaced'>
+    RM_WORK_EXCLUDE += "busybox eglibc"
+        </literallayout>
+    </para>
+</section>
+
 
 <section id='ref-classes-siteinfo'>
     <title>Autotools Configuration Data Cache - <filename>siteinfo.bbclass</filename></title>
@@ -681,12 +774,16 @@
         deploy.bbclass
         distrodata.bbclass
         dummy.bbclass
+        fontcache.bbclass
         gconf.bbclass
         gettext.bbclass
         gnomebase.bbclass
         gnome.bbclass
+        grub-efi.bbclass
+        gsettings.bbclass
         gtk-doc.bbclass
         gtk-icon-cache.bbclass
+        gtk-immodules-cache.bbclass
         gzipnative.bbclass
         icecc.bbclass
         image-empty.bbclass
@@ -708,6 +805,7 @@
         logging.bbclass
         meta.bbclass
         metadata_scm.bbclass
+        migrate_localcount.bbclass
         mime.bbclass
         mirrors.bbclass
         multilib*.bbclass
@@ -719,12 +817,14 @@
         packageinfo.bbclass
         patch.bbclass
         perlnative.bbclass
+        pixbufcache.bbclass
         pkg_distribute.bbclass
         pkg_metainfo.bbclass
         populate_sdk*.bbclass
         prexport.bbclass
         primport.bbclass
         prserv.bbclass
+        ptest.bbclass
         python-dir.bbclass
         pythonnative.bbclass
         qemu.bbclass
@@ -732,7 +832,6 @@
         qt4*.bbclass
         recipe_sanity.bbclass
         relocatable.bbclass
-        rm_work.bbclass
         scons.bbclass
         sdl.bbclass
         setuptools.bbclass
@@ -742,6 +841,7 @@
         sstate.bbclass
         staging.bbclass
         syslinux.bbclass
+        systemd.bbclass
         terminal.bbclass
         tinderclient.bbclass
         toolchain-scripts.bbclass

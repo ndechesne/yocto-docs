@@ -258,8 +258,8 @@
                     The runtime package specific variables 
                     <link linkend='var-RDEPENDS'><filename>RDEPENDS</filename></link>,
                     <link linkend='var-RRECOMMENDS'><filename>RRECOMMENDS</filename></link>,
-                    <filename>RSUGGESTS</filename>, 
-                    <filename>RPROVIDES</filename>,
+                    <link linkend='var-RSUGGESTS'><filename>RSUGGESTS</filename></link>, 
+                    <link linkend='var-RPROVIDES'><filename>RPROVIDES</filename></link>,
                     <link linkend='var-RCONFLICTS'><filename>RCONFLICTS</filename></link>,
                     <link linkend='var-RREPLACES'><filename>RREPLACES</filename></link>,
                     <link linkend='var-FILES'><filename>FILES</filename></link>,
@@ -310,9 +310,13 @@
                     you previously added to <filename>OVERRIDES</filename>,
                     you might now need to add it to 
                     <filename>FILESOVERRIDES</filename> unless you are already 
-                    adding it through the <filename>MACHINEOVERRIDES</filename> 
-                    or <filename>DISTROOVERRIDES</filename> variables, 
-                    as appropriate.
+                    adding it through the 
+                    <link linkend='var-MACHINEOVERRIDES'><filename>MACHINEOVERRIDES</filename></link> 
+                    or <link linkend='var-DISTROOVERRIDES'><filename>DISTROOVERRIDES</filename></link>
+                    variables, as appropriate.
+                    For more related changes, see the
+                    "<link linkend='migration-1.4-variables'>Variables</link>"
+                    section.
                     </para></listitem>
             </itemizedlist>
         </para>
@@ -328,6 +332,24 @@
             from Git. 
             See the <filename>meta-yocto/conf/site.conf.sample</filename> file
             for information on how to use this script.
+        </para>
+    </section>
+
+    <section id='migration-1.4-custom-interfaces-file-netbase-change'>
+        <title>Custom Interfaces File (netbase change)</title>
+
+        <para>
+            If you have created your own custom 
+            <filename>etc/network/interfaces</filename> file by creating 
+            an append file for the <filename>netbase</filename> recipe, 
+            you now need to create an append file for the 
+            <filename>init-ifupdown</filename> recipe instead, which you can 
+            find in the 
+            <ulink url='&YOCTO_DOCS_DEV_URL;#source-directory'>Source Directory</ulink>
+            at <filename>meta/recipes-core/init-ifupdown</filename>.
+            For information on how to use append files, see the 
+            "<ulink url='&YOCTO_DOCS_DEV_URL;#using-bbappend-files'>Using .bbappend Files</ulink>"
+            in the Yocto Project Development Manual.
         </para>
     </section>
 
@@ -350,14 +372,54 @@
         <title>Variables</title>
 
         <para>
-            The <filename>SANITY_TESTED_DISTROS</filename> variable now uses a
-            distribution ID, which is composed of the host distributor ID 
-            followed by the release.
-            Previously, it was composed of the description field.
-            For example, "Ubuntu 12.10" becomes "Ubuntu-12.10". 
-            You do not need to worry about this change if you are not 
-            specifically setting this variable, or if you are
-            specifically setting it to "".
+            The following variables have changed:
+            <itemizedlist>
+                <listitem><para><emphasis><filename>SANITY_TESTED_DISTROS</filename>:</emphasis>
+                    This variable now uses a distribution ID, which is composed 
+                    of the host distributor ID followed by the release.
+                    Previously, 
+                    <link linkend='var-SANITY_TESTED_DISTROS'><filename>SANITY_TESTED_DISTROS</filename></link>
+                    was composed of the description field.
+                    For example, "Ubuntu 12.10" becomes "Ubuntu-12.10". 
+                    You do not need to worry about this change if you are not 
+                    specifically setting this variable, or if you are
+                    specifically setting it to "".
+                    </para></listitem>
+                <listitem><para><emphasis><filename>SRC_URI</filename>:</emphasis>
+                    The <filename>${</filename><link linkend='var-PN'><filename>PN</filename></link><filename>}</filename>, 
+                    <filename>${</filename><link linkend='var-PF'><filename>PF</filename></link><filename>}</filename>, 
+                    <filename>${</filename><link linkend='var-P'><filename>P</filename></link><filename>}</filename>, 
+                    and <filename>FILE_DIRNAME</filename> directories have been 
+                    dropped from the default value of the 
+                    <link linkend='var-FILESPATH'><filename>FILESPATH</filename></link>
+                    variable, which is used as the search path for finding files 
+                    referred to in 
+                    <link linkend='var-SRC_URI'><filename>SRC_URI</filename></link>. 
+                    If you have a recipe that relied upon these directories, 
+                    which would be unusual, then you will need to add the 
+                    appropriate paths within the recipe or, alternatively,
+                    rearrange the files. 
+                    The most common locations are still covered by 
+                    <filename>${BP}</filename>, <filename>${BPN}</filename>,
+                    and "files", which all remain in the default value of
+                    <link linkend='var-FILESPATH'><filename>FILESPATH</filename></link>. 
+                    </para></listitem>
+            </itemizedlist>           
+        </para>
+    </section>
+
+    <section id='migration-target-package-management-with-rpm'>
+        <title>Target Package Management with RPM</title>
+
+        <para>
+            If runtime package management is enabled and the RPM backend 
+            is selected, Smart is now installed for package download, dependency 
+            resolution, and upgrades instead of Zypper.
+            For more information on how to use Smart, run the following command 
+            on the target:
+            <literallayout class='monospaced'>
+     smart --help
+            </literallayout>
         </para>
     </section>
 

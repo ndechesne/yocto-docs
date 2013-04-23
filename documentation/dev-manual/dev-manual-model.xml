@@ -23,7 +23,7 @@
              </para></listitem>
          <listitem><para><emphasis>User Application Development:</emphasis>
              User Application Development covers development of applications that you intend
-             to run on some target hardware.
+             to run on target hardware.
              For information on how to set up your host development system for user-space
              application development, see the
              <ulink url='&YOCTO_DOCS_ADT_URL;'>Yocto Project Application Developer's Guide</ulink>.
@@ -35,10 +35,10 @@
          <listitem><para><emphasis>Temporary Source Code Modification:</emphasis>
              Direct modification of temporary source code is a convenient development model
              to quickly iterate and develop towards a solution.
-             Once the solution has been implemented, you should of course take steps to
+             Once you implement the solution, you should of course take steps to
              get the changes upstream and applied in the affected recipes.</para></listitem>
          <listitem><para><emphasis>Image Development using Hob:</emphasis>
-             You can use the <ulink url='&YOCTO_HOME_URL;/projects/hob'>Hob</ulink> to build
+             You can use the <ulink url='&YOCTO_HOME_URL;/tools-resources/projects/hob'>Hob</ulink> to build
              custom operating system images within the build environment.
              Hob provides an efficient interface to the OpenEmbedded build system.</para></listitem>
          <listitem><para><emphasis>Using a Development Shell:</emphasis>
@@ -117,21 +117,22 @@
                     Directory</link> available on your host system.
                     Having these files on your system gives you access to the build
                     process and to the tools you need.
-                    For information on how to set up the
-                    <link linkend='source-directory'>Source Directory</link>, see the
-                    "<link linkend='getting-setup'>Getting Set up</link>" section.</para></listitem>
+                    For information on how to set up the Source Directory,
+                    see the
+                    "<link linkend='getting-setup'>Getting Set Up</link>" section.</para></listitem>
                 <listitem><para><emphasis>Establish the <filename>meta-intel</filename>
                     repository on your system</emphasis>:  Having local copies
                     of these supported BSP layers on your system gives you
                     access to layers you might be able to build on or modify
                     to create your BSP.
                     For information on how to get these files, see the
-                    "<link linkend='getting-setup'>Getting Setup</link>" section.</para></listitem>
+                    "<link linkend='getting-setup'>Getting Set Up</link>" section.</para></listitem>
                 <listitem><para><emphasis>Create your own BSP layer using the
                     <ulink url='&YOCTO_DOCS_BSP_URL;#creating-a-new-bsp-layer-using-the-yocto-bsp-script'><filename>yocto-bsp</filename></ulink> script</emphasis>:
                     Layers are ideal for
                     isolating and storing work for a given piece of hardware.
-                    A layer is really just a location or area in which you place the recipes for your BSP.
+                    A layer is really just a location or area in which you place 
+                    the recipes and configurations for your BSP.
                     In fact, a BSP is, in itself, a special type of layer.
                     The simplest way to create a new BSP layer that is compliant with the
                     Yocto Project is to use the <filename>yocto-bsp</filename> script.
@@ -159,12 +160,12 @@
                     <filename>mpc8315e</filename>, and <filename>routerstationpro</filename>.
                     The recipes and configurations for these four BSPs are located and dispersed
                     within the <link linkend='source-directory'>Source Directory</link>.
-                    On the other hand, BSP layers for Cedar Trail, Chief River, Crown Bay,
-                    Crystal Forest, Emenlow, Fish River, Fish River 2, Jasper Forest, N450,
+                    On the other hand, BSP layers for Chief River, Crown Bay,
+                    Crystal Forest, Emenlow, Fish River Island 2, Jasper Forest, N450, NUC DC3217IYE,
                     Romley, sys940x, Sugar Bay, and tlk exist in their own separate layers
                     within the larger <filename>meta-intel</filename> layer.</note>
                     <para>When you set up a layer for a new BSP, you should follow a standard layout.
-                    This layout is described in the section
+                    This layout is described in the 
                     "<ulink url='&YOCTO_DOCS_BSP_URL;#bsp-filelayout'>Example Filesystem Layout</ulink>"
                     section of the Board Support Package (BSP) Development Guide.
                     In the standard layout, you will notice a suggested structure for recipes and
@@ -178,7 +179,7 @@
                     directories within the BSP layer.
                     Configuration changes identify where your new layer is on the local system
                     and identify which kernel you are going to use.
-                    When you run the <filename>yocto-bsp</filename> script you are able to interactively
+                    When you run the <filename>yocto-bsp</filename> script, you are able to interactively
                     configure many things for the BSP (e.g. keyboard, touchscreen, and so forth).
                     </para></listitem>
                 <listitem><para><emphasis>Make recipe changes to your new BSP layer</emphasis>:  Recipe
@@ -268,21 +269,15 @@
                 Within this group, you will find several kernels supported by
                 the Yocto Project:
                 <itemizedlist>
-                    <listitem><para><emphasis><filename>linux-yocto-2.6.34</filename></emphasis> - The
-                    stable Yocto Project kernel that is based on the Linux 2.6.34 released kernel.</para></listitem>
-                    <listitem><para><emphasis><filename>linux-yocto-2.6.37</filename></emphasis> - The
-                    stable Yocto Project kernel that is based on the Linux 2.6.37 released kernel.</para></listitem>
-                    <listitem><para><emphasis><filename>linux-yocto-3.0</filename></emphasis> - The stable
-                    Yocto Project kernel that is based on the Linux 3.0 released kernel.</para></listitem>
-                    <listitem><para><emphasis><filename>linux-yocto-3.0-1.1.x</filename></emphasis> - The
-                    stable Yocto Project kernel to use with the Yocto Project Release 1.1.x. This kernel
-                    is based on the Linux 3.0 released kernel.</para></listitem>
                     <listitem><para><emphasis><filename>linux-yocto-3.2</filename></emphasis> - The
                     stable Yocto Project kernel to use with the Yocto Project Release 1.2. This kernel
                     is based on the Linux 3.2 released kernel.</para></listitem>
                     <listitem><para><emphasis><filename>linux-yocto-3.4</filename></emphasis> - The
                     stable Yocto Project kernel to use with the Yocto Project Release 1.3. This kernel
                     is based on the Linux 3.4 released kernel.</para></listitem>
+                    <listitem><para><emphasis><filename>linux-yocto-3.8</filename></emphasis> - The
+                    stable Yocto Project kernel to use with the Yocto Project Release 1.4. This kernel
+                    is based on the Linux 3.8 released kernel.</para></listitem>
                     <listitem><para><emphasis><filename>linux-yocto-dev</filename></emphasis> - A development
                     kernel based on the latest upstream release candidate available.</para></listitem>
                 </itemizedlist>
@@ -292,8 +287,8 @@
                 The kernels are maintained using the Git revision control system
                 that structures them using the familiar "tree", "branch", and "leaf" scheme.
                 Branches represent diversions from general code to more specific code, while leaves
-                represent the end-points for a complete and unique kernel whose source files
-                when gathered from the root of the tree to the leaf accumulate to create the files
+                represent the end-points for a complete and unique kernel whose source files,
+                when gathered from the root of the tree to the leaf, accumulate to create the files
                 necessary for a specific piece of hardware and its features.
                 The following figure displays this concept:
             <para>
@@ -304,12 +299,12 @@
             <para>
                 Within the figure, the "Kernel.org Branch Point" represents the point in the tree
                 where a supported base kernel is modified from the Linux kernel.
-                For example, this could be the branch point for the <filename>linux-yocto-3.0</filename>
+                For example, this could be the branch point for the <filename>linux-yocto-3.4</filename>
                 kernel.
                 Thus, everything further to the right in the structure is based on the
-                <filename>linux-yocto-3.0</filename> kernel.
+                <filename>linux-yocto-3.4</filename> kernel.
                 Branch points to right in the figure represent where the
-                <filename>linux-yocto-3.0</filename> kernel is modified for specific hardware
+                <filename>linux-yocto-3.4</filename> kernel is modified for specific hardware
                 or types of kernels, such as real-time kernels.
                 Each leaf thus represents the end-point for a kernel designed to run on a specific
                 targeted device.
@@ -347,10 +342,14 @@
                 ways.
                 If you are working in the kernel all the time, you probably would want
                 to set up your own local Git repository of the kernel tree.
-                If you just need to make some patches to the kernel, you can get at
-                temporary kernel source files extracted and used during the OpenEmbedded
-                build system.
+                If you just need to make some patches to the kernel, you can access
+                temporary kernel source files that were extracted and used 
+                during a build.
                 We will just talk about working with the temporary source code.
+                For more information on how to get kernel source code onto your 
+                host system, see the
+                "<link linkend='local-kernel-files'>Yocto Project Kernel</link>"
+                bulleted item earlier in the manual.
             </para>
 
             <para>
@@ -412,7 +411,9 @@
                         "<link linkend='local-yp-release'>Yocto Project Release</link>" earlier in this manual.
                         </para></listitem>
                     <listitem><para><emphasis>Establish the temporary kernel source files</emphasis>:
-                        Temporary kernel source files are kept in the Build Directory created by the
+                        Temporary kernel source files are kept in the 
+                        <link linkend='build-directory'>Build Directory</link>
+                        created by the
                         OpenEmbedded build system when you run BitBake.
                         If you have never built the kernel you are interested in, you need to run
                         an initial build to establish local kernel source files.</para>
@@ -428,7 +429,7 @@
                         You might want to reference this information.
                         You can find more information on BitBake in the user manual, which is found in the
                         <filename>bitbake/doc/manual</filename> directory of the
-                        <link linkend='source-directory'>Source Directory</link>.</para>
+                        Source Directory.</para>
                         <para>The build process supports several types of images to satisfy different needs.
                         See the "<ulink url='&YOCTO_DOCS_REF_URL;#ref-images'>Images</ulink>" chapter in
                         the Yocto Project Reference Manual for information on supported images.
@@ -447,10 +448,9 @@
                         Using <filename>menuconfig</filename> allows you to interactively develop and test the
                         configuration changes you are making to the kernel.
                         When saved, changes using <filename>menuconfig</filename> update the kernel's
-                        <filename>.config</filename>.
+                        <filename>.config</filename> file.
                         Try to resist the temptation of directly editing the <filename>.config</filename>
-                        file found in the
-                        <link linkend='build-directory'>Build Directory</link> at
+                        file found in the Build Directory at
                         <filename>tmp/sysroots/&lt;machine-name&gt;/kernel</filename>.
                         Doing so, can produce unexpected results when the OpenEmbedded build system
                         regenerates the configuration file.</para>
@@ -474,9 +474,11 @@
         Application development involves creating an application that you want
         to run on your target hardware, which is running a kernel image created using the
         OpenEmbedded build system.
-        The Yocto Project provides an Application Development Toolkit (ADT) and
-        stand-alone cross-development toolchains that
-        facilitate quick development and integration of your application into its run-time environment.
+        The Yocto Project provides an 
+        <ulink url='&YOCTO_DOCS_ADT_URL;#adt-intro-section'>Application Development Toolkit (ADT)</ulink>
+        and stand-alone
+        <ulink url='&YOCTO_DOCS_ADT_URL;#the-cross-development-toolchain'>cross-development toolchains</ulink>
+        that facilitate quick development and integration of your application into its runtime environment.
         Using the ADT and toolchains, you can compile and link your application.
         You can then deploy your application to the actual hardware or to the QEMU emulator for testing.
         If you are familiar with the popular <trademark class='trade'>Eclipse</trademark> IDE,
@@ -511,12 +513,12 @@
 
         <para>
             <orderedlist>
-                <listitem><para><emphasis>Prepare the Host System for the Yocto Project</emphasis>:
+                <listitem><para><emphasis>Prepare the host system for the Yocto Project</emphasis>:
                     See
                     "<ulink url='&YOCTO_DOCS_QS_URL;#the-linux-distro'>The Linux Distribution</ulink>" and
                     "<ulink url='&YOCTO_DOCS_QS_URL;#packages'>The Packages</ulink>" sections both
                     in the Yocto Project Quick Start for requirements.</para></listitem>
-                <listitem><para><emphasis>Secure the Yocto Project Kernel Target Image</emphasis>:
+                <listitem><para><emphasis>Secure the Yocto Project kernel target image</emphasis>:
                     You must have a target kernel image that has been built using the OpenEmbedded
                     build system.</para>
                     <para>Depending on whether the Yocto Project has a pre-built image that matches your target
@@ -548,14 +550,14 @@
                     The ADT provides a target-specific cross-development toolchain, the root filesystem,
                     the QEMU emulator, and other tools that can help you develop your application.
                     While it is possible to get these pieces separately, the ADT Installer provides an
-                    easy method.
+                    easy, inclusive method.
                     You can get these pieces by running an ADT installer script, which is configurable.
                     For information on how to install the ADT, see the
                     "<ulink url='&YOCTO_DOCS_ADT_URL;#using-the-adt-installer'>Using the ADT Installer</ulink>"
                     section
                     in the Yocto Project Application Developer's Guide.</para></listitem>
-                <listitem><para><emphasis>If Applicable, Secure the Target Root Filesystem
-                    and the Cross-development Toolchain</emphasis>:
+                <listitem><para><emphasis>If applicable, secure the target root filesystem
+                    and the Cross-development toolchain</emphasis>:
                     If you choose not to install the ADT using the ADT Installer,
                     you need to find and download the appropriate root filesystem and
                     the cross-development toolchain.</para>
@@ -563,7 +565,7 @@
                     for the kernel image.
                     Depending on the type of image you are running, the root filesystem you need differs.
                     For example, if you are developing an application that runs on an image that
-                    supports Sato, you need to get root filesystem that supports Sato.</para>
+                    supports Sato, you need to get a root filesystem that supports Sato.</para>
                     <para>You can find the cross-development toolchains at
                     <ulink url='&YOCTO_TOOLCHAIN_DL_URL;'><filename>toolchains</filename></ulink>.
                     Be sure to get the correct toolchain for your development host and your
@@ -576,20 +578,20 @@
                     the correct toolchain based on your host development system and your target
                     architecture.
                     </para></listitem>
-                <listitem><para><emphasis>Create and Build your Application</emphasis>:
+                <listitem><para><emphasis>Create and build your application</emphasis>:
                     At this point, you need to have source files for your application.
                     Once you have the files, you can use the Eclipse IDE to import them and build the
                     project.
                     If you are not using Eclipse, you need to use the cross-development tools you have
                     installed to create the image.</para></listitem>
-                <listitem><para><emphasis>Deploy the Image with the Application</emphasis>:
+                <listitem><para><emphasis>Deploy the image with the application</emphasis>:
                     If you are using the Eclipse IDE, you can deploy your image to the hardware or to
                     QEMU through the project's preferences.
                     If you are not using the Eclipse IDE, then you need to deploy the application
                     to the hardware using other methods.
                     Or, if you are using QEMU, you need to use that tool and load your image in for testing.
                     </para></listitem>
-                <listitem><para><emphasis>Test and Debug the Application</emphasis>:
+                <listitem><para><emphasis>Test and debug the application</emphasis>:
                     Once your application is deployed, you need to test it.
                     Within the Eclipse IDE, you can use the debugging environment along with the
                     set of user-space tools installed along with the ADT to debug your application.
@@ -617,7 +619,8 @@
             Installing and configuring the Plug-in results in an environment that
             has extensions specifically designed to let you more easily develop software.
             These extensions allow for cross-compilation, deployment, and execution of
-            your output into a QEMU emulation session.
+            your output into a QEMU emulation session as well as actual target
+            hardware.
             You can also perform cross-debugging and profiling.
             The environment also supports a suite of tools that allows you to perform
             remote profiling, tracing, collection of power data, collection of
@@ -662,7 +665,7 @@
                 </para>
 
                 <para>
-                    If you don’t have the Juno 4.2 Eclipse IDE installed, you can find the tarball at
+                    If you do not have the Juno 4.2 Eclipse IDE installed, you can find the tarball at
                     <ulink url='&ECLIPSE_MAIN_URL;'></ulink>.
                     From that site, choose the Eclipse Classic version particular to your development
                     host.
@@ -731,7 +734,7 @@
                         <listitem><para>Select <filename>Juno - &ECLIPSE_JUNO_URL;</filename>
                             from the "Work with:" pull-down menu.</para></listitem>
                         <listitem><para>Expand the box next to "Linux Tools" and select the
-                            "LTTng - Linux Tracing Toolkit" boxes.</para></listitem>
+                            <filename>LTTng - Linux Tracing Toolkit</filename> boxes.</para></listitem>
                         <listitem><para>Expand the box next to "Mobile and Device Development" and select the
                             following boxes:
                             <itemizedlist>
@@ -742,7 +745,7 @@
                                 <listitem><para><filename>TCF Remote System Explorer add-in</filename></para></listitem>
                                 <listitem><para><filename>TCF Target Explorer</filename></para></listitem>
                             </itemizedlist></para></listitem>
-                        <listitem><para>Expand the box next to <filename>Programming Languages</filename>
+                        <listitem><para>Expand the box next to "Programming Languages"
                             and select the <filename>Autotools Support for CDT</filename>
                             and <filename>C/C++ Development Tools</filename> boxes.</para></listitem>
                         <listitem><para>Complete the installation and restart the Eclipse IDE.</para></listitem>
@@ -770,11 +773,12 @@
                             </para></listitem>
                         <listitem><para>Select <filename>indigo - &ECLIPSE_INDIGO_URL;</filename>
                             from the "Work with:" pull-down menu.</para></listitem>
-                        <listitem><para>Expand the box next to <filename>Programming Languages</filename>
+                        <listitem><para>Expand the box next to "Programming Languages"
                             and select the <filename>Autotools Support for CDT (incubation)</filename>
                             and <filename>C/C++ Development Tools</filename> boxes.</para></listitem>
                         <listitem><para>Expand the box next to "Linux Tools" and select the
-                            "LTTng - Linux Tracing Toolkit(incubation)" boxes.</para></listitem>
+                            <filename>LTTng - Linux Tracing Toolkit(incubation)</filename>
+                            boxes.</para></listitem>
                         <listitem><para>Complete the installation and restart the Eclipse IDE.</para></listitem>
                         <listitem><para>After the Eclipse IDE restarts and from the Workbench, select
                             "Install New Software" from the "Help" pull-down menu.</para></listitem>
@@ -801,7 +805,7 @@
                             from the "Work with:" pull-down menu.</para></listitem>
                         <listitem><para>Check the box next to <filename>CDT Main Features</filename>.
                             </para></listitem>
-                        <listitem><para>Expand the box next to <filename>CDT Optional Features</filename>
+                        <listitem><para>Expand the box next to "CDT Optional Features"
                             and select <filename>C/C++ Remote Launch</filename> and
                             <filename>Target Communication Framework (incubation)</filename>.</para></listitem>
                         <listitem><para>Complete the installation and restart the Eclipse IDE.</para></listitem>
@@ -816,7 +820,7 @@
                     You can install the Eclipse Yocto Plug-in into the Eclipse IDE
                     one of two ways:  use the Yocto Project's Eclipse Update site to install the pre-built plug-in,
                     or build and install the plug-in from the latest source code.
-                    If you don't want to permanently install the plug-in but just want to try it out
+                    If you do not want to permanently install the plug-in but just want to try it out
                     within the Eclipse environment, you can import the plug-in project from the
                     Yocto Project's Source Repositories.
                 </para>
@@ -889,7 +893,7 @@
                                 as directed.
                                 Be sure to provide the name of the Git branch along with the
                                 Yocto Project release you are using.
-                                Here is an example that uses the <filename>&DISTRO_NAME;</filename> branches:
+                                Here is an example that uses the <filename>&DISTRO_NAME;</filename> branch:
                                 <literallayout class='monospaced'>
      $ ECLIPSE_HOME=/home/scottrif/yocto-eclipse/scripts/eclipse ./build.sh &DISTRO_NAME; &DISTRO_NAME;
                                 </literallayout>
@@ -930,6 +934,9 @@
                         It is important to understand when you import the plug-in you are not installing
                         it into the Eclipse application.
                         Rather, you are importing the project and just using it.
+                    </para>
+
+                    <para>
                         To import the plug-in project, follow these steps:
                         <orderedlist>
                             <listitem><para>Open a shell and create a Git repository with:
@@ -943,16 +950,18 @@
                                 and then click "Next".</para></listitem>
                             <listitem><para>Select the root directory and browse to
                                 <filename>~/yocto-eclipse/plugins</filename>.</para></listitem>
-                            <listitem><para>Three plug-ins exist: "org.yocto.bc.ui", "org.yocto.sdk.ide", and
-                                "org.yocto.sdk.remotetools".
+                            <listitem><para>Three plug-ins exist: 
+                                <filename>org.yocto.bc.ui</filename>,
+                                <filename>org.yocto.sdk.ide</filename>, and
+                                <filename>org.yocto.sdk.remotetools</filename>.
                                 Select and import all of them.</para></listitem>
                         </orderedlist>
                     </para>
 
                     <para>
                         The left navigation pane in the Eclipse application shows the default projects.
-                        Right-click on one of these projects and run it as an Eclipse application.
-                        This brings up a second instance of Eclipse IDE that has the Yocto Plug-in.
+                        Right-click on one of these projects and run it as an Eclipse application
+                        to bring up a second instance of Eclipse IDE that has the Yocto Plug-in.
                     </para>
                 </section>
             </section>
@@ -971,9 +980,10 @@
                 <para>
                     To start, you need to do the following from within the Eclipse IDE:
                     <itemizedlist>
-                        <listitem><para>Choose <filename>Windows -&gt; Preferences</filename> to display
-                            the <filename>Preferences</filename> Dialog</para></listitem>
-                        <listitem><para>Click <filename>Yocto Project ADT</filename></para></listitem>
+                        <listitem><para>Choose "Preferences" from the 
+                            "Windows" menu to display
+                            the Preferences Dialog</para></listitem>
+                        <listitem><para>Click "Yocto Project ADT"</para></listitem>
                     </itemizedlist>
                 </para>
 
@@ -1000,7 +1010,8 @@
                                        <listitem><para><emphasis>
                                             <filename>Build System Derived Toolchain:</filename></emphasis>
                                             Select this mode if the cross-toolchain has been installed and built
-                                            as part of the Build Directory.
+                                            as part of the 
+                                            <link linkend='build-directory'>Build Directory</link>.
                                             When you select <filename>Build system derived toolchain</filename>,
                                             you are using the toolchain bundled
                                             inside the Build Directory.
@@ -1009,33 +1020,35 @@
                                 </para></listitem>
                             <listitem><para><emphasis>Point to the Toolchain:</emphasis>
                                 If you are using a stand-alone pre-built toolchain, you should be pointing to the
-                                <filename>&YOCTO_ADTPATH_DIR;</filename> directory.
-                                This is the location for toolchains installed by the ADT Installer or by hand.
+                                where it is installed.
+                                If you used the ADT Installer script and accepted the default
+                                installation directory, the toolchain will be installed in 
+                                the <filename>&YOCTO_ADTPATH_DIR;</filename> directory.
                                 Sections "<ulink url='&YOCTO_DOCS_ADT_URL;#configuring-and-running-the-adt-installer-script'>Configuring
                                 and Running the ADT Installer Script</ulink>" and
                                 "<ulink url='&YOCTO_DOCS_ADT_URL;#using-an-existing-toolchain-tarball'>Using a Cross-Toolchain Tarball</ulink>"
                                 in the Yocto Project Application Developer's Guide
-                                describe two ways to install a stand-alone cross-toolchain in the
-                                <filename>/opt/poky</filename> directory.
-                                <note>It is possible to install a stand-alone cross-toolchain in a directory
-                                other than <filename>/opt/poky</filename>.
-                                However, doing so is discouraged.</note></para>
+                                describe how to install a stand-alone cross-toolchain.</para>
                                 <para>If you are using a system-derived toolchain, the path you provide
                                 for the <filename>Toolchain Root Location</filename>
-                                field is the Build Directory.
+                                field is the <link linkend='build-directory'>Build Directory</link>.
                                 See the "<ulink url='&YOCTO_DOCS_ADT_URL;#using-the-toolchain-from-within-the-build-tree'>Using
                                 BitBake and the Build Directory</ulink>" section in the Yocto Project Application
-                                Developer's Guide for information on how to install the toolchain into the build
-directory.</para></listitem>
+                                Developer's Guide for information on how to install 
+                                the toolchain into the Build Directory.</para></listitem>
                             <listitem><para><emphasis>Specify the Sysroot Location:</emphasis>
                                 This location is where the root filesystem for the target hardware resides.
-                                If you used the ADT Installer, then the location is
+                                If you used the ADT Installer script and accepted the 
+                                default installation directory, then the location is
                                 <filename>/opt/poky/&lt;release&gt;</filename>.
-                                Additionally, when you use the ADT Installer, the same location is used for
+                                Additionally, when you use the ADT Installer script,
+                                the same location is used for
                                 the QEMU user-space tools and the NFS boot process.</para>
-                                <para>If you used either of the other two methods to install the toolchain, then the
+                                <para>If you used either of the other two methods to 
+                                install the toolchain or did not accept the ADT Installer
+                                script's default installation directory, then the
                                 location of the sysroot filesystem depends on where you separately
-                                extracted and intalled the filesystem.</para>
+                                extracted and installed the filesystem.</para>
                                 <para>For information on how to install the toolchain and on how to extract
                                 and install the sysroot filesystem, see the
                                 "<ulink url='&YOCTO_DOCS_ADT_URL;#installing-the-adt'>Installing the ADT and Toolchains</ulink>" section.
@@ -1086,7 +1099,7 @@ directory.</para></listitem>
                                 </literallayout></para>
                                 <para>
                                 Regardless of the mode, Sysroot is already defined as part of the
-                                Cross Compiler Options configuration in the
+                                Cross-Compiler Options configuration in the
                                 <filename>Sysroot Location:</filename> field.</para></listitem>
                             <listitem><para><emphasis><filename>External HW:</filename></emphasis> Select this option
                                 if you will be using actual hardware.</para></listitem>
@@ -1094,7 +1107,7 @@ directory.</para></listitem>
                     </para>
 
                     <para>
-                        Click the <filename>OK</filename> button to save your plug-in configurations.
+                        Click the "OK" to save your plug-in configurations.
                     </para>
                 </section>
             </section>
@@ -1116,7 +1129,7 @@ directory.</para></listitem>
                 To create a project based on a Yocto template and then display the source code,
                 follow these steps:
                 <orderedlist>
-                    <listitem><para>Select <filename>File -&gt; New -&gt; Project</filename>.</para></listitem>
+                    <listitem><para>Select "Project" from the "File -> New" menu.</para></listitem>
                     <listitem><para>Double click <filename>CC++</filename>.</para></listitem>
                     <listitem><para>Double click <filename>C Project</filename> to create the project.</para></listitem>
                     <listitem><para>Expand <filename>Yocto Project ADT Project</filename>.</para></listitem>
@@ -1124,11 +1137,11 @@ directory.</para></listitem>
                         This is an Autotools-based project based on a Yocto template.</para></listitem>
                     <listitem><para>Put a name in the <filename>Project name:</filename> field.
                         Do not use hyphens as part of the name.</para></listitem>
-                    <listitem><para>Click <filename>Next</filename>.</para></listitem>
+                    <listitem><para>Click "Next".</para></listitem>
                     <listitem><para>Add information in the <filename>Author</filename> and
                         <filename>Copyright notice</filename> fields.</para></listitem>
                     <listitem><para>Be sure the <filename>License</filename> field is correct.</para></listitem>
-                    <listitem><para>Click <filename>Finish</filename>.</para></listitem>
+                    <listitem><para>Click "Finish".</para></listitem>
                     <listitem><para>If the "open perspective" prompt appears, click "Yes" so that you
                         in the C/C++ perspective.</para></listitem>
                     <listitem><para>The left-hand navigation pane shows your project.
@@ -1147,31 +1160,32 @@ directory.</para></listitem>
                 configurations.
                 You can override these settings for a given project by following these steps:
                 <orderedlist>
-                    <listitem><para>Select <filename>Project -&gt; Change Yocto Project Settings</filename>:
-                        This selection brings up the <filename>Yocot Project Settings</filename> Dialog
+                    <listitem><para>Select "Change Yocto Project Settings" from the 
+                        "Project" menu.
+                        This selection brings up the Yocto Project Settings Dialog
                         and allows you to make changes specific to an individual project.
                         </para>
                         <para>By default, the Cross Compiler Options and Target Options for a project
-                        are inherited from settings you provide using the <filename>Preferences</filename>
+                        are inherited from settings you provide using the Preferences
                         Dialog as described earlier
                         in the "<link linkend='configuring-the-eclipse-yocto-plug-in'>Configuring the Eclipse
                         Yocto Plug-in</link>" section.
-                        The <filename>Yocto Project Settings</filename>
-                        Dialog allows you to override those default settings
-                        for a given project.</para></listitem>
+                        The Yocto Project Settings Dialog allows you to override 
+                        those default settings for a given project.</para></listitem>
                     <listitem><para>Make your configurations for the project and click "OK".
                         If you are running the Juno version of Eclipse, you can skip down to the next
                         section where you build the project.
                         If you are not working with Juno, you need to reconfigure the project as
                         described in the next step.</para></listitem>
-                    <listitem><para>Select <filename>Project -&gt; Reconfigure Project</filename>:
+                    <listitem><para>Select "Reconfigure Project" from the 
+                        "Project" menu.
                         This selection reconfigures the project by running
                        <filename>autogen.sh</filename> in the workspace for your project.
                         The script also runs <filename>libtoolize</filename>, <filename>aclocal</filename>,
                         <filename>autoconf</filename>, <filename>autoheader</filename>,
                         <filename>automake --a</filename>, and
                         <filename>./configure</filename>.
-                        Click on the <filename>Console</filename> tab beneath your source code to
+                        Click on the "Console" tab beneath your source code to
                         see the results of reconfiguring your project.</para></listitem>
                 </orderedlist>
             </para>
@@ -1182,19 +1196,21 @@ directory.</para></listitem>
 
             <para>
                 To build the project in Juno, right click on the project in the navigator pane and select
-                <filename>Build Project</filename>.
-                If you are not running Juno, select <filename>Project -&gt; Build Project</filename>.
+                "Build Project".
+                If you are not running Juno, select "Build Project" from the 
+                "Project" menu.
                 The console should update and you can note the cross-compiler you are using.
             </para>
         </section>
 
         <section id='starting-qemu-in-user-space-nfs-mode'>
-            <title>Starting QEMU in User Space NFS Mode</title>
+            <title>Starting QEMU in User-Space NFS Mode</title>
 
             <para>
                 To start the QEMU emulator from within Eclipse, follow these steps:
                 <orderedlist>
-                    <listitem><para>Expose the <filename>Run -&gt; External Tools</filename> menu.
+                    <listitem><para>Expose and select "External Tools" from 
+                        the "Run" menu.
                         Your image should appear as a selectable menu item.
                         </para></listitem>
                     <listitem><para>Select your image from the menu to launch the
@@ -1216,33 +1232,36 @@ directory.</para></listitem>
             <title>Deploying and Debugging the Application</title>
 
             <para>
-                Once the QEMU emulator is running the image, using the Eclipse IDE
-                you can deploy your application and use the emulator to perform debugging.
+                Once the QEMU emulator is running the image, you can deploy 
+                your application using the Eclipse IDE and use then use 
+                the emulator to perform debugging.
                 Follow these steps to deploy the application.
                 <orderedlist>
-                    <listitem><para>Select <filename>Run -&gt; Debug Configurations...</filename></para></listitem>
+                    <listitem><para>Select "Debug Configurations..." from the 
+                    "Run" menu.</para></listitem>
                     <listitem><para>In the left area, expand <filename>C/C++Remote Application</filename>.</para></listitem>
                     <listitem><para>Locate your project and select it to bring up a new
-                        tabbed view in the <filename>Debug Configurations</filename> Dialog.</para></listitem>
+                        tabbed view in the Debug Configurations Dialog.</para></listitem>
                     <listitem><para>Enter the absolute path into which you want to deploy
                         the application.
-                        Use the <filename>Remote Absolute File Path for C/C++Application:</filename> field.
+                        Use the "Remote Absolute File Path for C/C++Application:" field.
                         For example, enter <filename>/usr/bin/&lt;programname&gt;</filename>.</para></listitem>
-                    <listitem><para>Click on the <filename>Debugger</filename> tab to see the cross-tool debugger
+                    <listitem><para>Click on the "Debugger" tab to see the cross-tool debugger
                         you are using.</para></listitem>
-                    <listitem><para>Click on the <filename>Main</filename> tab.</para></listitem>
+                    <listitem><para>Click on the "Main" tab.</para></listitem>
                     <listitem><para>Create a new connection to the QEMU instance
-                        by clicking on <filename>new</filename>.</para></listitem>
+                        by clicking on "new".</para></listitem>
                     <listitem><para>Select <filename>TCF</filename>, which means Target Communication
                         Framework.</para></listitem>
-                    <listitem><para>Click <filename>Next</filename>.</para></listitem>
-                    <listitem><para>Clear out the <filename>host name</filename> field and enter the IP Address
+                    <listitem><para>Click "Next".</para></listitem>
+                    <listitem><para>Clear out the "host name" field and enter the IP Address
                         determined earlier.</para></listitem>
-                    <listitem><para>Click <filename>Finish</filename> to close the
-                        <filename>New Connections</filename> Dialog.</para></listitem>
-                    <listitem><para>Use the drop-down menu now in the <filename>Connection</filename> field and pick
-                        the IP Address you entered.</para></listitem>
-                    <listitem><para>Click <filename>Run</filename> to bring up a login screen
+                    <listitem><para>Click "Finish" to close the
+                        New Connections Dialog.</para></listitem>
+                    <listitem><para>Use the drop-down menu now in the 
+                        "Connection" field and pick the IP Address you entered.
+                         </para></listitem>
+                    <listitem><para>Click "Run" to bring up a login screen
                         and login.</para></listitem>
                     <listitem><para>Accept the debug perspective.</para></listitem>
                 </orderedlist>
@@ -1257,14 +1276,14 @@ directory.</para></listitem>
                 your development experience.
                 These tools are aids in developing and debugging applications and images.
                 You can run these user-space tools from within the Eclipse IDE through the
-                <filename>YoctoTools</filename> menu.
+                "YoctoTools" menu.
             </para>
 
             <para>
                 Once you pick a tool, you need to configure it for the remote target.
                 Every tool needs to have the connection configured.
                 You must select an existing TCF-based RSE connection to the remote target.
-                If one does not exist, click <filename>New</filename> to create one.
+                If one does not exist, click "New" to create one.
             </para>
 
             <para>
@@ -1279,10 +1298,10 @@ directory.</para></listitem>
                         You must compile and install the <filename>oprofile-viewer</filename> from the source code
                         on your local host machine.
                         Furthermore, in order to convert the target's sample format data into a form that the
-                        host can use, you must have <filename>oprofile</filename> version 0.9.4 or
+                        host can use, you must have OProfile version 0.9.4 or
                         greater installed on the host.</para>
                         <para>You can locate both the viewer and server from
-                        <ulink url='&YOCTO_GIT_URL;/cgit/cgit.cgi/oprofileui/'></ulink>
+                        <ulink url='&YOCTO_GIT_URL;/cgit/cgit.cgi/oprofileui/'></ulink>.
                         You can also find more information on setting up and
                         using this tool in the
                         "<ulink url='&YOCTO_DOCS_PROF_URL;#profile-manual-oprofile'>OProfile</ulink>"
@@ -1292,64 +1311,71 @@ directory.</para></listitem>
                     <listitem><para><emphasis><filename>Lttng2.0 ust trace import</filename>:</emphasis>
                         Selecting this tool transfers the remote target's
                         <filename>Lttng</filename> tracing data back to the local host machine
-                        and uses the <filename>Lttng</filename> Eclipse plug-in to graphically
+                        and uses the Lttng Eclipse plug-in to graphically
                         display the output.
-                        For information on how to use <filename>Lttng</filename> to trace an application,
-                        see <ulink url='http://lttng.org/documentation'></ulink>.
+                        For information on how to use Lttng to trace an application,
+                        see <ulink url='http://lttng.org/documentation'></ulink>
+                        and the 
+                        "<ulink url='&YOCTO_DOCS_PROF_URL;#lttng-linux-trace-toolkit-next-generation'>LTTng (Linux Trace Toolkit, next generation)</ulink>" 
+                        section, which is in the Yocto Project Profiling and Tracing Manual.
                         <note>Do not use <filename>Lttng-user space (legacy)</filename> tool.
                             This tool no longer has any upstream support.</note>
                         </para>
                         <para>Before you use the <filename>Lttng2.0 ust trace import</filename> tool,
-                        you need to setup the <filename>Lttng</filename> Eclipse plug-in and create a
-                        <filename>Tracing</filename> project.
+                        you need to setup the Lttng Eclipse plug-in and create a
+                        Tracing project.
                         Do the following:
                         <orderedlist>
-                            <listitem><para>Select <filename>Window -> Open Perspective -> Other</filename>
-                                and then select <filename>Tracing</filename>.</para></listitem>
-                            <listitem><para>Click <filename>OK</filename> to change the Eclipse perspective
-                                into the <filename>Tracing</filename> perspective.</para></listitem>
-                            <listitem><para>Create a new <filename>Tracing</filename> project by selecting
-                                <filename>File -> New -> Project</filename>.</para></listitem>
-                            <listitem><para>Choose <filename>Tracing -> Tracing Project</filename>.
+                            <listitem><para>Select "Open Perspective" from the 
+                                "Window" menu and then select "Tracing".</para></listitem>
+                            <listitem><para>Click "OK" to change the Eclipse perspective
+                                into the Tracing perspective.</para></listitem>
+                            <listitem><para>Create a new Tracing project by selecting
+                                "Project" from the "File -> New" menu.</para></listitem>
+                            <listitem><para>Choose "Tracing Project" from the 
+                                "Tracing" menu.
                                 </para></listitem>
                             <listitem><para>Generate your tracing data on the remote target.
                                 </para></listitem>
-                            <listitem><para>Click
-                                <filename>Yocto Project Tools -> Lttng2.0 ust trace import</filename>
-                                to start the data import process.</para></listitem>
+                            <listitem><para>Select "Lttng2.0 ust trace import" from 
+                                the "Yocto Project Tools" menu to
+                                start the data import process.</para></listitem>
                             <listitem><para>Specify your remote connection name.</para></listitem>
                             <listitem><para>For the Ust directory path, specify the location of
                                 your remote tracing data.
                                 Make sure the location ends with <filename>ust</filename> (e.g.
-                                <filename>/usr/mysession/ust</filename>.</para></listitem>
-                            <listitem><para>Click <filename>OK</filename> to complete the import process.
+                                <filename>/usr/mysession/ust</filename>).</para></listitem>
+                            <listitem><para>Click "OK" to complete the import process.
                                 The data is now in the local tracing project you created.</para></listitem>
                             <listitem><para>Right click on the data and then use the menu to
-                                <filename>Select Trace Type... -> Common Trace Format -> Generic CTF Trace</filename>
-                                to map the tracing type.</para></listitem>
-                            <listitem><para>Right click the mouse and select <filename>Open</filename>
-                                to bring up the Eclipse <filename>Lttng</filename> Trace Viewer so you
+                                Select "Generic CTF Trace" from the 
+                                "Trace Type... -> Common Trace Format" menu to map 
+                                the tracing type.</para></listitem>
+                            <listitem><para>Right click the mouse and select "Open"
+                                to bring up the Eclipse Lttng Trace Viewer so you
                                 view the tracing data.</para></listitem>
                         </orderedlist></para></listitem>
                     <listitem><para><emphasis><filename>PowerTOP</filename>:</emphasis> Selecting this tool runs
-                        <filename>powertop</filename> on the remote target machine and displays the results in a
-                        new view called <filename>powertop</filename>.</para>
-                        <para><filename>Time to gather data(sec):</filename> is the time passed in seconds before data
+                        PowerTOP on the remote target machine and displays the results in a
+                        new view called PowerTOP.</para>
+                        <para>The "Time to gather data(sec):" field is the time passed in seconds before data
                         is gathered from the remote target for analysis.</para>
-                        <para><filename>show pids in wakeups list:</filename> corresponds to the
+                        <para>The "show pids in wakeups list:" field corresponds to the
                         <filename>-p</filename> argument
-                        passed to <filename>powertop</filename>.</para></listitem>
-                        <listitem><para><emphasis><filename>LatencyTOP and Perf</filename>:</emphasis>
-                        <filename>latencytop</filename> identifies system latency, while
-                        <filename>perf</filename> monitors the system's
-                        performance counter registers.
+                        passed to <filename>PowerTOP</filename>.</para></listitem>
+                    <listitem><para><emphasis><filename>LatencyTOP and Perf</filename>:</emphasis>
+                        LatencyTOP identifies system latency, while
+                        Perf monitors the system's performance counter registers.
                         Selecting either of these tools causes an RSE terminal view to appear
                         from which you can run the tools.
                         Both tools refresh the entire screen to display results while they run.
-                        For more informationi on setting up and using <filename>perf</filename>,
+                        For more information on setting up and using <filename>perf</filename>,
                         see the
                         "<ulink url='&YOCTO_DOCS_PROF_URL;#profile-manual-perf'>perf</ulink>"
                         section in the Yocto Project Profiling and Tracing Manual.
+                        For information on LatencyTOP, see the
+                        <ulink url='https://latencytop.org/'>LatencyTOP</ulink>
+                        website.
                         </para></listitem>
                 </itemizedlist>
             </para>
@@ -1359,9 +1385,9 @@ directory.</para></listitem>
             <title>Customizing an Image Using a BitBake Commander Project and Hob</title>
 
             <para>
-                Within Eclipse, you can create a Yocto BitBake Commander project,
-                edit the metadata, and then use the
-                <ulink url='&YOCTO_HOME_URL;/projects/hob'>Hob</ulink> to build a customized
+                Within the Eclipse IDE, you can create a Yocto BitBake Commander project,
+                edit the <link linkend='metadata'>Metadata</link>, and then use 
+                <ulink url='&YOCTO_HOME_URL;/tools-resources/projects/hob'>Hob</ulink> to build a customized
                 image all within one IDE.
             </para>
 
@@ -1371,31 +1397,35 @@ directory.</para></listitem>
                 <para>
                     To create a Yocto BitBake Commander project, follow these steps:
                     <orderedlist>
-                        <listitem><para>Select <filename>Window -> Open Perspective -> Other</filename>
-                            and then choose <filename>Bitbake Commander</filename>.</para></listitem>
-                        <listitem><para>Click <filename>OK</filename> to change the Eclipse perspective into the
-                            Bitbake Commander perspective.</para></listitem>
-                        <listitem><para>Select <filename>File -> New -> Project</filename> to create a new Yocto
+                        <listitem><para>Select "Other" from the 
+                            "Window -> Open Perspective" menu 
+                            and then choose "Bitbake Commander".</para></listitem>
+                        <listitem><para>Click "OK" to change the perspective to
+                            Bitbake Commander.</para></listitem>
+                        <listitem><para>Select "Project" from the "File -> New"
+                            menu to create a new Yocto
                             Bitbake Commander project.</para></listitem>
-                        <listitem><para>Choose <filename>Yocto Project Bitbake Commander -> New Yocto Project</filename>
-                            and click <filename>Next</filename>.</para></listitem>
+                        <listitem><para>Choose "New Yocto Project" from the 
+                            "Yocto Project Bitbake Commander" menu and click 
+                            "Next".</para></listitem>
                         <listitem><para>Enter the Project Name and choose the Project Location.
-                            The Yocto project's metadata files will be put under the directory
+                            The Yocto project's Metadata files will be put under the directory
                             <filename>&lt;project_location&gt;/&lt;project_name&gt;</filename>.
                             If that directory does not exist, you need to check
                             the "Clone from Yocto Git Repository" box, which would execute a
-                            <filename>git clone</filename> command to get the project's metadata files.
+                            <filename>git clone</filename> command to get the project's Metadata files.
                             </para></listitem>
                         <listitem><para>Select <filename>Finish</filename> to create the project.</para></listitem>
                     </orderedlist>
                 </para>
             </section>
 
-            <section id='editing-the-metadata-files'>
-                <title>Editing the Metadata Files</title>
+            <section id='editing-the-metadata'>
+                <title>Editing the Metadata</title>
 
                 <para>
-                    After you create the Yocto Bitbake Commander project, you can modify the metadata files
+                    After you create the Yocto Bitbake Commander project, you can modify the 
+                    <link linkend='metadata'>Metadata</link> files
                     by opening them in the project.
                     When editing recipe files (<filename>.bb</filename> files), you can view BitBake
                     variable values and information by hovering the mouse pointer over the variable name and
@@ -1403,10 +1433,11 @@ directory.</para></listitem>
                 </para>
 
                 <para>
-                    To edit the metadata, follow these steps:
+                    To edit the Metadata, follow these steps:
                     <orderedlist>
                         <listitem><para>Select your Yocto Bitbake Commander project.</para></listitem>
-                        <listitem><para>Select <filename>File -> New -> Yocto BitBake Commander -> BitBake Recipe</filename>
+                        <listitem><para>Select "BitBake Recipe" from the 
+                        "File -> New -> Yocto BitBake Commander" menu 
                             to open a new recipe wizard.</para></listitem>
                         <listitem><para>Point to your source by filling in the "SRC_URL" field.
                             For example, you can add a recipe to your
@@ -1419,24 +1450,28 @@ directory.</para></listitem>
                             license checksum values and to auto-generate the recipe filename.</para></listitem>
                         <listitem><para>Fill in the "Description" field.</para></listitem>
                         <listitem><para>Be sure values for all required fields exist.</para></listitem>
-                        <listitem><para>Click <filename>Finish</filename>.</para></listitem>
+                        <listitem><para>Click "Finish".</para></listitem>
                     </orderedlist>
                 </para>
             </section>
 
-            <section id='buiding-and-customizing-the-image'>
-                <title>Building and Customizing the Image</title>
+            <section id='biding-and-customizing-the-image-using-hob'>
+                <title>Building and Customizing the Image Using Hob</title>
 
                 <para>
-                    To build and customize the image in Eclipse, follow these steps:
+                    To build and customize the image using Hob from within the 
+                    Eclipse IDE, follow these steps:
                     <orderedlist>
                         <listitem><para>Select your Yocto Bitbake Commander project.</para></listitem>
-                        <listitem><para>Select <filename>Project -> Launch HOB</filename>.</para></listitem>
-                        <listitem><para>Enter the Build Directory where you want to put your final images.</para></listitem>
-                        <listitem><para>Click <filename>OK</filename> to launch Hob.</para></listitem>
+                        <listitem><para>Select "Launch Hob" from the "Project"
+                            menu.</para></listitem>
+                        <listitem><para>Enter the 
+                            <link linkend='build-directory'>Build Directory</link>
+                            where you want to put your final images.</para></listitem>
+                        <listitem><para>Click "OK" to launch Hob.</para></listitem>
                         <listitem><para>Use Hob to customize and build your own images.
                             For information on Hob, see the
-                            <ulink url='&YOCTO_HOME_URL;/projects/hob'>Hob Project Page</ulink> on the
+                            <ulink url='&YOCTO_HOME_URL;/tools-resources/projects/hob'>Hob Project Page</ulink> on the
                             Yocto Project website.</para></listitem>
                     </orderedlist>
                 </para>
@@ -1445,7 +1480,7 @@ directory.</para></listitem>
     </section>
 
     <section id='workflow-using-stand-alone-cross-development-toolchains'>
-        <title>Workflow Using Stand-alone Cross-development Toolchains</title>
+        <title>Workflow Using Stand-Alone Cross-Development Toolchains</title>
 
         <para>
             If you want to develop an application without prior installation
@@ -1473,7 +1508,8 @@ directory.</para></listitem>
                     support development using actual hardware.
                     For example, the area might contain
                     <filename>.hddimg</filename> files that combine the
-                    kernel image with the filesystem, boot loaders, etc.
+                    kernel image with the filesystem, boot loaders, and 
+                    so forth.
                     Be sure to get the files you need for your particular
                     development process.</para>
                     <para>If you are going to develop your application and
@@ -1660,7 +1696,7 @@ directory.</para></listitem>
      $ bitbake -c compile -f &lt;name_of_package&gt;
                     </literallayout>
                     The <filename>-f</filename> or <filename>--force</filename>
-                    option forces re-execution of the specified task.
+                    option forces the specified task to execute.
                     If you find problems with your code, you can just keep editing and
                     re-testing iteratively until things work as expected.
                     <note>All the modifications you make to the temporary source code
@@ -1677,7 +1713,7 @@ directory.</para></listitem>
                     <literallayout class='monospaced'>
      $ quilt refresh
                     </literallayout>
-                    At this point the <filename>my_changes.patch</filename> file has all your edits made
+                    At this point, the <filename>my_changes.patch</filename> file has all your edits made
                     to the <filename>file1.c</filename>, <filename>file2.c</filename>, and
                     <filename>file3.c</filename> files.</para>
                     <para>You can find the resulting patch file in the <filename>patches/</filename>
@@ -1757,7 +1793,7 @@ directory.</para></listitem>
      $ bitbake -c compile -f &lt;name_of_package&gt;
                     </literallayout>
                     The <filename>-f</filename> or <filename>--force</filename>
-                    option forces re-execution of the specified task.
+                    option forces the specified task to execute.
                     If you find problems with your code, you can just keep editing and
                     re-testing iteratively until things work as expected.
                     <note>All the modifications you make to the temporary source code
@@ -1834,17 +1870,19 @@ directory.</para></listitem>
     <title>Image Development Using Hob</title>
 
     <para>
-        The <ulink url='&YOCTO_HOME_URL;/projects/hob'>Hob</ulink> is a graphical user interface for the
+        The <ulink url='&YOCTO_HOME_URL;/tools-resources/projects/hob'>Hob</ulink> is a graphical user interface for the
         OpenEmbedded build system, which is based on BitBake.
         You can use the Hob to build custom operating system images within the Yocto Project build environment.
-        Hob simply provides a friendly interface over the build system used during system development.
+        Hob simply provides a friendly interface over the build system used during development.
         In other words, building images with the Hob lets you take care of common build tasks more easily.
     </para>
 
     <para>
         For a better understanding of Hob, see the project page at
-        <ulink url='&YOCTO_HOME_URL;/projects/hob'></ulink> on the Yocto Project website.
-        The page has a short introductory training video on Hob.
+        <ulink url='&YOCTO_HOME_URL;/tools-resources/projects/hob'></ulink> 
+        on the Yocto Project website.
+        If you follow the "Documentation" link from the Hob page, you will 
+        find a short introductory training video on Hob.
         The following lists some features of Hob:
         <itemizedlist>
             <listitem><para>You can setup and run Hob using these commands:
@@ -1855,9 +1893,11 @@ directory.</para></listitem>
             <listitem><para>You can set the
                 <ulink url='&YOCTO_DOCS_REF_URL;#var-MACHINE'><filename>MACHINE</filename></ulink>
                 for which you are building the image.</para></listitem>
-            <listitem><para>You can modify various policy settings such as the package format used to build with,
-                the parallelism BitBake uses, whether or not to build an external toolchain, and which host
-                to build against.</para></listitem>
+            <listitem><para>You can modify various policy settings such as the 
+                package format with which to build,
+                the parallelism BitBake uses, whether or not to build an 
+                external toolchain, and which host to build against.
+                </para></listitem>
             <listitem><para>You can manage
                 <link linkend='understanding-and-creating-layers'>layers</link>.</para></listitem>
             <listitem><para>You can select a base image and then add extra packages for your custom build.
@@ -1895,7 +1935,7 @@ directory.</para></listitem>
     <para>
         This command spawns a terminal with a shell prompt within the OpenEmbedded build environment.
         The <ulink url='&YOCTO_DOCS_REF_URL;#var-OE_TERMINAL'><filename>OE_TERMINAL</filename></ulink>
-        controls what type of shell is opened.
+        variable controls what type of shell is opened.
     </para>
 
     <para>
@@ -1935,7 +1975,7 @@ directory.</para></listitem>
 
         <para>
             It is also worth noting that <filename>devshell</filename> still works over
-            X11 forwarding and similar situations
+            X11 forwarding and similar situations.
         </para>
     </note>
 </section>

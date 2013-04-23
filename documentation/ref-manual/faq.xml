@@ -173,7 +173,8 @@
                 (<filename>.deb</filename>), or RPM.
                 You can then upgrade the packages using the package tools on 
                 the device, much like on a desktop distribution such as 
-                Ubuntu or Fedora.
+                Ubuntu or Fedora. 
+                However, package management on the target is entirely optional.
             </para>
         </answer>
     </qandaentry>
@@ -364,7 +365,7 @@
                 data that causes lots of network, disk and CPU activity and 
                 is sensitive to even single-bit failures in any of these areas.
                 True random failures have always been traced back to hardware 
-                or visualization issues.
+                or virtualization issues.
             </para>
         </answer>
     </qandaentry>
@@ -406,7 +407,7 @@
         <answer>
             <para>
                 You need to create a form factor file as described in the
-                "<ulink url='&YOCTO_DOCS_BSP_URL;#bsp-filelayout-misc-recipes'>Miscellaneous Recipe Files</ulink>"
+                "<ulink url='&YOCTO_DOCS_BSP_URL;#bsp-filelayout-misc-recipes'>Miscellaneous BSP-Specific Recipe Files</ulink>"
                 section in the Yocto Project Board Support Packages (BSP)
                 Developer's Guide.
                 Set the <filename>HAVE_TOUCHSCREEN</filename> variable equal to 
@@ -430,7 +431,7 @@
                 automatically bring up network interfaces.
                 Therefore, you will need to add a BSP-specific netbase that includes an interfaces
                 file.
-                See the "<ulink url='&YOCTO_DOCS_BSP_URL;#bsp-filelayout-misc-recipes'>Miscellaneous Recipe Files</ulink>"
+                See the "<ulink url='&YOCTO_DOCS_BSP_URL;#bsp-filelayout-misc-recipes'>Miscellaneous BSP-Specific Recipe Files</ulink>"
                 section in the Yocto Project Board Support Packages (BSP)
                 Developer's Guide for information on creating these types of 
                 miscellaneous recipe files.

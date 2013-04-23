@@ -14,8 +14,8 @@
             <ulink url='&YOCTO_GIT_URL;/cgit.cgi'>&YOCTO_GIT_URL;/cgit.cgi</ulink>
             and can be shipped as part of a Yocto Project release.
             The team creates these repositories by
-            compiling and executing the set of feature descriptions for every BSP/feature
-            in the product.
+            compiling and executing the set of feature descriptions for every BSP
+            and feature in the product.
             Those feature descriptions list all necessary patches,
             configuration, branching, tagging and feature divisions found in a kernel.
             Thus, the Yocto Project kernel repository (or tree) is built.
@@ -59,8 +59,6 @@
             particular kernel branch.
             Instead, you should use Git directly to discover the changes in a branch.
             Using Git is an efficient and flexible way to inspect changes to the kernel.
-            For examples showing how to use Git to inspect kernel commits, see the following sections
-            in this chapter.
             <note>
                 Ground up reconstruction of the complete kernel tree is an action only taken by the
                 Yocto Project team during an active development cycle.
@@ -210,7 +208,9 @@
             the build tree directory.
             The files include the final <filename>.config</filename> file, all the <filename>.o</filename>
             files, the <filename>.a</filename> files, and so forth.
-            Since each machine or BSP has its own separate build directory in its own separate branch
+            Since each machine or BSP has its own separate 
+            <ulink url='&YOCTO_DOCS_DEV_URL;#build-directory'>Build Directory</ulink>
+            in its own separate branch
             of the Git repository, you can easily switch between different builds.
         </para>
     </section>

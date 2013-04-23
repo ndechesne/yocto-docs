@@ -34,7 +34,7 @@
             <itemizedlist>
                 <listitem><para>"<ulink url='&YOCTO_DOCS_DEV_URL;#understanding-and-creating-layers'>Understanding and Creating Layers</ulink>" for
                     general information on layers and how to create layers.</para></listitem>
-                <listitem><para>"<ulink url='&YOCTO_DOCS_DEV_URL;#get-your-layer-setup-for-the-build'>Get Your Layer Setup for the Build</ulink>" for
+                <listitem><para>"<ulink url='&YOCTO_DOCS_DEV_URL;#set-up-your-layer-for-the-build'>Set Up Your Layer for the Build</ulink>" for
                     specific instructions on setting up a layer for kernel
                     development.</para></listitem>
             </itemizedlist>
@@ -69,7 +69,7 @@
             See the "<link linkend='creating-and-preparing-a-layer'>Creating and Preparing a Layer</link>"
             section for some general resources.
             You can also see the
-            "<ulink url='&YOCTO_DOCS_DEV_URL;#get-your-layer-setup-for-the-build'>Get Your Layer Setup for the Build</ulink>" section
+            "<ulink url='&YOCTO_DOCS_DEV_URL;#set-up-your-layer-for-the-build'>Set Up Your Layer for the Build</ulink>" section
             of the Yocto Project Development Manual for a detailed
             example.
         </para>
@@ -149,19 +149,31 @@
                 You can make wholesale or incremental changes to the Linux
                 kernel <filename>.config</filename> file by including a
                 <filename>defconfig</filename> or by specifying
-                configuration fragments in the <filename>SRC_URI</filename>.
+                configuration fragments in the 
+                <ulink url='&YOCTO_DOCS_REF_URL;#var-SRC_URI'><filename>SRC_URI</filename></ulink>.
             </para>
 
             <para>
                 If you have a complete Linux kernel <filename>.config</filename>
-                file you want to use, copy it to the
-                <filename>${</filename><ulink url='&YOCTO_DOCS_REF_URL;#var-FILES'><filename>FILES</filename></ulink><filename>}</filename>
-                directory within your layer and name it "defconfig".
-                Then, add the following line to your linux-yocto
+                file you want to use, copy it to a directory named 
+                <filename>files</filename>, which must be in 
+                your layer's <filename>recipes-kernel/linux</filename> 
+                directory, and name the file "defconfig".
+                Then, add the following lines to your linux-yocto
                 <filename>.bbappend</filename> file in your layer:
                 <literallayout class='monospaced'>
+     FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
      SRC_URI += "file://defconfig"
                 </literallayout>
+                The 
+                <filename>SRC_URI</filename> tells the build system how to 
+                search for the file, while the 
+                <ulink url='&YOCTO_DOCS_REF_URL;#var-FILESEXTRAPATHS'><filename>FILESEXTRAPATHS</filename></ulink>
+                extends the 
+                <ulink url='&YOCTO_DOCS_REF_URL;#var-FILESPATH'><filename>FILESPATH</filename></ulink>
+                variable (search directories) to include the 
+                <filename>files</filename> directory you created for the
+                configuration changes.
             </para>
 
             <para>
@@ -170,7 +182,7 @@
                 configuration fragment.
                 For example, if you want to add support for a basic serial
                 console, create a file named <filename>8250.cfg</filename> in the
-                <filename>${FILES}</filename> directory with the following
+                <filename>files</filename> directory with the following
                 content (without indentation):
                 <literallayout class='monospaced'>
      CONFIG_SERIAL_8250=y
@@ -181,10 +193,11 @@
      CONFIG_SERIAL_CORE=y
      CONFIG_SERIAL_CORE_CONSOLE=y
                 </literallayout>
-                Next, include this configuration fragment in a
-                <filename>SRC_URI</filename> statement in your
+                Next, include this configuration fragment and extend the 
+                <filename>FILESPATH</filename> variable in your 
                 <filename>.bbappend</filename> file:
                 <literallayout class='monospaced'>
+     FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
      SRC_URI += "file://8250.cfg"
                 </literallayout>
                 The next time you run BitBake to build the Linux kernel, BitBake
@@ -371,7 +384,7 @@
 
      WARNING: There were 2 hardware options requested that do not
               have a corresponding value present in the final ".config" file.
-              This probably means you aren't getting the config you wanted.
+              This probably means you are not't getting the config you wanted.
               The full list can be found in your kernel src dir at:
               meta/cfg/standard/mybsp/mismatch.cfg
                 </literallayout>
@@ -725,7 +738,7 @@
             "What changes have been applied to this tree?"
             Rather than using "grep" across directories to see what has
             changed, you can use Git to inspect or search the kernel tree.
-            Using Git is an efficent way to see what has changed in the tree.
+            Using Git is an efficient way to see what has changed in the tree.
         </para>
 
         <section id='what-changed-in-a-kernel'>
@@ -766,7 +779,7 @@
             </para>
 
             <para>
-                To see short, oneline summaries of changes use the
+                To see short, one line summaries of changes use the
                 <filename>git log</filename> command:
                 <literallayout class='monospaced'>
      $ git log --oneline origin/standard/base..origin/standard/emenlow
