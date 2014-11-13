@@ -19,6 +19,9 @@ poky-autobuilder*
 *.orig
 *.rej
 *~
+documentation/toaster-manual/toaster-manual.html
+documentation/toaster-manual/toaster-manual.pdf
+documentation/toaster-manual/toaster-manual.tgz
 documentation/kernel-dev/kernel-dev.html
 documentation/kernel-dev/kernel-dev.pdf
 documentation/kernel-dev/kernel-dev.tgz
