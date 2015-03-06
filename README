@@ -1,0 +1,15 @@
+Yocto Project Documentation
+===========================
+
+This repository contains documentation materials for a variety of the Yocto
+Project components. In particular see the README under documentation/.
+
+An online version of the documentation can be found at:
+    http://yoctoproject.org/documentation
+    
+Where to Send Patches
+=====================
+
+Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
+Mailing list: yocto@yoctoproject.org
+Please cc: Scott Rifenbark <scott.m.rifenbark@intel.com> on changes.
