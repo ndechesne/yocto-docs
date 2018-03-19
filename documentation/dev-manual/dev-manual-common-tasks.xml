@@ -8835,11 +8835,13 @@ Some notes from Cal:
                 During a build, BitBake always transforms a recipe into one or
                 more packages.
                 For example, BitBake takes the <filename>bash</filename> recipe
-                and currently produces the <filename>bash-dbg</filename>,
-                <filename>bash-staticdev</filename>,
-                <filename>bash-dev</filename>, <filename>bash-doc</filename>,
-                <filename>bash-locale</filename>, and
-                <filename>bash</filename> packages.
+                and produces a number of packages (e.g.
+                <filename>bash</filename>, <filename>bash-bashbug</filename>,
+                <filename>bash-completion</filename>,
+                <filename>bash-completion-dbg</filename>,
+                <filename>bash-completion-dev</filename>,
+                <filename>bash-completion-extra</filename>,
+                <filename>bash-dbg</filename>, and so forth).
                 Not all generated packages are included in an image.
             </para>
 
@@ -8883,7 +8885,7 @@ Some notes from Cal:
 
             <para>
                 In order to use runtime package management, you
-                need a host/server machine that serves up the pre-compiled
+                need a host or server machine that serves up the pre-compiled
                 packages plus the required metadata.
                 You also need package manipulation tools on the target.
                 The build machine is a likely candidate to act as the server.
@@ -8891,6 +8893,10 @@ Some notes from Cal:
                 package server.
                 The build machine could push its artifacts to another machine
                 that acts as the server (e.g. Internet-facing).
+                In fact, doing so is advantageous for a production
+                environment as getting the packages away from the
+                development system's build directory prevents accidental
+                overwrites.
             </para>
 
             <para>
@@ -8900,11 +8906,11 @@ Some notes from Cal:
                 out into a couple of different package groupings based on
                 criteria such as the target's CPU architecture, the target
                 board, or the C library used on the target.
-                For example, a build targeting the <filename>qemuarm</filename>
+                For example, a build targeting the <filename>qemux86</filename>
                 device produces the following three package databases:
-                <filename>all</filename>, <filename>armv5te</filename>, and
-                <filename>qemuarm</filename>.
-                If you wanted your <filename>qemuarm</filename> device to be
+                <filename>noarch</filename>, <filename>i586</filename>, and
+                <filename>qemux86</filename>.
+                If you wanted your <filename>qemux86</filename> device to be
                 aware of all the packages that were available to it,
                 you would need to point it to each of these databases
                 individually.
@@ -8950,10 +8956,10 @@ Some notes from Cal:
      PACKAGE_CLASSES ?= “package_<replaceable>packageformat</replaceable>”
                             </literallayout>
                             where <replaceable>packageformat</replaceable>
-                            can be "ipk", "rpm", and "deb", which are the
+                            can be "ipk", "rpm", "deb", or "tar" which are the
                             supported package formats.
                             <note>
-                                Because the Yocto Project supports three
+                                Because the Yocto Project supports four
                                 different package formats, you can set the
                                 variable with more than one argument.
                                 However, the OpenEmbedded build system only
@@ -8972,12 +8978,12 @@ Some notes from Cal:
                     "package-management" in the
                     <ulink url='&YOCTO_DOCS_REF_URL;#var-IMAGE_FEATURES'><filename>IMAGE_FEATURES</filename></ulink>
                     variable.
-                    Including "package-management" in this
-                    configuration variable ensures that when the image
-                    is assembled for your target, the image includes
-                    the currently-known package databases as well as
-                    the target-specific tools required for runtime
-                    package management to be performed on the target.
+                    Including "package-management" in this configuration
+                    variable ensures that when the image is assembled for your
+                    target, the image includes the currently-known package
+                    databases as well as the target-specific tools required
+                    for runtime package management to be performed on the
+                    target.
                     However, this is not strictly necessary.
                     You could start your image off without any databases
                     but only include the required on-target package
@@ -8991,21 +8997,26 @@ Some notes from Cal:
 
                 <para>
                     Whenever you perform any sort of build step that can
-                    potentially generate a package or modify an existing
+                    potentially generate a package or modify   existing
                     package, it is always a good idea to re-generate the
-                    package index with:
+                    package index after the build by using the following
+                    command:
                     <literallayout class='monospaced'>
     $ bitbake package-index
                     </literallayout>
-                    Realize that it is not sufficient to simply do the
-                    following:
+                    It might be tempting to build the package and the
+                    package index at the same time with a command such as
+                    the following:
                     <literallayout class='monospaced'>
     $ bitbake <replaceable>some-package</replaceable> package-index
                     </literallayout>
-                    The reason for this restriction is because BitBake does not
-                    properly schedule the <filename>package-index</filename>
-                    target fully after any other target has completed.
-                    Thus, be sure to run the package update step separately.
+                    Do not do this as BitBake does not schedule the package
+                    index for after the completion of the package you are
+                    building.
+                    Consequently, you cannot be sure of the package index
+                    including information for the package you just built.
+                    Thus, be sure to run the package update step separately
+                    after building any packages.
                 </para>
 
                 <para>
@@ -9030,8 +9041,8 @@ Some notes from Cal:
                     For example, if
                     <filename>${</filename><ulink url='&YOCTO_DOCS_REF_URL;#var-TMPDIR'><filename>TMPDIR</filename></ulink><filename>}</filename>
                     is <filename>tmp</filename> and your selected package type
-                    is IPK, then your IPK packages are available in
-                    <filename>tmp/deploy/ipk</filename>.
+                    is RPM, then your RPM packages are available in
+                    <filename>tmp/deploy/rpm</filename>.
                 </para>
             </section>
 
@@ -9086,17 +9097,39 @@ Some notes from Cal:
                     <title>Using RPM</title>
 
                     <para>
-                        The <filename>dnf</filename> application performs
-                        runtime package management of RPM packages.
-                        You must perform an initial setup for
-                        <filename>dnf</filename> on the target machine
-                        if the
-                        <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_ARCHS'><filename>PACKAGE_FEED_ARCHS</filename></ulink>,
-                        <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_BASE_PATHS'><filename>PACKAGE_FEED_BASE_PATHS</filename></ulink>,
-                        and
-                        <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_URIS'><filename>PACKAGE_FEED_URIS</filename></ulink>
-                        variables have not been set or the target image was
-                        built before the variables were set.
+                        The
+                        <ulink url='https://en.wikipedia.org/wiki/DNF_(software)'>Dandified Packaging Tool</ulink>
+                        (DNF) performs runtime package management of RPM
+                        packages.
+                        In order to use DNF for runtime package management,
+                        you must perform an initial setup on the target
+                        machine for cases where the
+                        <filename>PACKAGE_FEED_*</filename> variables were not
+                        set as part of the image that is running on the
+                        target.
+                        This means if you built your image and did not not use
+                        these variables as part of the build and your image is
+                        now running on the target, you need to perform the
+                        steps in this section if you want to use runtime
+                        package management.
+                        <note>
+                            For information on the
+                            <filename>PACKAGE_FEED_*</filename> variables, see
+                            <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_ARCHS'><filename>PACKAGE_FEED_ARCHS</filename></ulink>,
+                            <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_BASE_PATHS'><filename>PACKAGE_FEED_BASE_PATHS</filename></ulink>,
+                            and
+                            <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_URIS'><filename>PACKAGE_FEED_URIS</filename></ulink>
+                            in the Yocto Project Reference Manual variables
+                            glossary.
+                        </note>
+                    </para>
+
+                    <para>
+                        On the target, you must inform DNF that package
+                        databases are available.
+                        You do this by creating a file named
+                        <filename>/etc/yum.repos.d/oe-packages.repo</filename>
+                        and defining the <filename>oe-packages</filename>.
                     </para>
 
                     <para>
@@ -9105,21 +9138,66 @@ Some notes from Cal:
                         <filename>all</filename>, <filename>i586</filename>,
                         and <filename>qemux86</filename> from a server named
                         <filename>my.server</filename>.
-                        You must inform <filename>dnf</filename> of the
-                        availability of these databases by creating a
-                        <filename>/etc/yum.repos.d/oe-packages.repo</filename>
-                        file with the following content:
-                        <literallayout class='monospaced'>
+                        Furthermore, the example assumes a typical production
+                        scenario where the the developer runs a web server that
+                        takes the index and the packages directly from a
+                        location outside of the build system's
+                        <filename>deploy</filename> directory.
+                        Realize that it is possible to run a web server
+                        that gets the databases from
+                        <filename>deploy</filename> directory where the image
+                        was built.
+                    </para>
+
+                    <para>
+                        When telling DNF where to look for the package
+                        databases, you must declare individual locations
+                        per architecture or a single location used for all
+                        architectures.
+                        You cannot do both:
+                        <itemizedlist>
+                            <listitem><para>
+                                <emphasis>Create an Explicit List of Architectures:</emphasis>
+                                Define individual base URLs to identify where
+                                each package database is located:
+                                <literallayout class='monospaced'>
      [oe-packages]
-     baseurl=http://my.server http://my.server/rpm/qemux86 http://my.server/rpm/all
-                        </literallayout>
-                        From the target machine, fetch the repository:
+     baseurl=http://my.server/rpm/i586 http://my.server/rpm/qemux86 http://my.server/rpm/all
+                                </literallayout>
+                                This example informs DNF about individual
+                                package databases for all three architectures.
+                                Using individual locations per architecture
+                                involves using the
+                                <ulink url='&YOCTO_DOCS_REF_URL;#var-PACKAGE_FEED_ARCHS'><filename>PACKAGE_FEED_ARCHS</filename></ulink>
+                                variable.
+                                </para></listitem>
+                            <listitem><para>
+                                <emphasis>Create a Single (Full) Package Index:</emphasis>
+                                Define a single base URL that identifies where
+                                a full package database is located:
+                                <literallayout class='monospaced'>
+     [oe-packages]
+     baseurl=http://my.server/rpm
+                                </literallayout>
+                                This example informs DNF about a single package
+                                database that contains all the package index
+                                information for all supported architectures.
+                                Using a single location for all architectures
+                                results when you do not use the
+                                <filename>PACKAGE_FEED_ARCHS</filename>
+                                variable.
+                                </para></listitem>
+                        </itemizedlist>
+                    </para>
+
+                    <para>
+                        Once you have informed DNF where to find the package
+                        databases, you need to fetch them:
                         <literallayout class='monospaced'>
      # dnf makecache
                         </literallayout>
-                        After everything is set up, <filename>dnf</filename>
-                        is able to find, install, and upgrade packages from
-                        the specified repository.
+                        DNF is now able to find, install, and upgrade packages
+                        from the specified repository or repositories.
                         <note>
                             See the
                             <ulink url='http://dnf.readthedocs.io/en/latest/'>DNF documentation</ulink>
