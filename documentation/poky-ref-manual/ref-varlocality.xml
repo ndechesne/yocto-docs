@@ -5,8 +5,8 @@
     <title>Reference: Variable Locality (Distro, Machine, Recipe etc.)</title>
 
     <para>
-        Whilst most variables can be used in almost any context (.conf, .bbclass, 
-        .inc or .bb file), variables are often associated with a particular 
+        Whilst most variables can be used in almost any context (.conf, .bbclass,
+        .inc or .bb file), variables are often associated with a particular
         locality/context. This section describes some common associations.
     </para>
 
@@ -15,31 +15,31 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm linkend='var-DISTRO'><link linkend='var-DISTRO'>DISTRO</link></glossterm></para>
+                <para><link linkend='var-DISTRO'><filename>DISTRO</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-DISTRO_NAME'><link linkend='var-DISTRO_NAME'>DISTRO_NAME</link></glossterm></para>
+                <para><link linkend='var-DISTRO_NAME'><filename>DISTRO_NAME</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-DISTRO_VERSION'><link linkend='var-DISTRO_VERSION'>DISTRO_VERSION</link></glossterm></para>
+                <para><link linkend='var-DISTRO_VERSION'><filename>DISTRO_VERSION</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MAINTAINER'><link linkend='var-MAINTAINER'>MAINTAINER</link></glossterm></para>
+                <para><link linkend='var-MAINTAINER'><filename>MAINTAINER</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-PACKAGE_CLASSES'><link linkend='var-PACKAGE_CLASSES'>PACKAGE_CLASSES</link></glossterm></para>
+                <para><link linkend='var-PACKAGE_CLASSES'><filename>PACKAGE_CLASSES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-TARGET_OS'><link linkend='var-TARGET_OS'>TARGET_OS</link></glossterm></para>
+                <para><link linkend='var-TARGET_OS'><filename>TARGET_OS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-TARGET_FPU'><link linkend='var-TARGET_FPU'>TARGET_FPU</link></glossterm></para>
+                <para><link linkend='var-TARGET_FPU'><filename>TARGET_FPU</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-POKYMODE'><link linkend='var-POKYMODE'>POKYMODE</link></glossterm></para>
+                <para><link linkend='var-POKYMODE'><filename>POKYMODE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-POKYLIBC'><link linkend='var-POKYLIBC'>POKYLIBC</link></glossterm></para>
+                <para><link linkend='var-POKYLIBC'><filename>POKYLIBC</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -49,34 +49,34 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm linkend='var-TARGET_ARCH'><link linkend='var-TARGET_ARCH'>TARGET_ARCH</link></glossterm></para>
+                <para><link linkend='var-TARGET_ARCH'><filename>TARGET_ARCH</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-SERIAL_CONSOLE'><link linkend='var-SERIAL_CONSOLE'>SERIAL_CONSOLE</link></glossterm></para>
+                <para><link linkend='var-SERIAL_CONSOLE'><filename>SERIAL_CONSOLE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-PACKAGE_EXTRA_ARCHS'><link linkend='var-PACKAGE_EXTRA_ARCHS'>PACKAGE_EXTRA_ARCHS</link></glossterm></para>
+                <para><link linkend='var-PACKAGE_EXTRA_ARCHS'><filename>PACKAGE_EXTRA_ARCHS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-IMAGE_FSTYPES'><link linkend='var-IMAGE_FSTYPES'>IMAGE_FSTYPES</link></glossterm></para>
+                <para><link linkend='var-IMAGE_FSTYPES'><filename>IMAGE_FSTYPES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-ROOT_FLASH_SIZE'><link linkend='var-ROOT_FLASH_SIZE'>ROOT_FLASH_SIZE</link></glossterm></para>
+                <para><link linkend='var-ROOT_FLASH_SIZE'><filename>ROOT_FLASH_SIZE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE_FEATURES'><link linkend='var-MACHINE_FEATURES'>MACHINE_FEATURES</link></glossterm></para>
+                <para><link linkend='var-MACHINE_FEATURES'><filename>MACHINE_FEATURES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE_EXTRA_RDEPENDS'><link linkend='var-MACHINE_EXTRA_RDEPENDS'>MACHINE_EXTRA_RDEPENDS</link></glossterm></para>
+                <para><link linkend='var-MACHINE_EXTRA_RDEPENDS'><filename>MACHINE_EXTRA_RDEPENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE_EXTRA_RRECOMMENDS'><link linkend='var-MACHINE_EXTRA_RRECOMMENDS'>MACHINE_EXTRA_RRECOMMENDS</link></glossterm></para>
+                <para><link linkend='var-MACHINE_EXTRA_RRECOMMENDS'><filename>MACHINE_EXTRA_RRECOMMENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE_ESSENTIAL_RDEPENDS'><link linkend='var-MACHINE_ESSENTIAL_RDEPENDS'>MACHINE_ESSENTIAL_RDEPENDS</link></glossterm></para>
+                <para><link linkend='var-MACHINE_ESSENTIAL_RDEPENDS'><filename>MACHINE_ESSENTIAL_RDEPENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE_ESSENTIAL_RRECOMMENDS'><link linkend='var-MACHINE_ESSENTIAL_RRECOMMENDS'>MACHINE_ESSENTIAL_RRECOMMENDS</link></glossterm></para>
+                <para><link linkend='var-MACHINE_ESSENTIAL_RRECOMMENDS'><filename>MACHINE_ESSENTIAL_RRECOMMENDS</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -85,31 +85,31 @@
         <title>Local Configuration (local.conf)</title>
         <itemizedlist>
             <listitem>
-                <para><glossterm linkend='var-DISTRO'><link linkend='var-DISTRO'>DISTRO</link></glossterm></para>
+                <para><link linkend='var-DISTRO'><filename>DISTRO</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-MACHINE'><link linkend='var-MACHINE'>MACHINE</link></glossterm></para>
+                <para><link linkend='var-MACHINE'><filename>MACHINE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-DL_DIR'><link linkend='var-DL_DIR'>DL_DIR</link></glossterm></para>
+                <para><link linkend='var-DL_DIR'><filename>DL_DIR</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-BBFILES'><link linkend='var-BBFILES'>BBFILES</link></glossterm></para>
+                <para><link linkend='var-BBFILES'><filename>BBFILES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-EXTRA_IMAGE_FEATURES'><link linkend='var-EXTRA_IMAGE_FEATURES'>EXTRA_IMAGE_FEATURES</link></glossterm></para>
+                <para><link linkend='var-EXTRA_IMAGE_FEATURES'><filename>EXTRA_IMAGE_FEATURES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-PACKAGE_CLASSES'><link linkend='var-PACKAGE_CLASSES'>PACKAGE_CLASSES</link></glossterm></para>
+                <para><link linkend='var-PACKAGE_CLASSES'><filename>PACKAGE_CLASSES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-BB_NUMBER_THREADS'><link linkend='var-BB_NUMBER_THREADS'>BB_NUMBER_THREADS</link></glossterm></para>
+                <para><link linkend='var-BB_NUMBER_THREADS'><filename>BB_NUMBER_THREADS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-BBINCLUDELOGS'><link linkend='var-BBINCLUDELOGS'>BBINCLUDELOGS</link></glossterm></para>
+                <para><link linkend='var-BBINCLUDELOGS'><filename>BBINCLUDELOGS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm linkend='var-ENABLE_BINARY_LOCALE_GENERATION'><link linkend='var-ENABLE_BINARY_LOCALE_GENERATION'>ENABLE_BINARY_LOCALE_GENERATION</link></glossterm></para>
+                <para><link linkend='var-ENABLE_BINARY_LOCALE_GENERATION'><filename>ENABLE_BINARY_LOCALE_GENERATION</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -119,25 +119,25 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm><link linkend='var-DESCRIPTION'>DESCRIPTION</link></glossterm></para>
+                <para><link linkend='var-DESCRIPTION'><filename>DESCRIPTION</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-LICENSE'>LICENSE</link></glossterm></para>
+                <para><link linkend='var-LICENSE'><filename>LICENSE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-LIC_FILES_CHKSUM'>LIC_FILES_CHKSUM</link></glossterm></para>
+                <para><link linkend='var-LIC_FILES_CHKSUM'><filename>LIC_FILES_CHKSUM</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-SECTION'>SECTION</link></glossterm></para>
+                <para><link linkend='var-SECTION'><filename>SECTION</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-HOMEPAGE'>HOMEPAGE</link></glossterm></para>
+                <para><link linkend='var-HOMEPAGE'><filename>HOMEPAGE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-AUTHOR'>AUTHOR</link></glossterm></para>
+                <para><link linkend='var-AUTHOR'><filename>AUTHOR</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-SRC_URI'>SRC_URI</link></glossterm></para>
+                <para><link linkend='var-SRC_URI'><filename>SRC_URI</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -147,19 +147,19 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm><link linkend='var-DEPENDS'>DEPENDS</link></glossterm></para>
+                <para><link linkend='var-DEPENDS'><filename>DEPENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-RDEPENDS'>RDEPENDS</link></glossterm></para>
+                <para><link linkend='var-RDEPENDS'><filename>RDEPENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-RRECOMMENDS'>RRECOMMENDS</link></glossterm></para>
+                <para><link linkend='var-RRECOMMENDS'><filename>RRECOMMENDS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-RCONFLICTS'>RCONFLICTS</link></glossterm></para>
+                <para><link linkend='var-RCONFLICTS'><filename>RCONFLICTS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-RREPLACES'>RREPLACES</link></glossterm></para>
+                <para><link linkend='var-RREPLACES'><filename>RREPLACES</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -169,13 +169,13 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm><link linkend='var-WORKDIR'>WORKDIR</link></glossterm></para>
+                <para><link linkend='var-WORKDIR'><filename>WORKDIR</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-S'>S</link></glossterm></para>
+                <para><link linkend='var-S'><filename>S</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-FILES'>FILES</link></glossterm></para>
+                <para><link linkend='var-FILES'><filename>FILES</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
@@ -185,27 +185,26 @@
 
         <itemizedlist>
             <listitem>
-                <para><glossterm><link
-                linkend='var-DISTRO_PN_ALIAS'>DISTRO_PN_ALIAS</link></glossterm></para>
+                <para><link linkend='var-DISTRO_PN_ALIAS'><filename>DISTRO_PN_ALIAS</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-EXTRA_OECMAKE'>EXTRA_OECMAKE</link></glossterm></para>
+                <para><link linkend='var-EXTRA_OECMAKE'><filename>EXTRA_OECMAKE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-EXTRA_OECONF'>EXTRA_OECONF</link></glossterm></para>
+                <para><link linkend='var-EXTRA_OECONF'><filename>EXTRA_OECONF</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-EXTRA_OEMAKE'>EXTRA_OEMAKE</link></glossterm></para>
+                <para><link linkend='var-EXTRA_OEMAKE'><filename>EXTRA_OEMAKE</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-PACKAGES'>PACKAGES</link></glossterm></para>
+                <para><link linkend='var-PACKAGES'><filename>PACKAGES</filename></link></para>
             </listitem>
             <listitem>
-                <para><glossterm><link linkend='var-DEFAULT_PREFERENCE'>DEFAULT_PREFERENCE</link></glossterm></para>
+                <para><link linkend='var-DEFAULT_PREFERENCE'><filename>DEFAULT_PREFERENCE</filename></link></para>
             </listitem>
         </itemizedlist>
     </section>
 </appendix>
-<!-- 
+<!--
 vim: expandtab tw=80 ts=4 spell spelllang=en_gb
 -->
