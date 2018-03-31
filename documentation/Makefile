@@ -8,14 +8,14 @@
 #    pdf: generates a PDF version of a manual.  Not valid for the Quick Start
 #    html: generates an HTML version of a manual.
 #    tarball: creates a tarball for the doc files.
-#    validate: validates 
+#    validate: validates
 #    publish: pushes generated files to the Yocto Project website
 #    clean: removes files
 #
 # The Makefile generates an HTML and PDF version of every document except the
 # Yocto Project Quick Start.  The Quick Start is in HTML form only.  The variable
-# The command-line argument DOC represents the folder name in which a particular 
-# document is stored.  The command-line argument VER represents the distro 
+# The command-line argument DOC represents the folder name in which a particular
+# document is stored.  The command-line argument VER represents the distro
 # version of the Yocto Release for which the manuals are being generated.
 # You must invoke the Makefile with the DOC and VER arguments.
 # Examples:
@@ -24,14 +24,14 @@
 #     make DOC=yocto-project-qs VER=1.1
 #     make pdf DOC=yocto-project-qs VER=1.1
 #
-# The first example generates the HTML and PDF versions of the BSP Guide for 
+# The first example generates the HTML and PDF versions of the BSP Guide for
 # the Yocto Project 1.1 Release.  The second example generates the HTML version
 # of the Quick Start.  The third example generates an error because you cannot
 # generate a PDF version of the Quick Start.
 #
-# Use the publish target to push the generated manuals to the Yocto Project 
-# website.  All files needed for the manual's HTML form are pushed as well as the 
-# PDF version (if applicable).  
+# Use the publish target to push the generated manuals to the Yocto Project
+# website.  All files needed for the manual's HTML form are pushed as well as the
+# PDF version (if applicable).
 # Examples:
 #
 #    make publish DOC=bsp-guide VER=1.1
@@ -122,9 +122,9 @@ ifeq ($(DOC),yocto-project-qs)
 else
 	cd $(DOC); ../tools/poky-docbook-to-pdf $(DOC).xml ../template; cd ..
 endif
-    
+
 html:
-#       See http://www.sagehill.net/docbookxsl/HtmlOutput.html 
+#       See http://www.sagehill.net/docbookxsl/HtmlOutput.html
 	cd $(DOC); xsltproc $(XSLTOPTS) -o $(DOC).html $(DOC)-customization.xsl $(DOC).xml; cd ..
 
 tarball: html
@@ -135,8 +135,8 @@ validate:
 
 
 publish:
-	scp -r $(MANUALS) $(STYLESHEET) www.yoctoproject.org:/srv/www/www.yoctoproject.org-docs/$(VER)/$(DOC)
-	cd $(DOC); scp -r $(FIGURES) www.yoctoproject.org:/srv/www/www.yoctoproject.org-docs/$(VER)/$(DOC)/figures
+	scp -r $(MANUALS) $(STYLESHEET) docs.yp:/var/www/www.yoctoproject.org-docs/$(VER)/$(DOC);
+	cd $(DOC); scp -r $(FIGURES) docs.yp:/var/www/www.yoctoproject.org-docs/$(VER)/$(doc);
 
 clean:
 	rm -f $(MANUALS)
