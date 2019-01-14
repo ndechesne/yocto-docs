@@ -1,0 +1,998 @@
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
+[<!ENTITY % poky SYSTEM "../poky.ent"> %poky; ] >
+
+<chapter id='test-manual-intro'>
+
+<title>The Yocto Project Test Environment Manual</title>
+    <section id='test-welcome'>
+        <title>Welcome</title>
+
+        <para>
+            Welcome to the Yocto Project Test Environment Manual!
+            This manual is a work in progress.
+            The manual contains information about the testing environment
+            used by the Yocto Project to make sure each major and minor
+            release works as planned.
+            Other organizations can leverage off the process and testing
+            environment used by the Yocto Project to create their own
+            automated, production test environment.
+        </para>
+
+        <para>
+            Currently, the Yocto Project Test Environment Manual has no
+            projected release date.
+            This manual is a work-in-progress and is being initially loaded
+            with information from the README files and notes from key
+            engineers:
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis><filename>yocto-autobuilder</filename>:</emphasis>
+                    <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/README'><filename>README.md</filename></ulink>
+                    is not maintained.
+                    However, some information from this README file still
+                    applies but could need some modification.
+                    In particular, information about setting up headless
+                    sanity tests and build history.
+                    The sections on these will be changing.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><filename>yocto-autobuilder2</filename>:</emphasis>
+                    <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/README.md'><filename>README.md</filename></ulink>
+                    is the main README for Yocto Project Autobuilder.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><filename>yocto-autobuilder-helper</filename>:</emphasis>
+                    <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree/README'><filename>README</filename></ulink>
+                    is a valid Autobuilder Git repository that contains
+                    Yocto Project Autobuilder Helper Scripts.
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+    </section>
+
+    <section id='test-yocto-project-autobuilder-overview'>
+        <title>Yocto Project Autobuilder Overview</title>
+
+        <para>
+            The Yocto Project Autobuilder collectively refers to the software,
+            tools, scripts, and procedures used by the Yocto Project to test
+            released software across supported hardware in an automated and
+            regular fashion.
+            Basically, during the development of a Yocto Project release, the
+            Autobuilder tests if things work.
+            The Autobuilder builds all test targets and runs all the test.
+        </para>
+
+        <para>
+            At its core, Autobuilder is based on
+            <ulink url='https://docs.buildbot.net/0.9.15.post1/'>buildbot "nine"</ulink>.
+            Surrounding that core is a middle layered codebase from the
+            <ulink url='http://git.yoctoproject.org/cgit.cgi/yocto-autobuilder2/'><filename>yocto-autobuilder2</filename></ulink>
+            repository.
+            This layer includes a custom user interface (UI) plug-in for the
+            project that allows you to visualize builds in a way suited to
+            the project.
+            Finally, a "helper" layer provides configuration and job
+            management through scripts found in the
+            <ulink url='http://git.yoctoproject.org/cgit.cgi/yocto-autobuilder-helper'>yocto-autobuilder-helper</ulink>
+            repository.
+        </para>
+
+        <para>
+            The outer layer accomplishes the bulk of the build configuration
+            information and is release-specific making it highly
+            customizable on a per-project basis.
+            The layer is system agnostic and contains a number of helper
+            scripts that can generate build configurations from simple
+            JSON files.
+            <note>
+                It is possible to use the outer layers from another
+                Continuous Integration (CI) system such as
+                <ulink url='https://en.wikipedia.org/wiki/Jenkins_(software)'>Jenkins</ulink>
+                instead of Buildbot.
+            </note>
+        </para>
+
+        <para>
+            The following figure shows the Yocto Project Autobuilder stack
+            with a topology that includes a controller and a cluster of
+            workers:
+            <imagedata fileref="figures/ab-test-stack.png" width="8in" depth="6in" align="center" scalefit="1" />
+        </para>
+    </section>
+
+    <section id='test-yocto-project-helper'>
+        <title>Yocto Project Autobuilder Helper Scripts</title>
+
+        <para>
+            The helper scripts work in conjunction with the Yocto Project
+            Autobuilder.
+            These scripts do the actual build configuration and execution
+            for tests on a per release basis.
+        </para>
+
+        <para>
+            You can use <filename>pre-commit-hook.sh</filename> to verify
+            the JSON file before committing it.
+            Create a symbolic link as follows:
+            <literallayout class='monospaced'>
+     $ ln -s ../../scripts/pre-commit-hook.sh .git/hooks/pre-commit
+            </literallayout>
+        </para>
+
+        <para>
+            Most users will have to customize the helper script repository
+            to meet their needs.
+            The repository is located at
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper'></ulink>.
+            The scripts themselves should be more generically reusable.
+            The <filename>config.json</filename> is less reusable as it
+            represents the Yocto Project Autobuilder test matrix.
+        </para>
+
+        <para>
+            Two customization options are possible: 1) variable substitution,
+            and 2) overlaying configuration files.
+            The standard <filename>config.json</filename> minimally attempts
+            to allow substitution of the paths.
+            The helper script repository includes a
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree/local-example.json'><filename>local-example.json</filename></ulink>
+            to show how you could override these from a separate configuration
+            file.
+            Pass the following into the environment of the autobuilder:
+            <literallayout class='monospaced'>
+     ABHELPER_JSON="config.json local-example.json"
+            </literallayout>
+            As another example, you could also pass the following into the
+            environment:
+            <literallayout class='monospaced'>
+     ABHELPER_JSON="config.json /some/location/local.json"
+            </literallayout>
+        </para>
+    </section>
+
+    <section id='test-project-tests'>
+        <title>Yocto Project Tests</title>
+
+        <para>
+            Many kinds of testing exists for the Yocto Project:
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis>Build Testing:</emphasis>
+                    Core project tested using public autobuilder.
+                    Based on buildbot nine.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Sanity Checks During the Build Process:</emphasis>
+                    Are the right kinds of binaries being build?
+                    Used to spot known breakage (incorrect
+                    <filename>RPATHs</filename>).
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Image Testing:</emphasis>
+                    Boot virtual images under QEMU.
+                    Real hardware testing using board farms.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>SDK Testing:</emphasis>
+                    Check the SDK can build code using various frameworks
+                    (makefiles, autotools, cmake).
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>eSDK Testing:</emphasis>
+                    Check generated eSDKs function.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Feature Testing:</emphasis>
+                    Does enabling option X cause Y to happen?
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Unit Testing:</emphasis>
+                    Does passing function X generate result Y?
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+    </section>
+
+    <section id='test-test-mapping'>
+        <title>How Tests Map to Areas of Code</title>
+
+        <para>
+            Tests map into the codebase as follows:
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis>bitbake-selftest:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests are self-contained and test BitBake
+                            as well as its APIs, which include the fetchers.
+                            </para></listitem>
+                        <listitem><para>
+                            From within the BitBake repository, run the
+                            following:
+                            <literallayout class='monospaced'>
+     $ bitbake-selftest
+                            </literallayout>
+                            </para></listitem>
+                        <listitem><para>
+                            The tests are based on
+                            <ulink url='https://docs.python.org/3/library/unittest.html'>Python unittest</ulink>.
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>oe-selftest:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests use OE to test the workflows, which
+                            include testing specific features, behaviors
+                            of tasks, and API unit tests.
+                            </para></listitem>
+                        <listitem><para>
+                            The tests are based on Python unittest.
+                            </para></listitem>
+                        <listitem><para>
+                            The code for the tests resides in
+                            <filename>meta/lib/oeqa/selftest</filename>.
+                            </para></listitem>
+                        <listitem><para>
+                            To run all the test, enter the following command:
+                            <literallayout class='monospaced'>
+     $ oe-selftest -a
+                            </literallayout>
+                            </para></listitem>
+                        <listitem><para>
+                            To run a specific test, use the following command
+                            form where <replaceable>testname</replaceable> is
+                            the name of the specific test:
+                            <literallayout class='monospaced'>
+     $ oe-selftest -r <replaceable>testname</replaceable>
+                            </literallayout>
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>testimage:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests build an image, boot it, and run tests
+                            against the image's content.
+                            </para></listitem>
+                        <listitem><para>
+                            The code for these tests resides in
+                            <filename>meta/lib/oeqa/runtime</filename>.
+                            </para></listitem>
+                        <listitem><para>
+                            You need to set the
+                            <ulink url='&YOCTO_DOCS_REF_URL;#var-IMAGE_CLASSES'><filename>IMAGE_CLASSES</filename></ulink>
+                            variable as follows:
+                            <literallayout class='monospaced'>
+     IMAGE_CLASSES += "testimage"
+                            </literallayout>
+                            </para></listitem>
+                        <listitem><para>
+                            Run the tests using the following command form:
+                            <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testimage
+                            </literallayout>
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>testsdk:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests build an SDK, install it, and then
+                            run tests against that SDK.
+                            </para></listitem>
+                        <listitem><para>
+                            The code for these tests resides in
+                            <filename>meta/lib/oeqa/sdk</filename>.
+                            </para></listitem>
+                        <listitem><para>
+                            Run the test using the following command form:
+                            <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testsdk
+                            </literallayout>
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>testsdk_ext:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests build an extended SDK (eSDK), install
+                            that eSDK, and run tests against the eSDK.
+                            </para></listitem>
+                        <listitem><para>
+                            The code for these tests resides in
+                            <filename>meta/lib/oeqa/esdk</filename>.
+                            </para></listitem>
+                        <listitem><para>
+                            To run the tests, use the following command form:
+                            <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testsdkext
+                            </literallayout>
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+    </section>
+
+    <section id='test-nightly-testing'>
+        <title>Nightly Testing</title>
+
+        <para>
+            The Autobuilder has various "nightly-XXX" targets that are
+            controlled by a "nightly" trigger.
+            This scheme allows simple parallelism for each architecture
+            (e.g. where little artifact overlap exists).
+            Following is a typical nightly-XXX flow:
+            <orderedlist>
+                <listitem><para>
+                    Build the virtual machine version images (e.g. qemuarm).
+                    </para></listitem>
+                <listitem><para>
+                    Test the built images.
+                    </para></listitem>
+                <listitem><para>
+                    Build the 32 and 64-bit SDKs.
+                    </para></listitem>
+                <listitem><para>
+                    Test the built SDKs.
+                    </para></listitem>
+                <listitem><para>
+                    Build an eSDK.
+                    </para></listitem>
+                <listitem><para>
+                    Test the built eSDK.
+                    </para></listitem>
+            </orderedlist>
+            Repeat these steps for actual hardware (.e.g. BeagleBone) without
+            the image testing since that cannot be virtualized.
+            The various SDKs, however, can still be tested.
+        </para>
+
+        <para>
+            Nightly targets exist for specific things such as layer
+            compatibility testing (i.e. "Yocto Project Compatibility v2"),
+            testing multilibs, testing features such as Systemd, and so forth.
+        </para>
+
+        <para>
+            The following specific flow of events exists for a given
+            "nightly" build:
+            <orderedlist>
+                <listitem><para>
+                    Clone the code repositories being used onto a shared network
+                    location so that if the repositories change before all the
+                    nightly-X targets start, a copy is still available and
+                    builds remain consistent.
+                    </para></listitem>
+                <listitem><para>
+                    Ensure all sources are fetched and available in
+                    <filename>DL_DIR</filename>.
+                    </para></listitem>
+                <listitem><para>
+                    Trigger the nightly-X targets.
+                    </para></listitem>
+            </orderedlist>
+        </para>
+
+        <para>
+            The builds can optionally deploy artifacts.
+            For example, a release build can be configured to deploy artifacts
+            when the build starts.
+        </para>
+
+        <para>
+            A custom element exists in the nightly build scheduling form
+            that can be used to "fast populate" it for specific purposes
+            (e.g. a "master-next" build uses "master-next" branches of
+            several repositories such as
+            <filename>oe-core</filename>, <filename>meta-yocto</filename>,
+            <filename>poky</filename>, and <filename>bitbake</filename>.
+            The nightly build schedule also knows how to set the branches
+            correctly for the different release series.
+        </para>
+    </section>
+
+    <section id='test-configuring-and-triggering-autobuilder-helper-build-scripts'>
+        <title>Configuring and Triggering Autobuilder Helper Build Scripts</title>
+
+        <note>
+            This section is created from the information in the
+            <filename>yocto-autobuilder2</filename>&nbsp;
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/README.md'><filename>README.md</filename></ulink>
+            file.
+            I am making an assumption that we do not want to refer to the
+            Autobuilder stuff as "Autobuilder2".
+            My guess is that since this is the first documentation of any
+            automated test environment and process in the Yocto Project
+            user documentation, we will treat it as the start of things.
+        </note>
+
+        <para>
+            Automatic testing is based on the workers executing builds using
+            Buildbot nine configured for specific build jobs triggered in an
+            automatic and regular fashion.
+            Worker Configuration and triggering is accomplished through
+            the
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/'>Yocto Project Autobuilder layer</ulink>
+            and a set of
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree'>helper scripts</ulink>.
+        </para>
+
+        <para>
+            The configuration and helper scripts have as little code and
+            as few custom Buildbot extensions as possible.
+            The configuration collects required input from the user to
+            furnish the helper scripts with the input needed for workers
+            to accomplish their builds.
+            The input consists of minimal user-customizable parameters
+            used to trigger the helper build scripts.
+        </para>
+
+        <para>
+            Each builder maps to a named configuration in the helper
+            scripts.
+            The configuration is created with the steps and properties
+            required to invoke the helper scripts for a worker's builds.
+        </para>
+
+        <para>
+            Each worker has a custom scheduler created for it and contains
+            parameters configured for the scheduler that can supply the custom
+            versions of the required values for the helper script parameters.
+        </para>
+
+I AM HERE
+
+        <para>
+            Following is the code layout for the Autobuilder layer:
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/builders.py'><filename>builders.py</filename></ulink>:</emphasis>
+                    Configures the builders with minimal buildsteps in order
+                    to invoke the Yocto Project Autobuilder helper scripts.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/lib/wiki.py'><filename>lib/wiki.py</filename></ulink>:</emphasis>
+                    Implements functionality related to MediaWiki.
+                    The <filename>wikilog</filename> plug-in uses this
+                    functionality.
+                    Effectively, this functionality provides helper functions
+                    for the plug-in.
+                    <note>
+                        Much of this code can be replaced by porting the
+                        plug-in so that it is implemented as a
+                        <filename>buildbot.util.service.HTTPClient</filename>.
+                    </note>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/reporters/wikilog.py'><filename>reporters/wikilog.py</filename></ulink>:</emphasis>
+                    A custom plug-in that is a Buildbot service that listens for
+                    build failures and then writes information about the
+                    failure to the configured wiki page.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/steps/writelayerinfo.py'><filename>steps/writelayerinfo.py</filename></ulink>:</emphasis>
+                    Implements a simple, custom buildset that iterates the
+                    <filename>repo_</filename>, <filename>branch_</filename>,
+                    and <filename>commit_</filename> properties, which are set
+                    by the schedulers, and then writes a JSON file with the
+                    user's values.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/config.py'><filename>config.py</filename></ulink>:</emphasis>
+                    Contains all values that might need changing to redeploy
+                    the Autobuilder code elsewhere.
+                    <note>
+                        The redeployment goal has not been currently met.
+                    </note>
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/master.cfg'><filename>master.cfg</filename></ulink>:</emphasis>
+                    Performs most configuration by making calls into other
+                    scripts.
+                    Configuration specific for a worker cluster (i.e. a
+                    Controller URL) resides here.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/schedulers.py'><filename>schedulers.py</filename></ulink>:</emphasis>
+                    Sets up the force schedulers with controls for modifying
+                    inputs for each worker.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/services.py'><filename>services.py</filename></ulink>:</emphasis>
+                    Configures IRC, mail, and Wikilog reporters.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/workers.py'><filename>workers.py</filename></ulink>:</emphasis>
+                    Configures the worker objects.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/www.py'><filename>www.py</filename></ulink>:</emphasis>
+                    Sets up the Web User Interface.
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+
+        <para>
+            The goal is to keep custom code minimized throughout the
+            Autobuilder.
+            The few customizations implemented support the Yocto Project
+            Autobuilder Helper Script workflows and help replicate the
+            workflows established with the Yocto Autobuilder layer.
+            In particular, the following files accomplish this customization:
+            <itemizedlist>
+                <listitem><para>
+                    <filename>writelayerinfo.py</filename>
+                    </para></listitem>
+                <listitem><para>
+                    <filename>wikilog.py</filename>
+                    </para></listitem>
+                <listitem><para>
+                    <filename>wiki.py</filename>
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+    </section>
+
+    <section id='test-deploying-yocto-autobuilder'>
+        <title>Deploying Yocto Autobuilder</title>
+
+        <para>
+            The steps you need to take to deploy the Yocto Project
+            Autobuilder assume each target system has a copy of Buildbot
+            installed.
+            Additionally, various pieces of functionality require that a copy
+            of the Autobuilder Helper Scripts (i.e.
+            <filename>yocto-autobuilder-helper</filename>) is available
+            in the home directory at
+            <filename>~/yocto-autobuilder-helper</filename> of the user
+            running Buildbot.
+            <note>
+                If you are using a reverse proxy, be aware that modern
+                Buildbot uses a  websocket for various communications between
+                the master and the web UI.
+                Refer to the
+                <ulink url='http://docs.buildbot.net/latest/manual/cfg-www.html#reverse-proxy-configuration'>Buildbot documentation</ulink>
+                for information on how to correctly configure a reverse proxy.
+            </note>
+        </para>
+
+        <para>
+            The following sections provide steps for Yocto Autobuilder
+            deployment.
+        </para>
+
+        <section id='test-upstream-autobuilder-deployment-on-the-controller'>
+            <title>Upstream Autobuilder Deployment on the Controller</title>
+
+            <para>
+                Follow these steps to deploy Yocto Autobuilder on an
+                upstream controller:
+                <orderedlist>
+                    <listitem><para>
+                        <emphasis>Create the Master Yocto Controller</emphasis>:
+                        <literallayout class='monospaced'>
+     $ buildbot create-master <replaceable>yocto-controler</replaceable>
+                        </literallayout>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Change Your Working Directory to the Master Yocto Controller</emphasis>:
+                        <literallayout class='monospaced'>
+     $ cd <replaceable>yocto-controller</replaceable>
+                        </literallayout>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Create a Local Git Repository of the Yocto Project Autobuilder</emphasis>:
+                        <literallayout class='monospaced'>
+     $ git clone https://git.yoctoproject.org/git/yocto-autobuilder2 yoctoabb
+                        </literallayout>
+                        In the previous command, the local repository is
+                        created in a <filename>yoctoabb</filename>
+                        directory inside the directory of the Master
+                        Yocto Controller directory.
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Change Your Working Directory Back to the Master Yocto Controller</emphasis>:
+                        <literallayout class='monospaced'>
+     $ cd ..
+                        </literallayout>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Create a Relative Symbolic Link to <filename>master.cfg</filename></emphasis>:
+                        <literallayout class='monospaced'>
+     $ ln -rs <replaceable>yocto-controller</replaceable>/yoctoabb/master.cfg <replaceable>yocto-controller</replaceable>/master.cfg
+                        </literallayout>
+                        The previous command sets up a relative symbolic
+                        link to the <filename>master.cfg</filename> using
+                        link of the same name.
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Update the Buildbot URL in <filename>master.cfg</filename></emphasis>:
+                        Use your <filename>$EDITOR</filename> to edit the
+                        Buildbot URL in the <filename>master.cfg</filename>
+                        file.
+                        Find the following line and replace the URL with
+                        URL for your Buildbot:
+                        <literallayout class='monospaced'>
+     c['buildbotURL'] = "https://autobuilder.yoctoproject.org/main/"
+                        </literallayout>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Enable services in <filename>services.py</filename></emphasis>:
+                        Use your <filename>$EDITOR</filename> to edit the
+                        <filename>services.py</filename> file.
+                        Set appropriate configuration values to enable
+                        desired services.
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Enable Automatic Authorization (Autorisation) in <filename>www.py</filename></emphasis>:
+                        Use your <filename>$EDITOR</filename> to edit the
+                        <filename>www.py</filename> file.
+                        Configure autorisation if desired.
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Modify Configuration Options in <filename>config.py</filename></emphasis>:
+                        Use your <filename>$EDITOR</filename> to edit the
+                        <filename>config.py</filename> file.
+                        Modify configuratoin options such as worker
+                        configurations.
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Start Buildbot</emphasis>:
+                        <literallayout class='monospaced'>
+     $ buildbot start <replaceable>yocto-controller</replaceable>
+                        </literallayout>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Create a Local Git Repository of the Yocto Autobuilder Helper Scripts:</emphasis>:
+                        <literallayout class='monospaced'>
+                        Move up a directory so that you are above the
+                        <replaceable>yocto-controller</replaceable>
+                        location and clone the directory:
+     $ cd ..
+     $ git clone https://git.yoctoproject.org/git/yocto-autobuilder-helper
+                        </literallayout>
+                        </para></listitem>
+                </orderedlist>
+            </para>
+        </section>
+
+        <section id='test-upstream-autobuilder-deployment-on-the-worker'>
+            <title>Upstream Autobuilder Deployment on the Worker</title>
+
+            <para>
+                Follow these steps to deploy Yocto Autobuilder on an
+                upstream worker:
+                <orderedlist>
+                    <listitem><para>
+                        <emphasis>Create the Worker</emphasis>:
+                        <literallayout class='monospaced'>
+     $ buildbot-worker create-worker <replaceable>yocto-worker</replaceable> <replaceable>localhost</replaceable> <replaceable>example-worker</replaceable> <replaceable>pass</replaceable>
+                        </literallayout>
+                        <note>
+                            You do not have to hard-code the third
+                            parameter (i.e.
+                            <replaceable>example-worker</replaceable>).
+                            For example, you can pass
+                            <filename>`hostname`</filename> to use the
+                            host's configured name.
+                        </note>
+                        </para></listitem>
+                    <listitem><para>
+                        <emphasis>Start the Worker</emphasis>:
+                        <literallayout class='monospaced'>
+     $ buildbot-worker start <replaceable>yocto-worker</replaceable>
+                        </literallayout>
+                        </para></listitem>
+                </orderedlist>
+            </para>
+        </section>
+
+        <section id='test-upstream-autobuilder-deployment-no-upstream-users'>
+            <title>Upstream Autobuilder Deployment No Upstream Users</title>
+
+            <para>
+                This case has yet to be defined.
+                It requires a custom <filename>config.json</filename>
+                for <filename>yocto-autobuilder-helper</filename>
+            </para>
+        </section>
+    </section>
+
+    <section id='test-headless-sanity-tests'>
+        <title>Setting Up Headless Sanity Tests</title>
+
+        <para>
+            If you plan on using the Yocto Project Autobuilder to run
+            headless sanity testing, you need to do the following:
+            <orderedlist>
+                <listitem><para>
+                    Install
+                    <link linkend='test-tight-vnc'>TightVNC</link>
+                    client and server.
+                    </para></listitem>
+                <listitem><para>
+                    Create a bank of tap network devices (tap devs)
+                    by running the
+                    <filename>runqemu-gen-tapdevs</filename> script
+                    found in the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#source-directory'>Source Directory</ulink>
+                    at
+                    <ulink url='https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/scripts'></ulink>.
+                    </para>
+
+                    <para>You must disable interface control on these
+                    new tap devices.
+                    <note>
+                        Some services include NetworkManager,
+                        connman, or wicd.
+                    </note>
+                    </para></listitem>
+                <listitem><para>
+                    Add "xterm*vt100*geometry: 80x50+10+10" to
+                    <filename>.Xdefaults</filename>
+                    </para></listitem>
+                <listitem><para>
+                    Set up and start the TightVNC session as the
+                    Autobuilder user.
+                    </para></listitem>
+                <listitem><para>
+                    Manually connect to the VNC session at least once
+                    prior to running a QEMU sanity test.
+                    <note>
+                        Something is getting set during the initial
+                        connection that has not been figured out yet.
+                        Manually connecting seems to set up the session
+                        correctly.
+                    </note>
+                    </para></listitem>
+            </orderedlist>
+        </para>
+    </section>
+
+    <section id='test-adding-additional-build-workers'>
+        <title>Adding Additional Build Workers</title>
+
+        <para>
+            The production Yocto Autobuilder uses a cluster of build
+            workers.
+            The cluster shares the same
+            <ulink url='&YOCTO_DOCS_REF_URL;#var-SSTATE_DIR'><filename>SSTATE_DIR</filename></ulink>
+            and
+            <ulink url='&YOCTO_DOCS_REF_URL;#var-DL_DIR'><filename>DL_DIR</filename></ulink>
+            through an NFS4 mounted Network Attached Storage (NAS).
+            The main nightly trigger pre-populates the
+            <filename>DL_DIR</filename>, allowing the workers to not
+            have to deal with a lot of downloading.
+            In theory, you could also run your build workers with
+            <ulink url='&YOCTO_DOCS_REF_URL;#var-NO_NETWORK'><filename>NO_NETWORK</filename></ulink>
+            to enforce a single point for populating
+            <filename>DL_DIR</filename>.
+        </para>
+
+        <para>
+            Running multiple build workers is fairly simple, but does require
+            some setup:
+            <orderedlist>
+                <listitem><para>
+                    Ensure the settings in
+                    <filename>autobuilder.conf</filename> are valid
+                    for each worker.
+                    Certain variables are set within this file that
+                    work with the local configuration on each
+                    worker.
+                    </para></listitem>
+                <listitem><para>
+                    Within
+                    <filename>yocto-controller/controller.cfg</filename>,
+                    add your worker to the
+                    <filename>c['workers']</filename> list inside
+                    the <filename>BUILDWORKERS</filename> section.
+                    </para></listitem>
+                <listitem><para>
+                    For each worker change the
+                    <filename>WORKER SETTINGS</filename> section
+                    of
+                    <filename>yocto-worker/buildbot.tac</filename>
+                    to match the settings in
+                    <filename>controller.cfg</filename>.
+                    </para></listitem>
+                <listitem><para>
+                    Workers must reside in the same path as the
+                    Build Controller, even if they are on
+                    completely different machines.
+                    </para></listitem>
+            </orderedlist>
+        </para>
+    </section>
+
+    <section id='test-setting-up-build-history'>
+        <title>Setting Up Build History</title>
+
+        <para>
+            Build History is used to track changes to packages and
+            images.
+            By default, the Autobuilder does not collect build history.
+            The production Autobuilder does have this functionality
+            enabled.
+        </para>
+
+        <para>
+            Setting up build history requires the following
+            steps:
+            <orderedlist>
+                <listitem><para>
+                    Create an empty Git repository.
+                    Make a single commit to it and the create and
+                    push branches for each of the nightly core
+                    architectures (i.e.. mips, ppc, x86...).
+                    </para></listitem>
+                <listitem><para>
+                    Find a central location to create a clone for the
+                    repository created in the previous step.
+                    This works best if you have a set up similar to
+                    the production Autobuilder (i.e. NAS with many
+                    workers).
+                    </para></listitem>
+                <listitem><para>
+                    Run the following:
+                    <literallayout class='monospaced'>
+     # This is an example of how to set up a local build history checkout. Paths
+     # obviously are situationally dependent.
+     $ mkdir /nas/buildhistory
+     $ cd /nas/buildhistory
+     $ git clone ssh://git@git.myproject.org/buildhistory
+     $ git clone ssh://git@git.myproject.org/buildhistory nightly-arm
+     $ git clone ssh://git@git.myproject.org/buildhistory nightly-x86
+     $ git clone ssh://git@git.myproject.org/buildhistory nightly-x86-64
+     $ git clone ssh://git@git.myproject.org/buildhistory nightly-ppc
+     $ git clone ssh://git@git.myproject.org/buildhistory nightly-mips
+     $ for x in `ls|grep nightly` do cd $x; git checkout $x; cd /nas/buildhistory; done
+                    </literallayout>
+                    </para></listitem>
+                <listitem><para>
+                    Within the <filename>autobuilder.conf</filename>
+                    of each worker, change the following:
+                    <literallayout class='monospaced'>
+     BUILD_HISTORY_COLLECT = True
+     BUILD_HISTORY_DIR = "/nas/buildhistory"
+     BUILD_HISTORY_REPO = "ssh://git@git.myproject.org/buildhistory"
+                    </literallayout>
+                    </para></listitem>
+            </orderedlist>
+        </para>
+    </section>
+
+    <section id='test-notes-from-conversation-with-richard'>
+        <title>Notes From a Conversation with Richard</title>
+
+        <para>
+            <literallayout class='monospaced'>
+(10:13:33 AM) scottrif: One thing I need to dig into is "buildbot"
+(10:13:43 AM) scottrif: I don't really know what that is
+(10:14:02 AM) RP: Its a project
+(10:14:17 AM) RP: https://buildbot.net/
+(10:14:25 AM) RP: our autobuilder is based up it
+(10:14:44 AM) RP: based upon it
+(10:14:58 AM) RP: buildbot is like Jenkins
+(10:14:59 AM) scottrif: OK - I can learn about it there
+(10:16:03 AM) RP: We should link to it and make it clear we use buildbot but you could use Jenkins
+(10:16:08 AM) RP: the helper is agnostic
+(10:16:34 AM) scottrif: https://en.wikipedia.org/wiki/Jenkins_(software)
+(10:16:38 AM) RP: https://typhoon.yocto.io/#/console is buildbot running on our autobuilder
+(10:16:45 AM) RP: that is the "nine" version
+(10:16:52 AM) RP: https://autobuilder.yocto.io/tgrid is "eight"
+(10:17:18 AM) RP: for the manual we only care about "nine" and we assume the typhoon link above will be autobuilder.yoctoproject.org
+(10:17:57 AM) scottrif: OK - "eight" is what Stewart used to display in his cube all the time when he was manager?
+(10:18:01 AM) RP: yes
+(10:18:05 AM) scottrif: got it
+(10:18:32 AM) RP: "eight" is years old and will be replaced by the time you sort the docs
+(10:18:56 AM) scottrif: So when we are done with "nine" it will be https://autobuilder.yoctoproject.org/#/console. ?
+(10:19:12 AM) RP: something like that. Not sure of the exact url yet
+(10:19:15 AM) scottrif: OK
+(10:21:11 AM) scottrif: So when we say that Autobuilder, which is unique to YP, is based on buildbot nine, we basically are saying that buildbot is the heart of AB? Is this similar to saying how BitBake is the heart of the YP?
+(10:21:44 AM) RP: yes
+(10:21:55 AM) RP: but we have a layer on top to make it do what we need for our project
+(10:22:32 AM) RP: the yocto-autobuilder2 is that layer - takes upstream buildbot and makes it work for us
+(10:22:52 AM) scottrif: OK - So we have written a layer for the top of Buildbot nine that lets us interface into it. Got it
+(10:23:26 AM) scottrif: We should document the pieces of all this in figure that shows the testing software stack
+(10:24:01 AM) scottrif: Where the pieces are (the repos), what they do, ... the big picture of testing
+(10:24:29 AM) RP: sounds good to me
+(10:27:30 AM) scottrif: this is what I visualize off the top of my head... 1) Big overview, 2) types of tests we run, 3) our testing environment (what we do to set it all up and automate things), 4) details for types of tests (how they are run, etc.), 5) producing and monitoring readable results.
+(10:28:09 AM) scottrif: Probably need a deeper look at the testing architecture in there as well
+(10:28:29 AM) RP: we'll need to dive into some example tests
+(10:28:46 AM) scottrif: yes - that would be #4
+(10:28:51 AM) RP: there are also two classifications to list. One is types of test, the other is the testing tools we have
+(10:29:20 AM) RP: unit testing may happen in bitbake-selftest or oe-selftest for example
+(10:29:28 AM) RP: oh, I totally missed ptest from that doc!
+(10:29:28 AM) scottrif: So "tools" would need to be included in both the "overview big picture" and a deeper look at the architecture.
+            </literallayout>
+        </para>
+    </section>
+
+    <section id='test-some-more-notes'>
+        <title>Some More Notes</title>
+
+        <para>
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis>Yocto Autobuilder:</emphasis>
+                    The Git repository is at
+                    <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/'></ulink>.
+                    </para>
+
+                    <para>Essentially an extension to the vanilla buildbot.
+                    This extension mainly addresses configuration file handling
+                    and Yocto-specific build steps.</para>
+
+                    <para>For better maintainability, the Autobuilder (see
+                    <filename>Autobuilder.py</filename> located at
+                    <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/lib/python2.7/site-packages/autobuilder'></ulink>),
+                    handles configuration from multiple files.</para>
+
+                    <para>Additional build steps such as
+                    <filename>CheckOutLayers.py</filename> or
+                    <filename>CreateBBLayersConf</filename> are Yocto-specific
+                    and simplify the worker's configuration.
+                    </para></listitem>
+                <listitem><para id='test-tight-vnc'>
+                    <emphasis>TightVNC:</emphasis>
+                    Virtual Network Computing (VNC) is a client/server software
+                    package that allows remote network access to graphical
+                    desktops.
+                    With VNC, you can access your machine from everywhere
+                    provided that your machine is connected to the Internet.
+                    VNC is free (released under the GNU General Public License)
+                    and it is available on most platforms.</para>
+
+                    <para>TightVNC is an enhanced version of VNC, which
+                    includes new features, improvements, optimizations, and
+                    bug fixes over the original VNC version.
+                    See the list of features at
+                    <ulink url='http://www.tightvnc.com/intro.php'></ulink>.
+                    </para>
+
+                    <para>You need TightVNC in order to run headless sanity
+                    tests.
+                    See the bullet on
+                    <link linkend='test-headless-sanity-tests'>headless sanity tests</link>
+                    for more information.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Files Used for Yocto-Autobuilder Configuration:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            <emphasis><filename>config/autobuilder.conf</filename>:</emphasis>
+                            Used to set Autobuilder-wide parameters, such as
+                            where various build artifacts are published
+                            (e.g. <filename>DL_DIR</filename> and
+                            <filename>SSTATE_DIR</filename>).
+                            Another example is if build artifacts should be
+                            published, which is necessary for production
+                            Autobuilders but not desktop builders.
+                            </para></listitem>
+                        <listitem><para>
+                            <emphasis><filename>buildset-config/yoctoAB.conf</filename>:</emphasis>
+                            The main Yocto Project Autobuilder configuration
+                            file.
+                            Documentation for this file and its associated
+                            format is in the
+                            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/README-NEW-AUTOBUILDER'><filename>README-NEW-AUTOBUILDER</filename></ulink>
+                            file.
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+            </itemizedlist>
+        </para>
+    </section>
+</chapter>
+<!--
+vim: expandtab tw=80 ts=4
+-->
