@@ -362,6 +362,16 @@ FIGURES = figures
 STYLESHEET = $(DOC)/*.css
 endif
 
+ifeq ($(DOC),test-manual)
+XSLTOPTS = --xinclude
+ALLPREQ = html tarball
+TARFILES = test-manual.html test-manual-style.css \
+	   figures/test-manual-title.png figures/ab-test-stack.png
+MANUALS = $(DOC)/$(DOC).html
+FIGURES = figures
+STYLESHEET = $(DOC)/*.css
+endif
+
 
 ##
 # These URI should be rewritten by your distribution's xml catalog to
