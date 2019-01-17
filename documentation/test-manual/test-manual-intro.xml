@@ -448,19 +448,18 @@
             versions of the required values for the helper script parameters.
         </para>
 
-I AM HERE
-
         <para>
             Following is the code layout for the Autobuilder layer:
             <itemizedlist>
                 <listitem><para>
                     <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/builders.py'><filename>builders.py</filename></ulink>:</emphasis>
-                    Configures the builders with minimal buildsteps in order
+                    Configures the builders with the minimal buildsteps
                     to invoke the Yocto Project Autobuilder helper scripts.
                     </para></listitem>
                 <listitem><para>
                     <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/lib/wiki.py'><filename>lib/wiki.py</filename></ulink>:</emphasis>
-                    Implements functionality related to MediaWiki.
+                    Implements functionality related to
+                    <ulink url='https://www.mediawiki.org/wiki/MediaWiki'>MediaWiki</ulink>.
                     The <filename>wikilog</filename> plug-in uses this
                     functionality.
                     Effectively, this functionality provides helper functions
@@ -545,9 +544,8 @@ I AM HERE
         <title>Deploying Yocto Autobuilder</title>
 
         <para>
-            The steps you need to take to deploy the Yocto Project
-            Autobuilder assume each target system has a copy of Buildbot
-            installed.
+            Steps to deploy the Yocto Project Autobuilder assume each target
+            system has a copy of Buildbot installed.
             Additionally, various pieces of functionality require that a copy
             of the Autobuilder Helper Scripts (i.e.
             <filename>yocto-autobuilder-helper</filename>) is available
@@ -556,8 +554,8 @@ I AM HERE
             running Buildbot.
             <note>
                 If you are using a reverse proxy, be aware that modern
-                Buildbot uses a  websocket for various communications between
-                the master and the web UI.
+                Buildbot uses a  web socket for various communications between
+                the master and the web's User Interface.
                 Refer to the
                 <ulink url='http://docs.buildbot.net/latest/manual/cfg-www.html#reverse-proxy-configuration'>Buildbot documentation</ulink>
                 for information on how to correctly configure a reverse proxy.
@@ -579,7 +577,7 @@ I AM HERE
                     <listitem><para>
                         <emphasis>Create the Master Yocto Controller</emphasis>:
                         <literallayout class='monospaced'>
-     $ buildbot create-master <replaceable>yocto-controler</replaceable>
+     $ buildbot create-master <replaceable>yocto-controller</replaceable>
                         </literallayout>
                         </para></listitem>
                     <listitem><para>
@@ -611,7 +609,7 @@ I AM HERE
                         </literallayout>
                         The previous command sets up a relative symbolic
                         link to the <filename>master.cfg</filename> using
-                        link of the same name.
+                        a link of the same name.
                         </para></listitem>
                     <listitem><para>
                         <emphasis>Update the Buildbot URL in <filename>master.cfg</filename></emphasis>:
@@ -619,7 +617,7 @@ I AM HERE
                         Buildbot URL in the <filename>master.cfg</filename>
                         file.
                         Find the following line and replace the URL with
-                        URL for your Buildbot:
+                        the URL for your Buildbot:
                         <literallayout class='monospaced'>
      c['buildbotURL'] = "https://autobuilder.yoctoproject.org/main/"
                         </literallayout>
@@ -641,7 +639,7 @@ I AM HERE
                         <emphasis>Modify Configuration Options in <filename>config.py</filename></emphasis>:
                         Use your <filename>$EDITOR</filename> to edit the
                         <filename>config.py</filename> file.
-                        Modify configuratoin options such as worker
+                        Modify configuration options such as worker
                         configurations.
                         </para></listitem>
                     <listitem><para>
@@ -700,8 +698,8 @@ I AM HERE
 
             <para>
                 This case has yet to be defined.
-                It requires a custom <filename>config.json</filename>
-                for <filename>yocto-autobuilder-helper</filename>
+                It requires a custom <filename>config.json</filename> file
+                for <filename>yocto-autobuilder-helper</filename>.
             </para>
         </section>
     </section>
@@ -769,7 +767,7 @@ I AM HERE
             <ulink url='&YOCTO_DOCS_REF_URL;#var-DL_DIR'><filename>DL_DIR</filename></ulink>
             through an NFS4 mounted Network Attached Storage (NAS).
             The main nightly trigger pre-populates the
-            <filename>DL_DIR</filename>, allowing the workers to not
+            <filename>DL_DIR</filename>, which allows the workers to not
             have to deal with a lot of downloading.
             In theory, you could also run your build workers with
             <ulink url='&YOCTO_DOCS_REF_URL;#var-NO_NETWORK'><filename>NO_NETWORK</filename></ulink>
@@ -786,7 +784,7 @@ I AM HERE
                     <filename>autobuilder.conf</filename> are valid
                     for each worker.
                     Certain variables are set within this file that
-                    work with the local configuration on each
+                    work with the local configurations on each
                     worker.
                     </para></listitem>
                 <listitem><para>
@@ -830,14 +828,14 @@ I AM HERE
             <orderedlist>
                 <listitem><para>
                     Create an empty Git repository.
-                    Make a single commit to it and the create and
+                    Make a single commit to it and then create and
                     push branches for each of the nightly core
                     architectures (i.e.. mips, ppc, x86...).
                     </para></listitem>
                 <listitem><para>
                     Find a central location to create a clone for the
                     repository created in the previous step.
-                    This works best if you have a set up similar to
+                    This works best if you have a setup similar to
                     the production Autobuilder (i.e. NAS with many
                     workers).
                     </para></listitem>
@@ -870,6 +868,7 @@ I AM HERE
         </para>
     </section>
 
+<!--
     <section id='test-notes-from-conversation-with-richard'>
         <title>Notes From a Conversation with Richard</title>
 
@@ -916,6 +915,7 @@ I AM HERE
             </literallayout>
         </para>
     </section>
+-->
 
     <section id='test-some-more-notes'>
         <title>Some More Notes</title>
@@ -923,7 +923,7 @@ I AM HERE
         <para>
             <itemizedlist>
                 <listitem><para>
-                    <emphasis>Yocto Autobuilder:</emphasis>
+                    <emphasis>Yocto Autobuilder</emphasis>:
                     The Git repository is at
                     <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/'></ulink>.
                     </para>
@@ -943,7 +943,7 @@ I AM HERE
                     and simplify the worker's configuration.
                     </para></listitem>
                 <listitem><para id='test-tight-vnc'>
-                    <emphasis>TightVNC:</emphasis>
+                    <emphasis>TightVNC</emphasis>:
                     Virtual Network Computing (VNC) is a client/server software
                     package that allows remote network access to graphical
                     desktops.
@@ -969,7 +969,7 @@ I AM HERE
                     <emphasis>Files Used for Yocto-Autobuilder Configuration:</emphasis>
                     <itemizedlist>
                         <listitem><para>
-                            <emphasis><filename>config/autobuilder.conf</filename>:</emphasis>
+                            <emphasis><filename>config/autobuilder.conf</filename></emphasis>:
                             Used to set Autobuilder-wide parameters, such as
                             where various build artifacts are published
                             (e.g. <filename>DL_DIR</filename> and
@@ -979,7 +979,7 @@ I AM HERE
                             Autobuilders but not desktop builders.
                             </para></listitem>
                         <listitem><para>
-                            <emphasis><filename>buildset-config/yoctoAB.conf</filename>:</emphasis>
+                            <emphasis><filename>buildset-config/yoctoAB.conf</filename></emphasis>:
                             The main Yocto Project Autobuilder configuration
                             file.
                             Documentation for this file and its associated
