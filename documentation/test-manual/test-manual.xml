@@ -32,9 +32,9 @@
 
         <revhistory>
             <revision>
-                <revnumber>2.6</revnumber>
-                <date>&REL_MONTH_YEAR;</date>
-                <revremark>Released with the Yocto Project 2.6 Release.</revremark>
+                <revnumber>2.7</revnumber>
+                <date>TBD</date>
+                <revremark>Released with the Yocto Project 2.7 Release.</revremark>
             </revision>
         </revhistory>
 
