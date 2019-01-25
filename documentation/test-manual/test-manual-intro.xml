@@ -28,6 +28,7 @@
             <itemizedlist>
                 <listitem><para>
                     <emphasis><filename>yocto-autobuilder</filename>:</emphasis>
+                    This
                     <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/tree/README'><filename>README.md</filename></ulink>
                     is not maintained.
                     However, some information from this README file still
@@ -35,17 +36,37 @@
                     In particular, information about setting up headless
                     sanity tests and build history.
                     The sections on these will be changing.
+                    <note><title>IMPORTANT</title>
+                        The <filename>yocto-autobuilder</filename>&nbsp;
+                        <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder/'>repository</ulink>
+                        is obsolete and is no longer maintained.
+                        The new "Autobuilder" is maintained in the
+                        <filename>yocto-autobuilder2</filename>&nbsp;
+                        <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/'>repository</ulink>.
+                    </note>
                     </para></listitem>
                 <listitem><para>
                     <emphasis><filename>yocto-autobuilder2</filename>:</emphasis>
+                    This
                     <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/README.md'><filename>README.md</filename></ulink>
                     is the main README for Yocto Project Autobuilder.
+                    The <filename>yocto-autobuilder2</filename> repository
+                    represents the Yocto Project's testing codebase and
+                    exists to configure and use Buildbot to do testing.
                     </para></listitem>
                 <listitem><para>
                     <emphasis><filename>yocto-autobuilder-helper</filename>:</emphasis>
+                    This
                     <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree/README'><filename>README</filename></ulink>
                     is a valid Autobuilder Git repository that contains
                     Yocto Project Autobuilder Helper Scripts.
+                    The <filename>yocto-autobuilder-helper</filename>
+                    repository contains the "glue" logic that connects any
+                    Continuous Improvement (CI) system to run builds,
+                    support getting the correct code revisions, configure
+                    builds and layers, run builds, and collect results.
+                    The code is independent of any CI system, which means
+                    the code can work Buildbot, Jenkins, or others.
                     </para></listitem>
             </itemizedlist>
         </para>
@@ -61,31 +82,30 @@
             regular fashion.
             Basically, during the development of a Yocto Project release, the
             Autobuilder tests if things work.
-            The Autobuilder builds all test targets and runs all the test.
+            The Autobuilder builds all test targets and runs all the tests.
         </para>
 
         <para>
-            At its core, Autobuilder is based on
-            <ulink url='https://docs.buildbot.net/0.9.15.post1/'>buildbot "nine"</ulink>.
-            Surrounding that core is a middle layered codebase from the
-            <ulink url='http://git.yoctoproject.org/cgit.cgi/yocto-autobuilder2/'><filename>yocto-autobuilder2</filename></ulink>
-            repository.
-            This layer includes a custom user interface (UI) plug-in for the
-            project that allows you to visualize builds in a way suited to
-            the project.
-            Finally, a "helper" layer provides configuration and job
-            management through scripts found in the
-            <ulink url='http://git.yoctoproject.org/cgit.cgi/yocto-autobuilder-helper'>yocto-autobuilder-helper</ulink>
-            repository.
+            The Yocto Project uses the unpatched
+            <ulink url='https://docs.buildbot.net/0.9.15.post1/'>Buildbot Nine</ulink>
+            to drive its integration and testing.
+            Buildbot Nine has a plug-in interface that the Yocto Project
+            customizes using code from the
+            <filename>yocto-autobuilder2</filename> repository.
+            The resulting customized UI plug-in allows you to
+            visualize builds in a way suited to the project.
         </para>
 
         <para>
-            The outer layer accomplishes the bulk of the build configuration
-            information and is release-specific making it highly
+            A "helper" layer provides configuration and job management
+            through scripts found in the
+            <filename>yocto-autobuilder-helper</filename> repository.
+            The helper layer contains the bulk of the build configuration
+            information and is release-specific, which makes it highly
             customizable on a per-project basis.
-            The layer is system agnostic and contains a number of helper
-            scripts that can generate build configurations from simple
-            JSON files.
+            The layer is CI system-agnostic and contains a number of helper
+            scripts that can generate build configurations from simple JSON
+            files.
             <note>
                 It is possible to use the outer layers from another
                 Continuous Integration (CI) system such as
@@ -102,94 +122,88 @@
         </para>
     </section>
 
-    <section id='test-yocto-project-helper'>
-        <title>Yocto Project Autobuilder Helper Scripts</title>
-
-        <para>
-            The helper scripts work in conjunction with the Yocto Project
-            Autobuilder.
-            These scripts do the actual build configuration and execution
-            for tests on a per release basis.
-        </para>
-
-        <para>
-            You can use <filename>pre-commit-hook.sh</filename> to verify
-            the JSON file before committing it.
-            Create a symbolic link as follows:
-            <literallayout class='monospaced'>
-     $ ln -s ../../scripts/pre-commit-hook.sh .git/hooks/pre-commit
-            </literallayout>
-        </para>
-
-        <para>
-            Most users will have to customize the helper script repository
-            to meet their needs.
-            The repository is located at
-            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper'></ulink>.
-            The scripts themselves should be more generically reusable.
-            The <filename>config.json</filename> is less reusable as it
-            represents the Yocto Project Autobuilder test matrix.
-        </para>
-
-        <para>
-            Two customization options are possible: 1) variable substitution,
-            and 2) overlaying configuration files.
-            The standard <filename>config.json</filename> minimally attempts
-            to allow substitution of the paths.
-            The helper script repository includes a
-            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree/local-example.json'><filename>local-example.json</filename></ulink>
-            to show how you could override these from a separate configuration
-            file.
-            Pass the following into the environment of the autobuilder:
-            <literallayout class='monospaced'>
-     ABHELPER_JSON="config.json local-example.json"
-            </literallayout>
-            As another example, you could also pass the following into the
-            environment:
-            <literallayout class='monospaced'>
-     ABHELPER_JSON="config.json /some/location/local.json"
-            </literallayout>
-        </para>
-    </section>
-
     <section id='test-project-tests'>
-        <title>Yocto Project Tests</title>
+        <title>Yocto Project Tests - Type Overview</title>
 
         <para>
-            Many kinds of testing exists for the Yocto Project:
+            Two kinds of tests exist within the Yocto Project:
             <itemizedlist>
                 <listitem><para>
                     <emphasis>Build Testing:</emphasis>
-                    Core project tested using public autobuilder.
-                    Based on buildbot nine.
+                    Tests whether specific configurations build by varying
+                    <ulink url='&YOCTO_DOCS_REF_URL;#var-MACHINE'><filename>MACHINE</filename></ulink>,
+                    <ulink url='&YOCTO_DOCS_REF_URL;#var-DISTRO'><filename>DISTRO</filename></ulink>,
+                    and the specific target images being built (or world).
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Build Performance Testing:</emphasis>
+                    Tests whether or not commonly used steps during builds work
+                    efficiently and avoid regressions.
+                    </para></listitem>
+            </itemizedlist>
+            Beyond these types of testing, the Autobuilder tests different
+            pieces by using the following types of tests:
+            <itemizedlist>
+                <listitem><para>
+                    <emphasis>Build Testing:</emphasis>
+                    Trigger builds of all the different test configurations
+                    on the Autobuilder.
+                    Builds usually cover each target for different
+                    architectures, machines, and distributions.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Sanity Checks During the Build Process:</emphasis>
-                    Are the right kinds of binaries being build?
-                    Used to spot known breakage (incorrect
-                    <filename>RPATHs</filename>).
+                    Tests initiated through the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-insane'><filename>insane</filename></ulink>
+                    class.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Image Testing:</emphasis>
-                    Boot virtual images under QEMU.
-                    Real hardware testing using board farms.
+                    Image tests initiated through the following command:
+                    <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testimage
+                    </literallayout>
+                    The tests utilize the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testimage*'><filename>testimage*</filename></ulink>
+                    classes and the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-tasks-testimage'><filename>do_testimage</filename></ulink>
+                    task.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>SDK Testing:</emphasis>
-                    Check the SDK can build code using various frameworks
-                    (makefiles, autotools, cmake).
+                    Image tests initiated through the following command:
+                    <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testsdk
+                    </literallayout>
+                    The tests utilize the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testsdk'><filename>testsdk</filename></ulink>
+                    class and the <filename>do_testsdk</filename> task.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>eSDK Testing:</emphasis>
-                    Check generated eSDKs function.
+                    Image tests initiated through the following command:
+                    <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testsdkext
+                    </literallayout>
+                    The tests utilize the <filename>testsdkext</filename>
+                    class and the <filename>do_testsdkext</filename> task.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Feature Testing:</emphasis>
-                    Does enabling option X cause Y to happen?
+                    Various scenario-based tests are run through the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#testing-and-quality-assurance'>OpenEmbedded Self-Test</ulink>
+                    (oe-selftest).
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Unit Testing:</emphasis>
-                    Does passing function X generate result Y?
+                    Unit tests on various components of the system run
+                    through <filename>oe-selftest</filename> and
+                    <ulink url='&YOCTO_DOCS_REF_URL;#testing-and-quality-assurance'><filename>bitbake-selftest</filename></ulink>.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Build Performance Testing:</emphasis>
+                    Tests to time commonly used usage scenarios are run through
+                    <filename>oe-build-perf-test</filename>.
                     </para></listitem>
             </itemizedlist>
         </para>
@@ -207,6 +221,8 @@
                         <listitem><para>
                             These tests are self-contained and test BitBake
                             as well as its APIs, which include the fetchers.
+                            The tests are located in
+                            <filename>bitbake/lib/*/tests</filename>.
                             </para></listitem>
                         <listitem><para>
                             From within the BitBake repository, run the
@@ -228,6 +244,8 @@
                             These tests use OE to test the workflows, which
                             include testing specific features, behaviors
                             of tasks, and API unit tests.
+                            The tests take advantage of parallelism through
+                            the "-j" option to run in multiple threads.
                             </para></listitem>
                         <listitem><para>
                             The tests are based on Python unittest.
@@ -321,8 +339,95 @@
         </para>
     </section>
 
+    <section id='test-examples'>
+        <title>Test Examples</title>
+
+        <para>
+            This section provides example tests for each of the tests
+            listed in the
+            <link linkend='test-test-mapping'>How Tests Map to Areas of Code</link>"
+            section.
+        </para>
+
+        <section id='bitbake-selftest-example'>
+            <title><filename>bitbake-selftest</filename></title>
+
+            <para>
+                Content here.
+            </para>
+        </section>
+
+        <section id='oe-selftest-example'>
+            <title><filename>oe-selftest</filename></title>
+
+            <para>
+                Content here.
+            </para>
+        </section>
+
+        <section id='testimage-example'>
+            <title><filename>testimage</filename></title>
+
+            <para>
+                Content here.
+            </para>
+        </section>
+
+        <section id='testsdk_ext-example'>
+            <title><filename>testsdk_ext</filename></title>
+
+            <para>
+                Content here.
+            </para>
+        </section>
+
+        <section id='testsdk-example'>
+            <title><filename>testsdk</filename></title>
+
+            <para>
+                Content here.
+            </para>
+        </section>
+    </section>
+
+    <section id='some-id'>
+        <title>New Section on the Periodic Builds</title>
+
+        <para>
+            The following is going to be the replacement content for the
+            section on "Nightly Builds".
+            Not sure what we are going to call these builds.
+            We need a name to replace "Nightly Builds".
+        </para>
+
+        <para>
+            Here is the content from Richards email:
+            <literallayout class='monospaced'>
+     In 1.6, we actually dropped the "nightly" bit pretty much everywhere.
+     They are now named MACHINE or MACHINE-DISTRO, e.g. qemuarm or qemuarm-
+     lsb (which tests poky-lsb with qemuarm). We now parallelise not just
+     architecture but by machine so machine and real hardware are now
+     separate. The flow is therefore to build the images+sdks, then test the
+     images+sdks, trying to do as much as possible in parallel.
+
+     We have two types of build trigger, "quick" and "full". quick runs all
+     the things which commonly fail and one random oe-selftest. "full" runs
+     all our targets, runs oe-selftest on all distros and includes ptest and
+     build performance tests. Its slower but more complete and would be used
+     for release builds.
+            </literallayout>
+        </para>
+    </section>
+
+<!--
     <section id='test-nightly-testing'>
         <title>Nightly Testing</title>
+
+        <para>
+            <note><title>WRITER NOTE</title>
+                This section will go away completely I believe.
+            </note>
+        </para>
 
         <para>
             The Autobuilder has various "nightly-XXX" targets that are
@@ -398,6 +503,7 @@
             correctly for the different release series.
         </para>
     </section>
+-->
 
     <section id='test-configuring-and-triggering-autobuilder-helper-build-scripts'>
         <title>Configuring and Triggering Autobuilder Helper Build Scripts</title>
@@ -416,7 +522,7 @@
 
         <para>
             Automatic testing is based on the workers executing builds using
-            Buildbot nine configured for specific build jobs triggered in an
+            Buildbot Nine configured for specific build jobs triggered in an
             automatic and regular fashion.
             Worker Configuration and triggering is accomplished through
             the
@@ -449,7 +555,7 @@
         </para>
 
         <para>
-            Following is the code layout for the Autobuilder layer:
+            Following is the code layout for the Autobuilder:
             <itemizedlist>
                 <listitem><para>
                     <emphasis><ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder2/tree/builders.py'><filename>builders.py</filename></ulink>:</emphasis>
@@ -992,6 +1098,69 @@
             </itemizedlist>
         </para>
     </section>
+
+    <section id='test-yocto-project-helper'>
+        <title>Yocto Project Autobuilder Helper Scripts</title>
+
+        <note><title>WRITER NOTE</title>
+            Deferring this topic per Richard's suggestion.
+            It is placed here temporarily.
+        </note>
+
+        <para>
+            The helper scripts work in conjunction with the Yocto Project
+            Autobuilder.
+            These scripts do the actual build configuration and execution
+            for tests on a per release basis.
+        </para>
+
+        <para>
+            You can use <filename>pre-commit-hook.sh</filename> to verify
+            the JSON file before committing it.
+            Create a symbolic link as follows:
+            <literallayout class='monospaced'>
+     $ ln -s ../../scripts/pre-commit-hook.sh .git/hooks/pre-commit
+            </literallayout>
+        </para>
+
+        <para>
+            Most users will have to customize the helper script repository
+            to meet their needs.
+            The repository is located at
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper'></ulink>.
+            The scripts themselves should be more generically reusable.
+            The <filename>config.json</filename> is less reusable as it
+            represents the Yocto Project Autobuilder test matrix.
+        </para>
+
+        <para>
+            Two customization options are possible: 1) variable substitution,
+            and 2) overlaying configuration files.
+            The standard <filename>config.json</filename> minimally attempts
+            to allow substitution of the paths.
+            The helper script repository includes a
+            <ulink url='http://git.yoctoproject.org/clean/cgit.cgi/yocto-autobuilder-helper/tree/local-example.json'><filename>local-example.json</filename></ulink>
+            to show how you could override these from a separate configuration
+            file.
+            Pass the following into the environment of the autobuilder:
+            <literallayout class='monospaced'>
+     ABHELPER_JSON="config.json local-example.json"
+            </literallayout>
+            As another example, you could also pass the following into the
+            environment:
+            <literallayout class='monospaced'>
+     ABHELPER_JSON="config.json /some/location/local.json"
+            </literallayout>
+        </para>
+    </section>
+
+
+
+
+
+
+
+
 </chapter>
 <!--
 vim: expandtab tw=80 ts=4
