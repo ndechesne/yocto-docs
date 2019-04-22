@@ -152,32 +152,9 @@
                     architectures, machines, and distributions.
                     </para></listitem>
                 <listitem><para>
-                    <emphasis>Sanity Checks During the Build Process:</emphasis>
-                    Tests initiated through the
-                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-insane'><filename>insane</filename></ulink>
-                    class.
-                    </para></listitem>
-                <listitem><para>
-                    <emphasis>Image Testing:</emphasis>
-                    Image tests initiated through the following command:
-                    <literallayout class='monospaced'>
-     $ bitbake <replaceable>image</replaceable> -c testimage
-                    </literallayout>
-                    The tests utilize the
-                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testimage*'><filename>testimage*</filename></ulink>
-                    classes and the
-                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-tasks-testimage'><filename>do_testimage</filename></ulink>
-                    task.
-                    </para></listitem>
-                <listitem><para>
-                    <emphasis>SDK Testing:</emphasis>
-                    Image tests initiated through the following command:
-                    <literallayout class='monospaced'>
-     $ bitbake <replaceable>image</replaceable> -c testsdk
-                    </literallayout>
-                    The tests utilize the
-                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testsdk'><filename>testsdk</filename></ulink>
-                    class and the <filename>do_testsdk</filename> task.
+                    <emphasis>Build Performance Testing:</emphasis>
+                    Tests to time commonly used usage scenarios are run through
+                    <filename>oe-build-perf-test</filename>.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>eSDK Testing:</emphasis>
@@ -195,15 +172,43 @@
                     (oe-selftest).
                     </para></listitem>
                 <listitem><para>
+                    <emphasis>Image Testing:</emphasis>
+                    Image tests initiated through the following command:
+                    <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testimage
+                    </literallayout>
+                    The tests utilize the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testimage*'><filename>testimage*</filename></ulink>
+                    classes and the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-tasks-testimage'><filename>do_testimage</filename></ulink>
+                    task.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Package Testing:</emphasis>
+                    A Package Test (ptest) runs tests against packages built
+                    by the OpenEmbedded build system on the target machine.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>Sanity Checks During the Build Process:</emphasis>
+                    Tests initiated through the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-insane'><filename>insane</filename></ulink>
+                    class.
+                    </para></listitem>
+                <listitem><para>
+                    <emphasis>SDK Testing:</emphasis>
+                    Image tests initiated through the following command:
+                    <literallayout class='monospaced'>
+     $ bitbake <replaceable>image</replaceable> -c testsdk
+                    </literallayout>
+                    The tests utilize the
+                    <ulink url='&YOCTO_DOCS_REF_URL;#ref-classes-testsdk'><filename>testsdk</filename></ulink>
+                    class and the <filename>do_testsdk</filename> task.
+                    </para></listitem>
+                <listitem><para>
                     <emphasis>Unit Testing:</emphasis>
                     Unit tests on various components of the system run
                     through <filename>oe-selftest</filename> and
                     <ulink url='&YOCTO_DOCS_REF_URL;#testing-and-quality-assurance'><filename>bitbake-selftest</filename></ulink>.
-                    </para></listitem>
-                <listitem><para>
-                    <emphasis>Build Performance Testing:</emphasis>
-                    Tests to time commonly used usage scenarios are run through
-                    <filename>oe-build-perf-test</filename>.
                     </para></listitem>
             </itemizedlist>
         </para>
