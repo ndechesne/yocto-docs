@@ -346,6 +346,38 @@
                             </para></listitem>
                     </itemizedlist>
                     </para></listitem>
+
+
+                <listitem><para>
+                    <emphasis>oe-build-perf-test:</emphasis>
+                    <itemizedlist>
+                        <listitem><para>
+                            These tests run through commonly used usage
+                            scenarios and measure the performance times.
+                            </para></listitem>
+                        <listitem><para>
+                            The code for these tests resides in
+                            NEED A DIRECTORY HERE.
+                            </para></listitem>
+                        <listitem><para>
+                            NEED SOME INFORMATION ON HOW TO ENABLE THIS
+                            TEST OR INCLUDE IT HERE.
+                            <literallayout class='monospaced'>
+     <replaceable>some setting</replaceable>
+                            </literallayout>
+                            </para></listitem>
+                        <listitem><para>
+                            Run the tests using the following command form:
+                            <literallayout class='monospaced'>
+     $ <replaceable>some command</replaceable>
+                            </literallayout>
+                            </para></listitem>
+                    </itemizedlist>
+                    </para></listitem>
+
+
+
+
             </itemizedlist>
         </para>
     </section>
@@ -372,7 +404,7 @@
             <title><filename>oe-selftest</filename></title>
 
             <para>
-                Content here.
+                NEED CONTENT HERE.
             </para>
         </section>
 
@@ -380,7 +412,7 @@
             <title><filename>testimage</filename></title>
 
             <para>
-                Content here.
+                NEED CONTENT HERE.
             </para>
         </section>
 
@@ -388,7 +420,7 @@
             <title><filename>testsdk_ext</filename></title>
 
             <para>
-                Content here.
+                NEED CONTENT HERE.
             </para>
         </section>
 
@@ -396,7 +428,15 @@
             <title><filename>testsdk</filename></title>
 
             <para>
-                Content here.
+                NEED CONTENT HERE.
+            </para>
+        </section>
+
+        <section id='oe-build-perf-test-example'>
+            <title><filename>oe-build-perf-test</filename></title>
+
+            <para>
+                NEED CONTENT HERE.
             </para>
         </section>
     </section>
