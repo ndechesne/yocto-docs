@@ -187,6 +187,9 @@
                     <emphasis>Package Testing:</emphasis>
                     A Package Test (ptest) runs tests against packages built
                     by the OpenEmbedded build system on the target machine.
+                    See the
+                    "<ulink url='&YOCTO_DOCS_DEV_URL;#testing-packages-with-ptest'>Testing Packages With ptest</ulink>"
+                    section for information on Ptest.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Sanity Checks During the Build Process:</emphasis>
