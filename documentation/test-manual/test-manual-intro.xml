@@ -189,7 +189,10 @@
                     by the OpenEmbedded build system on the target machine.
                     See the
                     "<ulink url='&YOCTO_DOCS_DEV_URL;#testing-packages-with-ptest'>Testing Packages With ptest</ulink>"
-                    section for information on Ptest.
+                    section in the Yocto Project Development Tasks Manual and
+                    the
+                    "<ulink url='&YOCTO_WIKI_URL;/wiki/Ptest'>Ptest</ulink>"
+                    Wiki page for more information on Ptest.
                     </para></listitem>
                 <listitem><para>
                     <emphasis>Sanity Checks During the Build Process:</emphasis>
