@@ -4,7 +4,7 @@ Introducing the Yocto Project
 =============================
 
 What is the Yocto Project?
-==========================
+--------------------------
 
 The Yocto Project is an open source collaboration project that helps
 developers create custom Linux-based systems that are designed for
@@ -34,7 +34,7 @@ to the Yocto Project.
 .. _gs-features:
 
 Features
---------
+^^^^^^^^
 
 The following list describes features and advantages of the Yocto
 Project:
@@ -135,7 +135,7 @@ Project:
 .. _gs-challenges:
 
 Challenges
-----------
+^^^^^^^^^^
 
 The following list presents challenges you might encounter when
 developing using the Yocto Project:
@@ -192,7 +192,7 @@ developing using the Yocto Project:
    successive builds.
 
 The Yocto Project Layer Model
-=============================
+-----------------------------
 
 The Yocto Project's "Layer Model" is a development model for embedded
 and IoT Linux creation that distinguishes the Yocto Project from other
@@ -282,7 +282,7 @@ Layers <&YOCTO_DOCS_DEV_URL;#understanding-and-creating-layers>`__"
 section in the Yocto Project Development Tasks Manual.
 
 Components and Tools
-====================
+--------------------
 
 The Yocto Project employs a collection of components and tools used by
 the project itself, by project developers, and by those using the Yocto
@@ -298,7 +298,7 @@ associated with the Yocto Project.
 .. _gs-development-tools:
 
 Development Tools
------------------
+^^^^^^^^^^^^^^^^^
 
 The following list consists of tools that help you develop images and
 applications using the Yocto Project:
@@ -357,7 +357,7 @@ applications using the Yocto Project:
 .. _gs-production-tools:
 
 Production Tools
-----------------
+^^^^^^^^^^^^^^^^
 
 The following list consists of tools that help production related
 activities using the Yocto Project:
@@ -454,7 +454,7 @@ activities using the Yocto Project:
 .. _gs-openembedded-build-system:
 
 Open-Embedded Build System Components
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following list consists of components associated with the
 `OpenEmbedded build system <&YOCTO_DOCS_REF_URL;#build-system-term>`__:
@@ -501,7 +501,7 @@ The following list consists of components associated with the
 .. _gs-reference-distribution-poky:
 
 Reference Distribution (Poky)
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Poky is the Yocto Project reference distribution. It contains the
 `Open-Embedded build system <&YOCTO_DOCS_REF_URL;#build-system-term>`__
@@ -525,7 +525,7 @@ You can read more about Poky in the "`Reference Embedded Distribution
 .. _gs-packages-for-finished-targets:
 
 Packages for Finished Targets
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following lists components associated with packages for finished
 targets:
@@ -562,7 +562,7 @@ targets:
 .. _gs-archived-components:
 
 Archived Components
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 The Build Appliance is a virtual machine image that enables you to build
 and boot a custom embedded Linux image with the Yocto Project using a
@@ -590,7 +590,7 @@ Linux.
 .. _gs-development-methods:
 
 Development Methods
-===================
+-------------------
 
 The Yocto Project development environment usually involves a `Build
 Host <&YOCTO_DOCS_REF_URL;#hardware-build-system-term>`__ and target
@@ -676,7 +676,7 @@ Project.
 .. _reference-embedded-distribution:
 
 Reference Embedded Distribution (Poky)
-======================================
+--------------------------------------
 
 "Poky", which is pronounced *Pock*-ee, is the name of the Yocto
 Project's reference distribution or Reference OS Kit. Poky contains the
@@ -782,7 +782,7 @@ section in the BitBake User's Manual.
 .. _openembedded-build-system-workflow:
 
 The OpenEmbedded Build System Workflow
-======================================
+--------------------------------------
 
 The `OpenEmbedded build
 system <&YOCTO_DOCS_REF_URL;#build-system-term>`__ uses a "workflow" to
@@ -816,7 +816,7 @@ For a very detailed look at this workflow, see the "`OpenEmbedded Build
 System Concepts <#openembedded-build-system-build-concepts>`__" section.
 
 Some Basic Terms
-================
+----------------
 
 It helps to understand some basic fundamental terms when learning the
 Yocto Project. Although a list of terms exists in the "`Yocto Project

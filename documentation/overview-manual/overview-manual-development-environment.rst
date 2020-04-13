@@ -1,7 +1,8 @@
 .. _overview-development-environment:
 
+*****************************************
 The Yocto Project Development Environment
-=========================================
+*****************************************
 
 This chapter takes a look at the Yocto Project development environment.
 The chapter provides Yocto Project Development environment concepts that

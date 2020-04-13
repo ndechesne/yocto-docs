@@ -1,7 +1,8 @@
 .. _ref-variables-glos:
 
+******************
 Variables Glossary
-==================
+******************
 
 This chapter lists common variables used in the OpenEmbedded build
 system and gives an overview of their function and contents.

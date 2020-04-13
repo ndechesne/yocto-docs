@@ -1,7 +1,8 @@
 .. _ref-manual-system-requirements:
 
+*******************
 System Requirements
-===================
+*******************
 
 Welcome to the Yocto Project Reference Manual! This manual provides
 reference information for the current release of the Yocto Project, and

@@ -1,7 +1,8 @@
 .. _overview-manual-concepts:
 
+**********************
 Yocto Project Concepts
-======================
+**********************
 
 This chapter provides explanations for Yocto Project concepts that go
 beyond the surface of "how-to" information and reference (or look-up)

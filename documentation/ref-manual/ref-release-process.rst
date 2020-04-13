@@ -1,7 +1,8 @@
 .. _ref-release-process:
 
+*****************************************************
 Yocto Project Releases and the Stable Release Process
-=====================================================
+*****************************************************
 
 The Yocto Project release process is predictable and consists of both
 major and minor (point) releases. This brief chapter provides

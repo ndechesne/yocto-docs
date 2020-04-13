@@ -1,12 +1,13 @@
 .. _overview-manual-intro:
 
+**********************************************
 The Yocto Project Overview and Concepts Manual
-==============================================
+**********************************************
 
 .. _overview-manual-welcome:
 
 Welcome
-=======
+-------
 
 Welcome to the Yocto Project Overview and Concepts Manual! This manual
 introduces the Yocto Project by providing concepts, software overviews,
@@ -61,7 +62,7 @@ This manual does not give you the following:
 .. _overview-manual-other-information:
 
 Other Information
-=================
+-----------------
 
 Because this manual presents information for many different topics,
 supplemental information is recommended for full comprehension. For
