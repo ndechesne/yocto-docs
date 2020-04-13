@@ -1,4 +1,4 @@
-.. _ overview-manual-concepts:
+.. _overview-manual-concepts:
 
 Yocto Project Concepts
 ======================
