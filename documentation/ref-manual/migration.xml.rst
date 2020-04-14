@@ -276,17 +276,12 @@ Differences include the following:
    a comment.
 
 -  *Package Name Overrides:* The runtime package specific variables
-   ```RDEPENDS`` <#var-RDEPENDS>`__,
-   ```RRECOMMENDS`` <#var-RRECOMMENDS>`__,
-   ```RSUGGESTS`` <#var-RSUGGESTS>`__,
-   ```RPROVIDES`` <#var-RPROVIDES>`__,
-   ```RCONFLICTS`` <#var-RCONFLICTS>`__,
-   ```RREPLACES`` <#var-RREPLACES>`__, ```FILES`` <#var-FILES>`__,
-   ```ALLOW_EMPTY`` <#var-ALLOW_EMPTY>`__, and the pre, post, install,
-   and uninstall script functions ``pkg_preinst``, ``pkg_postinst``,
-   ``pkg_prerm``, and ``pkg_postrm`` should always have a package name
-   override. For example, use ``RDEPENDS_${PN}`` for the main package
-   instead of ``RDEPENDS``. BitBake uses more strict checks when it
+   :term:`RDEPENDS`, :term:`RRECOMMENDS`, :term:`RSUGGESTS`, :term:`RPROVIDES`,
+   :term:`RCONFLICTS`, :term:`RREPLACES`, :term:`FILES`, :term:`ALLOW_EMPTY`,
+   and the pre, post, install, and uninstall script functions ``pkg_preinst``,
+   ``pkg_postinst``, ``pkg_prerm``, and ``pkg_postrm`` should always have a
+   package name override. For example, use ``RDEPENDS_${PN}`` for the main
+   package instead of ``RDEPENDS``. BitBake uses more strict checks when it
    parses recipes.
 
 .. _migration-1.4-build-behavior:
