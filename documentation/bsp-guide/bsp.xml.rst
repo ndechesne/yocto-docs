@@ -1,7 +1,8 @@
 .. _bsp:
 
+************************************************
 Board Support Packages (BSP) - Developer's Guide
-================================================
+************************************************
 
 A Board Support Package (BSP) is a collection of information that
 defines how to support a particular hardware device, set of devices, or

@@ -1,7 +1,8 @@
 .. _ref-structure:
 
+**************************
 Source Directory Structure
-==========================
+**************************
 
 The `Source Directory <#source-directory>`__ consists of numerous files,
 directories and subdirectories; understanding their locations and

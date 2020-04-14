@@ -1,7 +1,8 @@
 .. _ref-classes:
 
+*******
 Classes
-=======
+*******
 
 Class files are used to abstract common functionality and share it
 amongst multiple recipe (``.bb``) files. To use a class file, you simply

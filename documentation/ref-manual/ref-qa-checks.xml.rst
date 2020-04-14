@@ -1,7 +1,8 @@
 .. _ref-qa-checks:
 
+*****************************
 QA Error and Warning Messages
-=============================
+*****************************
 
 .. _qa-introduction:
 

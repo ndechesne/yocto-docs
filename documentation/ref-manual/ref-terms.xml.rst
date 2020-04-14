@@ -1,7 +1,8 @@
 .. _ref-terms:
 
+*******************
 Yocto Project Terms
-===================
+*******************
 
 Following is a list of terms and definitions users new to the Yocto
 Project development environment might find helpful. While some of these

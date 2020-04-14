@@ -1,7 +1,8 @@
 .. _overview-manual-intro:
 
+**********************************************
 The Yocto Project Overview and Concepts Manual
-==============================================
+**********************************************
 
 .. _overview-manual-welcome:
 

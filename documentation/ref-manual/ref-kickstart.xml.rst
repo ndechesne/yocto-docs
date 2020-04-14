@@ -1,7 +1,8 @@
 .. _ref-kickstart:
 
+*******************************************
 OpenEmbedded Kickstart (``.wks``) Reference
-===========================================
+*******************************************
 
 .. _openembedded-kickstart-wks-reference:
 

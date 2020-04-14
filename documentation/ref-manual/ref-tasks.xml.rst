@@ -1,7 +1,8 @@
 .. _ref-tasks:
 
+*****
 Tasks
-=====
+*****
 
 Tasks are units of execution for BitBake. Recipes (``.bb`` files) use
 tasks to complete configuring, compiling, and packaging software. This

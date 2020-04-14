@@ -1,7 +1,8 @@
 .. _ref-varlocality:
 
+****************
 Variable Context
-================
+****************
 
 While you can use most variables in almost any context such as
 ``.conf``, ``.bbclass``, ``.inc``, and ``.bb`` files, some variables are

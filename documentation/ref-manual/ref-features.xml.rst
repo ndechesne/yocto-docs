@@ -1,7 +1,8 @@
 .. _ref-features:
 
+********
 Features
-========
+********
 
 This chapter provides a reference of shipped machine and distro features
 you can include as part of your image, a reference on image features you

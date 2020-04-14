@@ -1,7 +1,9 @@
 .. _ref-images:
 
+
+******
 Images
-======
+******
 
 The OpenEmbedded build system provides several example images to satisfy
 different needs. When you issue the ``bitbake`` command you provide a

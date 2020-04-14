@@ -1,7 +1,8 @@
 .. _migration:
 
+******************************************
 Migrating to a Newer Yocto Project Release
-==========================================
+******************************************
 
 This chapter provides information you can use to migrate work to a newer
 Yocto Project release. You can find the same information in the release

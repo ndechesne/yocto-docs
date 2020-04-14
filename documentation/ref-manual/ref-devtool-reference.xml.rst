@@ -1,7 +1,8 @@
 .. _ref-devtool-reference:
 
+***************************
 ``devtool`` Quick Reference
-===========================
+***************************
 
 The ``devtool`` command-line tool provides a number of features that
 help you build, test, and package software. This command is available

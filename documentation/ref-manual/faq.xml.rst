@@ -1,5 +1,6 @@
+***
 FAQ
-===
+***
 
 **Q:** How does Poky differ from `OpenEmbedded <&OE_HOME_URL;>`__?
 
