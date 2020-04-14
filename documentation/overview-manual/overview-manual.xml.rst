@@ -2,6 +2,7 @@
 Yocto Project Overview and Concepts Manual
 ==========================================
 
+This is the manual for version: |DISTRO|, aka |DISTRO_NAME|.
 
 .. toctree::
    :numbered:

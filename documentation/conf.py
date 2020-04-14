@@ -50,3 +50,17 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+rst_prolog = """
+.. |DISTRO| replace:: 3.1
+.. |DISTRO_COMPRESSED| replace:: 31
+.. |DISTRO_NAME_NO_CAP| replace:: dunfell
+.. |DISTRO_NAME| replace:: Dunfell
+.. |DISTRO_NAME_NO_CAP_MINUS_ONE| replace:: zeus
+.. |DISTRO_NAME_MINUS_ONE| replace:: Zeus
+.. |YOCTO_DOC_VERSION| replace:: 3.1
+.. |YOCTO_DOC_VERSION_MINUS_ONE| replace:: 3.0.2
+.. |DISTRO_REL_TAG| replace:: yocto-3.1
+.. |METAINTELVERSION| replace:: 12.0
+.. |REL_MONTH_YEAR| replace:: April 2020
+"""
