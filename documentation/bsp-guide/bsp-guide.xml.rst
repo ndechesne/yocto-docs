@@ -28,6 +28,7 @@ Yocto Project Board Support Package Developer's Guide
           log into the freenode <filename>#yocto</filename> channel.
 
 .. toctree::
+   :caption: Table of Contents
    :numbered:
 
    bsp.xml

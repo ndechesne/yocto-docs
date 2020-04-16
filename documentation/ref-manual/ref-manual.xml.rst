@@ -3,6 +3,7 @@ Yocto Project Reference Manual
 ==============================
 
 .. toctree::
+   :caption: Table of Contents
    :numbered:
 
    ref-system-requirements.xml
