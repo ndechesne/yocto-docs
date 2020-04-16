@@ -130,11 +130,9 @@ described in the "`Creating a new BSP Layer Using the ``bitbake-layers``
 Script <#creating-a-new-bsp-layer-using-the-bitbake-layers-script>`__"
 section.
 
-   **Note**
+.. note:: For structural information on BSPs, see the Example Filesystem Layout
+          section.
 
-   For structural information on BSPs, see the
-   Example Filesystem Layout
-   section.
 
 1. *Set Up the Build Environment:* Be sure you are set up to use BitBake
    in a shell. See the "`Preparing the Build
