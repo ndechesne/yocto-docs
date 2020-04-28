@@ -228,8 +228,7 @@ or you download and unpack a Yocto Project release, you can set up the
 Source Directory to be named anything you want. For this discussion, the
 cloned repository uses the default name ``poky``.
 
-   **Note**
-
+.. note::
    The Poky repository is primarily an aggregation of existing
    repositories. It is not a canonical upstream source.
 
@@ -263,13 +262,9 @@ directory sets up the Build Directory and seeds the directory (if
 necessary) with configuration files appropriate for the Yocto Project
 development environment.
 
-   **Note**
-
-   The
-   scripts/oe-setup-builddir
-   script uses the
-   $TEMPLATECONF
-   variable to determine which sample configuration files to locate.
+.. note::
+   The scripts/oe-setup-builddir script uses the $TEMPLATECONF variable to
+   determine which sample configuration files to locate.
 
 The ``local.conf`` file provides many basic variables that define a
 build environment. Here is a list of a few. To see the default
@@ -306,15 +301,9 @@ in the ``meta-poky`` layer:
 
 ..
 
-   **Note**
-
-   Configurations set in the
-   conf/local.conf
-   file can also be set in the
-   conf/site.conf
-   and
-   conf/auto.conf
-   configuration files.
+.. note::
+   Configurations set in the conf/local.conf file can also be set in the
+   conf/site.conf and conf/auto.conf configuration files.
 
 The ``bblayers.conf`` file tells BitBake what layers you want considered
 during the build. By default, the layers listed in this file include
@@ -433,11 +422,10 @@ layers that work with the Yocto Project exist. The `Source
 Repositories <http://git.yoctoproject.org/>`__ also shows layers
 categorized under "Yocto Metadata Layers."
 
-   **Note**
-
-   Layers exist in the Yocto Project Source Repositories that cannot be
-   found in the OpenEmbedded Layer Index. These layers are either
-   deprecated or experimental in nature.
+.. note::
+   Layers exist in the Yocto Project Source Repositories that cannot be found in
+   the OpenEmbedded Layer Index. These layers are either deprecated or
+   experimental in nature.
 
 BitBake uses the ``conf/bblayers.conf`` file, which is part of the user
 configuration, to find what layers it should be using as part of the
@@ -1121,18 +1109,13 @@ the extensible SDK (eSDK):
 
 .. image:: figures/sdk-generation.png
 
-   **Note**
-
-   For more information on the cross-development toolchain generation,
-   see the "
-   Cross-Development Toolchain Generation
-   " section. For information on advantages gained when building a
-   cross-development toolchain using the
-   do_populate_sdk
-   task, see the "
-   Building an SDK Installer
-   " section in the Yocto Project Application Development and the
-   Extensible Software Development Kit (eSDK) manual.
+.. note::
+   For more information on the cross-development toolchain generation, see the "
+   Cross-Development Toolchain Generation " section. For information on advantages
+   gained when building a cross-development toolchain using the do_populate_sdk
+   task, see the " Building an SDK Installer " section in the Yocto Project
+   Application Development and the Extensible Software Development Kit (eSDK)
+   manual.
 
 Like image generation, the SDK script process consists of several stages
 and depends on many variables. The
@@ -1302,12 +1285,9 @@ this output:
 
 .. image:: figures/images.png
 
-   **Note**
-
-   For a list of example images that the Yocto Project provides, see the
-   "
-   Images
-   " chapter in the Yocto Project Reference Manual.
+.. note::
+   For a list of example images that the Yocto Project provides, see the "
+   Images " chapter in the Yocto Project Reference Manual.
 
 The build process writes images out to the `Build
 Directory <&YOCTO_DOCS_REF_URL;#build-directory>`__ inside the
@@ -1375,8 +1355,7 @@ libraries and headers as the "target" part because they are built for
 the target hardware. The environment setup script is added so that you
 can initialize the environment before using the tools.
 
-   **Note**
-
+.. note::
    -  The Yocto Project supports several methods by which you can set up
       this cross-development environment. These methods include
       downloading pre-built SDK installers or building and installing
@@ -1494,14 +1473,10 @@ BitBake uses to compile source files when creating the target image. You
 can think of ``gcc-cross`` simply as an automatically generated
 cross-compiler that is used internally within BitBake only.
 
-   **Note**
-
-   The extensible SDK does not use
-   gcc-cross-canadian
-   since this SDK ships a copy of the OpenEmbedded build system and the
-   sysroot within it contains
-   gcc-cross
-   .
+.. note::
+   The extensible SDK does not use gcc-cross-canadian since this SDK ships a
+   copy of the OpenEmbedded build system and the sysroot within it contains
+   gcc-cross.
 
 The chain of events that occurs when ``gcc-cross`` is bootstrapped is as
 follows: gcc -> binutils-cross -> gcc-cross-initial ->
@@ -1529,12 +1504,9 @@ linux-libc-headers -> glibc-initial -> glibc -> gcc-cross -> gcc-runtime
    cross-compiler. This stage results in the actual cross-compiler that
    BitBake uses when it builds an image for a targeted device.
 
-      **Note**
-
-      If you are replacing this cross compiler toolchain with a custom
-      version, you must replace
-      gcc-cross
-      .
+.. note::
+   If you are replacing this cross compiler toolchain with a custom version,
+   you must replace gcc-cross .
 
    This tool is also a "native" package (i.e. it is designed to run on
    the build host).
@@ -1555,8 +1527,7 @@ cross-development toolchain is built to execute on the
 ```SDKMACHINE`` <&YOCTO_DOCS_REF_URL;#var-SDKMACHINE>`__, which might or
 might not be the same machine as the Build Host.
 
-   **Note**
-
+.. note::
    If your target architecture is supported by the Yocto Project, you
    can take advantage of pre-built images that ship with the Yocto
    Project and already contain cross-development toolchain installers.
@@ -1603,13 +1574,11 @@ glibc-initial -> nativesdk-glibc -> gcc-crosssdk -> gcc-cross-canadian
 
 ..
 
-   **Note**
-
-   For information on advantages gained when building a
-   cross-development toolchain installer, see the "
-   Building an SDK Installer
-   " appendix in the Yocto Project Application Development and the
-   Extensible Software Development Kit (eSDK) manual.
+.. note::
+   For information on advantages gained when building a cross-development
+   toolchain installer, see the " Building an SDK Installer " appendix in the
+   Yocto Project Application Development and the Extensible Software Development
+   Kit (eSDK) manual.
 
 Shared State Cache
 ==================
@@ -1653,8 +1622,7 @@ addressed by the solution for the second question assuming the build
 system can fetch the sstate objects from remote locations and install
 them if they are deemed to be valid.
 
-   **Note**
-
+.. note::
    -  The build system does not maintain
       ```PR`` <&YOCTO_DOCS_REF_URL;#var-PR>`__ information as part of
       the shared state packages. Consequently, considerations exist that
@@ -1717,12 +1685,9 @@ does not matter if the work directory changes because it should not
 affect the output for target packages. Also, the build process has the
 objective of making native or cross packages relocatable.
 
-   **Note**
-
-   Both native and cross packages run on the
-   build host
-   . However, cross packages generate output for the target
-   architecture.
+.. note::
+   Both native and cross packages run on the build host . However, cross
+   packages generate output for the target architecture.
 
 The checksum therefore needs to exclude ``WORKDIR``. The simplistic
 approach for excluding the work directory is to set ``WORKDIR`` to some
@@ -1876,27 +1841,15 @@ do_deploy[dirs] = "${DEPLOYDIR} ${B}" do_deploy[stamp-extra-info] =
    causes the contents of the shared state cache to be copied to
    ``${DEPLOY_DIR_IMAGE}``.
 
-      **Note**
-
-      If
-      do_deploy
-      is not already in the shared state cache or if its input checksum
-      (signature) has changed from when the output was cached, the task
-      runs to populate the shared state cache, after which the contents
-      of the shared state cache is copied to
-      ${DEPLOY_DIR_IMAGE}
-      . If
-      do_deploy
-      is in the shared state cache and its signature indicates that the
-      cached output is still valid (i.e. if no relevant task inputs have
-      changed), then the contents of the shared state cache copies
-      directly to
-      ${DEPLOY_DIR_IMAGE}
-      by the
-      do_deploy_setscene
-      task instead, skipping the
-      do_deploy
-      task.
+.. note::
+   If do_deploy is not already in the shared state cache or if its input
+   checksum (signature) has changed from when the output was cached, the task
+   runs to populate the shared state cache, after which the contents of the
+   shared state cache is copied to ${DEPLOY_DIR_IMAGE} . If do_deploy is in
+   the shared state cache and its signature indicates that the cached output
+   is still valid (i.e. if no relevant task inputs have changed), then the
+   contents of the shared state cache copies directly to ${DEPLOY_DIR_IMAGE}
+   by the do_deploy_setscene task instead, skipping the do_deploy task.
 
 -  The following task definition is glue logic needed to make the
    previous settings effective: python do_deploy_setscene () {
@@ -1915,23 +1868,10 @@ do_deploy[dirs] = "${DEPLOYDIR} ${B}" do_deploy[stamp-extra-info] =
    Flags <&YOCTO_DOCS_BB_URL;#variable-flags>`__" section in the BitBake
    User Manual.
 
-      **Note**
-
-      In cases where
-      sstate-inputdirs
-      and
-      sstate-outputdirs
-      would be the same, you can use
-      sstate-plaindirs
-      . For example, to preserve the
-      ${PKGD}
-      and
-      ${PKGDEST}
-      output from the
-      do_package
-      task, use the following:
-      ::
-
+.. note::
+   In cases where sstate-inputdirs and sstate-outputdirs would be the same,
+   you can use sstate-plaindirs . For example, to preserve the ${PKGD} and
+   ${PKGDEST} output from the do_package task, use the following: ::
               do_package[sstate-plaindirs] = "${PKGD} ${PKGDEST}"
                                      
 
@@ -1963,17 +1903,12 @@ shared state files. Here is an example: SSTATE_MIRRORS ?= "\\ file://.\*
 http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \\n \\
 file://.\* file:///some/local/dir/sstate/PATH"
 
-   **Note**
-
-   The shared state directory (
-   SSTATE_DIR
-   ) is organized into two-character subdirectories, where the
-   subdirectory names are based on the first two characters of the hash.
-   If the shared state directory structure for a mirror has the same
-   structure as
-   SSTATE_DIR
-   , you must specify "PATH" as part of the URI to enable the build
-   system to map to the appropriate subdirectory.
+.. note::
+   The shared state directory ( SSTATE_DIR ) is organized into two-character
+   subdirectories, where the subdirectory names are based on the first two
+   characters of the hash.  If the shared state directory structure for a mirror
+   has the same structure as SSTATE_DIR , you must specify "PATH" as part of the
+   URI to enable the build system to map to the appropriate subdirectory.
 
 The shared state package validity can be detected just by looking at the
 filename since the filename contains the task checksum (or signature) as
@@ -2058,13 +1993,9 @@ dependencies, you must manually declare the dependencies.
    is added from the package that depends on the module to the package
    that contains the module.
 
-      **Note**
-
-      The
-      pcdeps
-      mechanism most often infers dependencies between
-      -dev
-      packages.
+.. note::
+   The pcdeps mechanism most often infers dependencies between
+   -dev packages.
 
 -  ``depchains``: If a package ``foo`` depends on a package ``bar``,
    then ``foo-dev`` and ``foo-dbg`` are also made to depend on
@@ -2076,25 +2007,16 @@ dependencies, you must manually declare the dependencies.
    The dependencies added by ``depchains`` are in the form of
    ```RRECOMMENDS`` <&YOCTO_DOCS_REF_URL;#var-RRECOMMENDS>`__.
 
-      **Note**
+.. note::
+   By default, foo-dev also has an RDEPENDS
+   -style dependency on foo , because the default value of RDEPENDS_${PN}-dev
+   (set in bitbake.conf ) includes "${PN}".
 
-      By default,
-      foo-dev
-      also has an
-      RDEPENDS
-      -style dependency on
-      foo
-      , because the default value of
-      RDEPENDS_${PN}-dev
-      (set in
-      bitbake.conf
-      ) includes "${PN}".
-
-   To ensure that the dependency chain is never broken, ``-dev`` and
-   ``-dbg`` packages are always generated by default, even if the
-   packages turn out to be empty. See the
-   ```ALLOW_EMPTY`` <&YOCTO_DOCS_REF_URL;#var-ALLOW_EMPTY>`__ variable
-   for more information.
+To ensure that the dependency chain is never broken, ``-dev`` and
+``-dbg`` packages are always generated by default, even if the
+packages turn out to be empty. See the
+```ALLOW_EMPTY`` <&YOCTO_DOCS_REF_URL;#var-ALLOW_EMPTY>`__ variable
+for more information.
 
 The ``do_package`` task depends on the ``do_packagedata`` task of each
 recipe in ```DEPENDS`` <&YOCTO_DOCS_REF_URL;#var-DEPENDS>`__ through use
@@ -2145,21 +2067,16 @@ for individual recipes. Storing the database in a file as opposed to in
 memory gives persistence between tasks and builds, which is not
 accomplished using fakeroot.
 
-   **Note**
+.. note::
+   If you add your own task that manipulates the same files or directories as a
+   fakeroot task, then that task also needs to run under fakeroot. Otherwise,
+   the task cannot run root-only operations, and cannot see the fake file
+   ownership and permissions set by the other task. You need to also add a
+   dependency on virtual/fakeroot-native:do_populate_sysroot , giving the
+   following: ::
 
-   If you add your own task that manipulates the same files or
-   directories as a fakeroot task, then that task also needs to run
-   under fakeroot. Otherwise, the task cannot run root-only operations,
-   and cannot see the fake file ownership and permissions set by the
-   other task. You need to also add a dependency on
-   virtual/fakeroot-native:do_populate_sysroot
-   , giving the following:
-   ::
-
-             fakeroot do_mytask () {
-                 ...
-             }
-             do_mytask[depends] += "virtual/fakeroot-native:do_populate_sysroot"
+             fakeroot do_mytask () { ...  } do_mytask[depends] +=
+                   "virtual/fakeroot-native:do_populate_sysroot"
                       
 
 For more information, see the
